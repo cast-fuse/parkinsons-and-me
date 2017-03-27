@@ -9,8 +9,8 @@ import Html exposing (..)
 main : Program Never Model Msg
 main =
     program
-        { update = update
-        , subscriptions = always Sub.none
+        { init = init
+        , update = update
         , view = view
-        , init = init
+        , subscriptions = always Sub.none
         }
