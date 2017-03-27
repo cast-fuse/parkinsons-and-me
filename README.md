@@ -24,7 +24,7 @@ after installing, to install the dependencies run:
 make sure postgres is running and then run
 
 ```sh
-> mix ecto.migrate
+> mix ecto.create && mix ecto.mirgate
 ```
 
 this creates a local database
