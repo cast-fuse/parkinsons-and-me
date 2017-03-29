@@ -5,6 +5,7 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Model exposing (..)
 import Components.Logo exposing (logo)
+import Helpers.Styles as Styles
 import Data.UserInfo
     exposing
         ( ageRanges
@@ -29,7 +30,7 @@ userInfo model =
                 ]
             ]
         , errorMessage model
-        , button [ class "bg-dark-blue bn white ph6 pv3 f5 mt4", onClick SubmitForm ] [ text "Next" ]
+        , button [ class Styles.buttonBlue, onClick SubmitForm ] [ text "Next" ]
         ]
 
 

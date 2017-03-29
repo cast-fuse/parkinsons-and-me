@@ -2,6 +2,7 @@ module Update exposing (..)
 
 import Model exposing (..)
 import Data.UserInfo exposing (validatePostcode, validateForm)
+import Data.Quotes exposing (..)
 
 
 init : ( Model, Cmd Msg )
@@ -11,11 +12,13 @@ init =
 
 initialModel : Model
 initialModel =
-    { view = UserInfo
+    { view = Home
     , name = Nothing
     , postcode = NotEntered
     , ageRange = Nothing
     , formErrors = False
+    , currentQuote = firstQuote quoteDict
+    , quotes = quoteDict
     }
 
 
@@ -39,3 +42,6 @@ update msg model =
                 { model | view = Quotes } ! []
             else
                 { model | formErrors = True } ! []
+
+        UpdateAnswer answer currentQuote ->
+            handleUpdateAnswers model answer currentQuote ! []
