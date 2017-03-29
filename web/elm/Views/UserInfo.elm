@@ -4,8 +4,16 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Model exposing (..)
-import Data.UserInfo exposing (infoQueries, ageRanges, ageRangeToString)
 import Components.Logo exposing (logo)
+import Data.UserInfo
+    exposing
+        ( ageRanges
+        , ageRangeToString
+        , postCodeToString
+        , isValidAgeRange
+        , isValidName
+        , isValidPostcode
+        )
 
 
 userInfo : Model -> Html Msg
@@ -14,25 +22,59 @@ userInfo model =
         [ logo
         , h2 [ class "blue" ] [ text <| String.toUpper <| "A bit about you" ]
         , div [ class "flex flex-column justify-center items-center" ]
-            [ div [ class "mb3" ] (List.map (inputField model) infoQueries)
-            , ageInput model
+            [ div []
+                [ nameField model
+                , postcodeField model
+                , ageField model
+                ]
             ]
-        , button [ class "bg-dark-blue bn white ph4 pv3 f5 mt4", onClick <| SetView UserInfo ] [ text "Next" ]
+        , errorMessage model
+        , button [ class "bg-dark-blue bn white ph6 pv3 f5 mt4", onClick SubmitForm ] [ text "Next" ]
         ]
 
 
-inputField : Model -> ( String, String -> Msg ) -> Html Msg
-inputField model ( query, updateModel ) =
+nameField : Model -> Html Msg
+nameField model =
     div [ class "flex items-center" ]
-        [ p [ class "tl w6" ] [ text query ]
-        , input [ class "w7 h2", onInput updateModel ] []
+        [ p
+            [ class "tl w6"
+            , classList [ ( "red", model.formErrors && not (isValidName model) ) ]
+            ]
+            [ text "What's your name?" ]
+        , input
+            [ class "w7 h2 ttu"
+            , onInput SetName
+            , value <| Maybe.withDefault "" model.name
+            ]
+            []
         ]
 
 
-ageInput : Model -> Html Msg
-ageInput model =
-    div [ class "flex" ]
-        [ p [ class "tl w6 ma0 mt2" ] [ text "What's your age range?" ]
+postcodeField : Model -> Html Msg
+postcodeField model =
+    div [ class "flex items-center" ]
+        [ p
+            [ class "tl w6"
+            , classList [ ( "red", model.formErrors && not (isValidPostcode model) ) ]
+            ]
+            [ text "What's your postcode?" ]
+        , input
+            [ class "w7 h2 ttu"
+            , onInput SetPostcode
+            , value <| postCodeToString model.postcode
+            ]
+            []
+        ]
+
+
+ageField : Model -> Html Msg
+ageField model =
+    div [ class "flex mt4" ]
+        [ p
+            [ class "tl w6 ma0 mt2"
+            , classList [ ( "red", model.formErrors && not (isValidAgeRange model) ) ]
+            ]
+            [ text "What's your age range?" ]
         , div [ class "w7 flex flex-wrap justify-between" ] (List.map (ageOption model) ageRanges)
         ]
 
@@ -48,3 +90,11 @@ ageOption model ageRange =
         , onClick <| SetAgeRange ageRange
         ]
         [ text <| ageRangeToString ageRange ]
+
+
+errorMessage : Model -> Html Msg
+errorMessage model =
+    if model.formErrors then
+        p [ class "red" ] [ text "Please verify the fields in red" ]
+    else
+        span [] []

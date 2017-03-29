@@ -1,7 +1,7 @@
 module Update exposing (..)
 
 import Model exposing (..)
-import Data.UserInfo exposing (validatePostcode)
+import Data.UserInfo exposing (validatePostcode, validateForm)
 
 
 init : ( Model, Cmd Msg )
@@ -15,6 +15,7 @@ initialModel =
     , name = Nothing
     , postcode = NotEntered
     , ageRange = Nothing
+    , formErrors = False
     }
 
 
@@ -32,3 +33,9 @@ update msg model =
 
         SetAgeRange ageRange ->
             { model | ageRange = Just ageRange } ! []
+
+        SubmitForm ->
+            if validateForm model then
+                { model | view = Quotes } ! []
+            else
+                { model | formErrors = True } ! []

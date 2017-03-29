@@ -14,3 +14,6 @@ router model =
 
         UserInfo ->
             userInfo model
+
+        _ ->
+            home model

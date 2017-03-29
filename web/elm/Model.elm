@@ -6,12 +6,14 @@ type alias Model =
     , name : Maybe String
     , postcode : Postcode
     , ageRange : Maybe AgeRange
+    , formErrors : Bool
     }
 
 
 type View
     = Home
     | UserInfo
+    | Quotes
 
 
 type AgeRange
@@ -34,3 +36,4 @@ type Msg
     | SetName String
     | SetPostcode String
     | SetAgeRange AgeRange
+    | SubmitForm
