@@ -12,7 +12,7 @@ init =
 initialModel : Model
 initialModel =
     { view = Quotes
-    , currentQuote = ( 0, firstQuote )
+    , currentQuote = firstQuote quoteDict
     , quotes = quoteDict
     }
 

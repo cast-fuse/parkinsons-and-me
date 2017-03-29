@@ -15,7 +15,7 @@ handleUpdateAnswers model answer (( i, q ) as currentQuote) =
         updatedQuotes =
             updateAnswer answer currentQuote model.quotes
     in
-        if q == lastQuote then
+        if currentQuote == (lastQuote model.quotes) then
             { model
                 | view = Results
                 , quotes = updatedQuotes
@@ -25,6 +25,20 @@ handleUpdateAnswers model answer (( i, q ) as currentQuote) =
                 | quotes = updatedQuotes
                 , currentQuote = getQuote (i + 1) model.quotes
             }
+
+
+firstQuote : Dict Int Quote -> ( Int, Quote )
+firstQuote quotes =
+    getQuote 0 quotes
+
+
+lastQuote : Dict Int Quote -> ( Int, Quote )
+lastQuote quotes =
+    let
+        lastIndex =
+            (Dict.size quotes) - 1
+    in
+        getQuote lastIndex quotes
 
 
 getQuote : Int -> Dict Int Quote -> ( Int, Quote )
@@ -42,24 +56,6 @@ updateAnswer newAnswer ( quoteIndex, _ ) quotes =
             Maybe.map (\q -> { q | answer = newAnswer })
     in
         Dict.update quoteIndex mapNewAnswer quotes
-
-
-firstQuote : Quote
-firstQuote =
-    quoteDict
-        |> Dict.get 0
-        |> Maybe.withDefault dummyQuote
-
-
-lastQuote : Quote
-lastQuote =
-    let
-        lastIndex =
-            (Dict.size quoteDict) - 1
-    in
-        quoteDict
-            |> Dict.get lastIndex
-            |> Maybe.withDefault dummyQuote
 
 
 quoteDict : Dict Int Quote
