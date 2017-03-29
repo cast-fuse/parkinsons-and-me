@@ -2,8 +2,14 @@ module Model exposing (..)
 
 
 type alias Model =
-    {}
+    { view : View
+    }
+
+
+type View
+    = Home
+    | UserInfo
 
 
 type Msg
-    = NoOp
+    = SetView View
