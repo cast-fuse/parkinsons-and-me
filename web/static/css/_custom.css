@@ -2,3 +2,11 @@ body {
   margin: 0;
   font-family: var(--sans-serif);
 }
+
+.w6 {
+  width: var(--width-6);
+}
+
+.w7 {
+  width: var(--width-7);
+}
