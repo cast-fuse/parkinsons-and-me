@@ -2,6 +2,7 @@ module Views.Router exposing (router)
 
 import Views.Home exposing (home)
 import Views.UserInfo exposing (userInfo)
+import Views.Quotes exposing (quotes)
 import Model exposing (..)
 import Html exposing (..)
 
@@ -14,3 +15,6 @@ router model =
 
         UserInfo ->
             userInfo model
+
+        Quotes ->
+            quotes model
