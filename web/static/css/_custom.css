@@ -4,9 +4,9 @@ body {
 }
 
 .w6 {
-  width: 16rem;
+  width: var(--width-6);
 }
 
 .w7 {
-  width: 24rem;
+  width: var(--width-7);
 }
