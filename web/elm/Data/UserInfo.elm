@@ -65,7 +65,11 @@ postcodeRegex =
 
 validateForm : Model -> Bool
 validateForm model =
-    isValidPostcode model && isValidName model && isValidAgeRange model
+    let
+        validationResults =
+            List.map ((|>) model) [ isValidPostcode, isValidName, isValidAgeRange ]
+    in
+        List.foldr (&&) True validationResults
 
 
 isValidPostcode : Model -> Bool
