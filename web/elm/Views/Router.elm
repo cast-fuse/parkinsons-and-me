@@ -18,3 +18,6 @@ router model =
 
         Quotes ->
             quotes model
+
+        _ ->
+            p [] [ text "woot results " ]

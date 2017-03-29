@@ -14,6 +14,7 @@ type View
     = Home
     | UserInfo
     | Quotes
+    | Results
 
 
 type alias Quote =

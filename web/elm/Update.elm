@@ -13,7 +13,7 @@ initialModel : Model
 initialModel =
     { view = Quotes
     , currentQuote = ( 0, firstQuote )
-    , quotes = quoteList
+    , quotes = quoteDict
     }
 
 
@@ -23,9 +23,5 @@ update msg model =
         SetView view ->
             { model | view = view } ! []
 
-        UpdateAnswer answer (( i, _ ) as currentQuote) ->
-            { model
-                | quotes = updateAnswer answer currentQuote model.quotes
-                , currentQuote = getQuote (i + 1) model.quotes
-            }
-                ! []
+        UpdateAnswer answer currentQuote ->
+            handleUpdateAnswers model answer currentQuote ! []
