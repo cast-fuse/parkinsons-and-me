@@ -2,6 +2,8 @@ module Views.Services exposing (services)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Html.Events exposing (..)
+import Helpers.Styles as Styles
 import Model exposing (..)
 import Components.Logo exposing (logo)
 
@@ -10,9 +12,13 @@ services : Model -> Html Msg
 services model =
     div []
         [ logo
-        , div [ class "bg-blue" ]
+        , div [ class "bg-blue pb4" ]
             [ h2 [ class "blue" ] [ text <| renderPageTitle model ]
             , div [] (List.map renderService model.services)
+            ]
+        , div [ class "flex flex-column items-center mv5" ]
+            [ input [ onInput SetEmail, value <| Maybe.withDefault "" model.email, class Styles.inputField, placeholder "enter your email address" ] []
+            , button [ class <| Styles.buttonBlue ++ " mt4" ] [ text "Email this to me" ]
             ]
         ]
 

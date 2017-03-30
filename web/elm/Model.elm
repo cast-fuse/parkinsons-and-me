@@ -8,7 +8,7 @@ type alias Model =
     , name : Maybe String
     , postcode : Postcode
     , ageRange : Maybe AgeRange
-    , formErrors : Bool
+    , email : Maybe String
     , currentQuote : ( Int, Quote )
     , quotes : Dict Int Quote
     , services : List Service
@@ -63,5 +63,5 @@ type Msg
     | SetName String
     | SetPostcode String
     | SetAgeRange AgeRange
-    | SubmitForm
+    | SetEmail String
     | UpdateAnswer YesNo ( Int, Quote )
