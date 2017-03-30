@@ -17,7 +17,7 @@ handleUpdateAnswers model answer (( i, q ) as currentQuote) =
     in
         if currentQuote == (lastQuote model.quotes) then
             { model
-                | view = Results
+                | view = Services
                 , quotes = updatedQuotes
             }
         else

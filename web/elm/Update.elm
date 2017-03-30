@@ -2,6 +2,7 @@ module Update exposing (..)
 
 import Model exposing (..)
 import Data.UserInfo exposing (validatePostcode, validateForm)
+import Data.Services exposing (serviceList)
 import Data.Quotes exposing (..)
 
 
@@ -16,9 +17,10 @@ initialModel =
     , name = Nothing
     , postcode = NotEntered
     , ageRange = Nothing
-    , formErrors = False
+    , email = Nothing
     , currentQuote = firstQuote quoteDict
     , quotes = quoteDict
+    , services = serviceList
     }
 
 
@@ -37,11 +39,8 @@ update msg model =
         SetAgeRange ageRange ->
             { model | ageRange = Just ageRange } ! []
 
-        SubmitForm ->
-            if validateForm model then
-                { model | view = Quotes } ! []
-            else
-                { model | formErrors = True } ! []
+        SetEmail email ->
+            { model | email = Just email } ! []
 
         UpdateAnswer answer currentQuote ->
             handleUpdateAnswers model answer currentQuote ! []

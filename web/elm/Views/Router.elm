@@ -5,6 +5,7 @@ import Views.UserInfo.Name exposing (name)
 import Views.UserInfo.Postcode exposing (postcode)
 import Views.UserInfo.Age exposing (age)
 import Views.Quotes exposing (quotes)
+import Views.Services exposing (services)
 import Model exposing (..)
 import Html exposing (..)
 
@@ -27,5 +28,5 @@ router model =
         Quotes ->
             quotes model
 
-        _ ->
-            p [] [ text "woot results " ]
+        Services ->
+            services model

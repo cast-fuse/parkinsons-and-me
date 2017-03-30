@@ -8,9 +8,10 @@ type alias Model =
     , name : Maybe String
     , postcode : Postcode
     , ageRange : Maybe AgeRange
-    , formErrors : Bool
+    , email : Maybe String
     , currentQuote : ( Int, Quote )
     , quotes : Dict Int Quote
+    , services : List Service
     }
 
 
@@ -20,7 +21,7 @@ type View
     | Postcode
     | Age
     | Quotes
-    | Results
+    | Services
 
 
 type AgeRange
@@ -49,10 +50,18 @@ type YesNo
     | No
 
 
+type alias Service =
+    { title : String
+    , body : String
+    , url : String
+    , cta : String
+    }
+
+
 type Msg
     = SetView View
     | SetName String
     | SetPostcode String
     | SetAgeRange AgeRange
-    | SubmitForm
+    | SetEmail String
     | UpdateAnswer YesNo ( Int, Quote )
