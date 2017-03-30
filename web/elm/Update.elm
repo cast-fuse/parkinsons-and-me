@@ -13,7 +13,7 @@ init =
 
 initialModel : Model
 initialModel =
-    { view = Services
+    { view = Home
     , name = Nothing
     , postcode = NotEntered
     , ageRange = Nothing
