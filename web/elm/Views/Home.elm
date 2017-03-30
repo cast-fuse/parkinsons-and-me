@@ -16,5 +16,5 @@ home model =
         , h2 [ class "blue" ] [ text "What3Things" ]
         , p [] [ text "Parkinson's UK offers a variety of support and information types for everyone." ]
         , p [] [ text "What3Things will ensure you get the best match for your needs right now." ]
-        , button [ class Styles.buttonBlue, onClick <| SetView UserInfo ] [ text "Get Started" ]
+        , button [ class Styles.buttonBlue, onClick <| SetView Name ] [ text "Get Started" ]
         ]
