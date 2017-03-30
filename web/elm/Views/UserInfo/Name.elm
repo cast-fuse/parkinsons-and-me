@@ -24,13 +24,9 @@ name model =
 nameField : Model -> Html Msg
 nameField model =
     div [ class "flex items-center" ]
-        [ p
-            [ class "tl w6"
-            , classList [ ( "red", model.formErrors && not (isValidName model) ) ]
-            ]
-            [ text "What's your name?" ]
+        [ p [ class "tl w6" ] [ text "What's your name?" ]
         , input
-            [ class "w7 h2 ttu"
+            [ class Styles.inputField
             , onInput SetName
             , value <| Maybe.withDefault "" model.name
             ]

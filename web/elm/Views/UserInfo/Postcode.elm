@@ -24,13 +24,9 @@ postcode model =
 postcodeField : Model -> Html Msg
 postcodeField model =
     div [ class "flex items-center" ]
-        [ p
-            [ class "tl w6"
-            , classList [ ( "red", model.formErrors && not (isValidPostcode model) ) ]
-            ]
-            [ text "What's your postcode?" ]
+        [ p [ class "tl w6" ] [ text "What's your postcode?" ]
         , input
-            [ class "w7 h2 ttu"
+            [ class Styles.inputField
             , onInput SetPostcode
             , value <| postCodeToString model.postcode
             ]
@@ -41,6 +37,6 @@ postcodeField model =
 handleNext : Model -> Html Msg
 handleNext model =
     if isValidPostcode model then
-        button [ class Styles.buttonBlue, onClick <| SetView Home ] [ text "Next" ]
+        button [ class Styles.buttonBlue, onClick <| SetView Age ] [ text "Next" ]
     else
         button [ class Styles.buttonDisabled ] [ text "Next" ]

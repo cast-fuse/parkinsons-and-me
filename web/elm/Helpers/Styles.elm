@@ -19,3 +19,8 @@ buttonClear =
 buttonDisabled : String
 buttonDisabled =
     "bg-light-gray gray bn " ++ button
+
+
+inputField : String
+inputField =
+    "w7 f6 blue b--blue ba h2 ttu outline-0 ph3 pv1"
