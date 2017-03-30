@@ -11,6 +11,7 @@ type alias Model =
     , formErrors : Bool
     , currentQuote : ( Int, Quote )
     , quotes : Dict Int Quote
+    , services : List Service
     }
 
 
@@ -20,7 +21,7 @@ type View
     | Postcode
     | Age
     | Quotes
-    | Results
+    | Services
 
 
 type AgeRange
@@ -47,6 +48,14 @@ type alias Quote =
 type YesNo
     = Yes
     | No
+
+
+type alias Service =
+    { title : String
+    , body : String
+    , url : String
+    , cta : String
+    }
 
 
 type Msg

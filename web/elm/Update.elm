@@ -2,6 +2,7 @@ module Update exposing (..)
 
 import Model exposing (..)
 import Data.UserInfo exposing (validatePostcode, validateForm)
+import Data.Services exposing (serviceList)
 import Data.Quotes exposing (..)
 
 
@@ -19,6 +20,7 @@ initialModel =
     , formErrors = False
     , currentQuote = firstQuote quoteDict
     , quotes = quoteDict
+    , services = serviceList
     }
 
 
