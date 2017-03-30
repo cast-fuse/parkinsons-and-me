@@ -36,3 +36,9 @@ after the dependencies are installed and database setup, run:
 ```
 
 and visit `localhost:4000` to see the app running
+
+### Circle CI Setup
+
+The configuration for running the test suite on Circle is included in `/circle.yml` and `/.tool-versions`. The [`asdf` package manager](https://github.com/asdf-vm/asdf) is used to install `Erlang` and `Elixir` and to cache these installations if they have not changed since the last build. `/.tool-versions` contains the version numbers to install. Full details can be found on the following article -
+
+[Simple CircleCI Config for Phoenix Projects](https://medium.com/@QuantLayer/simple-circleci-config-for-phoenix-projects-fc3ae271aff1)
