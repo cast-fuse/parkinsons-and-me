@@ -34,23 +34,6 @@ userInfo model =
         ]
 
 
-nameField : Model -> Html Msg
-nameField model =
-    div [ class "flex items-center" ]
-        [ p
-            [ class "tl w6"
-            , classList [ ( "red", model.formErrors && not (isValidName model) ) ]
-            ]
-            [ text "What's your name?" ]
-        , input
-            [ class "w7 h2 ttu"
-            , onInput SetName
-            , value <| Maybe.withDefault "" model.name
-            ]
-            []
-        ]
-
-
 postcodeField : Model -> Html Msg
 postcodeField model =
     div [ class "flex items-center" ]

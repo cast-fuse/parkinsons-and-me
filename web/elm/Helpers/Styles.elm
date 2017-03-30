@@ -1,9 +1,4 @@
-module Helpers.Styles
-    exposing
-        ( button
-        , buttonBlue
-        , buttonClear
-        )
+module Helpers.Styles exposing (..)
 
 
 button : String
@@ -19,3 +14,8 @@ buttonBlue =
 buttonClear : String
 buttonClear =
     "bg-white b--dark-blue dark-blue ba " ++ button
+
+
+buttonDisabled : String
+buttonDisabled =
+    "bg-light-gray gray bn " ++ button

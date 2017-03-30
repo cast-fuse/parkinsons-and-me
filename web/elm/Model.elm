@@ -16,7 +16,9 @@ type alias Model =
 
 type View
     = Home
-    | UserInfo
+    | Name
+    | Postcode
+    | Age
     | Quotes
     | Results
 
