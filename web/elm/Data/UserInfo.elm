@@ -54,6 +54,8 @@ validatePostcode : String -> Postcode
 validatePostcode postcode =
     if Regex.contains postcodeRegex postcode then
         Valid postcode
+    else if postcode == "" then
+        NotEntered
     else
         Invalid postcode
 
