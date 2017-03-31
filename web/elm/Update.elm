@@ -1,7 +1,7 @@
 module Update exposing (..)
 
 import Model exposing (..)
-import Data.UserInfo exposing (validatePostcode, validateForm)
+import Data.UserInfo exposing (validatePostcode)
 import Data.Services exposing (serviceList)
 import Data.Quotes exposing (..)
 

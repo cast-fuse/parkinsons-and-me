@@ -7,7 +7,9 @@ import Update exposing (initialModel)
 import Data.UserInfo
     exposing
         ( validatePostcode
-        , validateForm
+        , isValidPostcode
+        , isValidName
+        , isValidAgeRange
         )
 
 
@@ -15,46 +17,63 @@ all : Test
 all =
     describe "User Info Test Suite"
         [ valdidatePostcodeSpec
-        , validateFormSpec
+        , isValidNameSpec
+        , isValidAgeRangeSpec
         ]
 
 
 valdidatePostcodeSpec : Test
 valdidatePostcodeSpec =
-    describe "validatePostcode"
-        [ test "an empty postcode should return a NotEntered Value" <|
-            \() ->
-                Expect.equal (validatePostcode "") NotEntered
-        , test "an invalid postcode should return the postcode wrapped in an Invalid value" <|
-            \() ->
-                Expect.equal (validatePostcode "e83") (Invalid "e83")
-        , test "a valid postcode should return the postcoed wrapped in a Valid value" <|
-            \() ->
-                Expect.equal (validatePostcode "e82na") (Valid "e82na")
-        , test "should handle capital letters" <|
-            \() ->
-                Expect.equal (validatePostcode "E82NA") (Valid "E82NA")
+    describe "postcodeValidation"
+        [ describe "validatePostcode"
+            [ test "an empty postcode should return a NotEntered Value" <|
+                \() ->
+                    Expect.equal (validatePostcode "") NotEntered
+            , test "an invalid postcode should return the postcode wrapped in an Invalid value" <|
+                \() ->
+                    Expect.equal (validatePostcode "e83") (Invalid "e83")
+            , test "a valid postcode should return the postcoed wrapped in a Valid value" <|
+                \() ->
+                    Expect.equal (validatePostcode "e82na") (Valid "e82na")
+            , test "should handle capital letters" <|
+                \() ->
+                    Expect.equal (validatePostcode "E82NA") (Valid "E82NA")
+            ]
+        , describe "isValidPostcode"
+            [ test "returns True for a Valid Postcode" <|
+                \() ->
+                    Expect.true "" (isValidPostcode validFormModel)
+            , test "returns False for an Invalid Postcode" <|
+                \() ->
+                    Expect.false "" (isValidPostcode invalidPostcodeModel)
+            , test "returns False for a NotEntered Postcode" <|
+                \() ->
+                    Expect.false "" (isValidPostcode notEnteredPostcodeModel)
+            ]
         ]
 
 
-validateFormSpec : Test
-validateFormSpec =
-    describe "validateForm"
-        [ test "returns True if all fields are valid" <|
+isValidNameSpec : Test
+isValidNameSpec =
+    describe "isValidNameSpec"
+        [ test "returns True if a valid name" <|
             \() ->
-                Expect.true "" (validateForm validFormModel)
+                Expect.true "" (isValidName validFormModel)
         , test "returns False if the name field is invalid" <|
             \() ->
-                Expect.false "" (validateForm invalidNameModel)
-        , test "returns False if the age field is invalid" <|
+                Expect.false "" (isValidName invalidNameModel)
+        ]
+
+
+isValidAgeRangeSpec : Test
+isValidAgeRangeSpec =
+    describe "isValidAgerange"
+        [ test "returns True if a valid AgeRange" <|
             \() ->
-                Expect.false "" (validateForm invalidAgeModel)
-        , test "returns False if the postcode field is invalid" <|
+                Expect.true "" (isValidAgeRange validFormModel)
+        , test "returns False if the name field is invalid" <|
             \() ->
-                Expect.false "" (validateForm invalidPostcodeModel)
-        , test "returns False if the postcode field is not entered" <|
-            \() ->
-                Expect.false "" (validateForm notEnteredPostcodeModel)
+                Expect.false "" (isValidAgeRange invalidAgeModel)
         ]
 
 
