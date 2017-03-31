@@ -8,5 +8,5 @@ import Views.Router exposing (router)
 
 view : Model -> Html Msg
 view model =
-    div [ class "tc mt2" ]
+    div [ class "tc" ]
         [ router model ]

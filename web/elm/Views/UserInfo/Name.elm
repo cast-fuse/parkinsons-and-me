@@ -15,7 +15,7 @@ name model =
         [ logo
         , h2 [ class "blue" ] [ text <| String.toUpper <| "A bit about you" ]
         , div [ class "flex flex-column justify-center items-center" ]
-            [ div [] [ nameField model ]
+            [ div [ class "w-100 mw6" ] [ nameField model ]
             ]
         , handleNext model
         ]
@@ -23,8 +23,8 @@ name model =
 
 nameField : Model -> Html Msg
 nameField model =
-    div [ class "flex items-center" ]
-        [ p [ class "tl w6" ] [ text "What's your name?" ]
+    div [ class "flex items-center pa4" ]
+        [ p [ class "tl w-50 mr3" ] [ text "What's your name?" ]
         , input
             [ class Styles.inputField
             , onInput SetName
