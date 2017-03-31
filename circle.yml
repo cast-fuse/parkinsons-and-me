@@ -14,4 +14,4 @@ dependencies:
     - yes | mix local.rebar
 test:
   override:
-    - mix test
+    - mix test && npm test
