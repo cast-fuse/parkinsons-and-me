@@ -12,7 +12,7 @@ dependencies:
     - elixir_version=$(awk '/elixir/ { print $2 }' .tool-versions) && asdf install elixir ${elixir_version}
     - yes | mix deps.get
     - yes | mix local.rebar
-    - npm run elm-test-install && npm test
+    - npm run elm-test-install
 test:
   override:
     - mix test && npm test
