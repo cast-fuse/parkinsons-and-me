@@ -11,6 +11,8 @@ erl_crash.dump
 /node_modules
 /elm-stuff
 
+/test/elm/elm-stuff
+
 # Since we are building assets from web/static,
 # we ignore priv/static. You may want to comment
 # this depending on your deployment strategy.

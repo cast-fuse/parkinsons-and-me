@@ -23,16 +23,16 @@ age model =
 
 ageField : Model -> Html Msg
 ageField model =
-    div [ class "flex mt4" ]
-        [ p [ class "tl w6 ma0 mt2" ] [ text "What's your age range?" ]
-        , div [ class "w7 flex flex-wrap justify-between" ] (List.map (ageOption model) ageRanges)
+    div [ class "flex ma4" ]
+        [ p [ class "tl mw6 ma0 mt2" ] [ text "What's your age?" ]
+        , div [ class "flex flex-wrap justify-center" ] (List.map (ageOption model) ageRanges)
         ]
 
 
 ageOption : Model -> AgeRange -> Html Msg
 ageOption model ageRange =
     div
-        [ class "ba-l b--blue w-40 ph3 pv2 mb3 b pointer"
+        [ class "ba b--blue w-40 ph3 pv2 mr3 mb3 b pointer"
         , classList
             [ ( "bg-blue white", model.ageRange == Just ageRange )
             , ( "blue", model.ageRange /= Just ageRange )
