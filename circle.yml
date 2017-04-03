@@ -15,4 +15,4 @@ dependencies:
     - npm run elm-test-install
 test:
   override:
-    - mix test && npm test
+    - mix test
