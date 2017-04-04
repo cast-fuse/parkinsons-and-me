@@ -1,0 +1,11 @@
+<h1>Services</h1>
+
+<ul>
+  <%= for service <- @services do %>
+  <li>
+    <%= service.title %>
+  </li>
+  <% end %>
+</ul>
+
+<%= link "Create service", to: service_path(@conn, :new) %>

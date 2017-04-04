@@ -1,0 +1,8 @@
+<%= form_for @changeset, service_path(@conn, :create), fn f -> %>
+  <%= text_input f, :title, placeholder: "Title" %>
+  <%= text_input f, :body, placeholder: "Body" %>
+  <%= text_input f, :cta, placeholder: "Call to action" %>
+  <%= text_input f, :url, placeholder: "Link to service" %>
+
+  <%= submit "Save service" %>
+<% end %>

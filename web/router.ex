@@ -30,6 +30,10 @@ defmodule What3things.Router do
     get "/quotes", QuoteController, :index
     get "/quotes/new", QuoteController, :new
     post "/quotes", QuoteController, :create
+
+    get "/services", ServiceController, :index
+    get "/services/new", ServiceController, :new
+    post "/services", ServiceController, :create
   end
 
   # Other scopes may use custom stacks.
