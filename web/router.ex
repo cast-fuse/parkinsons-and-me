@@ -9,6 +9,10 @@ defmodule What3things.Router do
     plug :put_secure_browser_headers
   end
 
+  pipeline :admin do
+    plug :put_layout, {What3things.LayoutView, :admin}
+  end
+
   pipeline :api do
     plug :accepts, ["json"]
   end
@@ -16,7 +20,16 @@ defmodule What3things.Router do
   scope "/", What3things do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
+    get "/", ElmController, :index
+  end
+
+  scope "/admin", What3things do
+    pipe_through :browser
+    pipe_through :admin
+
+    get "/quotes", QuoteController, :index
+    get "/quotes/new", QuoteController, :new
+    post "/quotes", QuoteController, :create
   end
 
   # Other scopes may use custom stacks.

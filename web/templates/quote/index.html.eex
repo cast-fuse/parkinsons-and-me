@@ -1,0 +1,12 @@
+<h1>Quotes</h1>
+
+<%= link "New Quotes", to: quote_path(@conn, :new), class: "blue" %>
+
+<h2>current quotes</h2>
+<ul>
+  <%= for q <- @quotes do %>
+    <li>
+      <%= q.body %>
+    </li>
+  <% end %>
+</ul>

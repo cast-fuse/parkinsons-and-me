@@ -1,4 +1,4 @@
-defmodule What3things.PageController do
+defmodule What3things.ElmController do
   use What3things.Web, :controller
 
   def index(conn, _params) do
