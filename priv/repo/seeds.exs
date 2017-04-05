@@ -71,5 +71,4 @@ zip_all =
   |> Enum.map(fn({q, s_weights}) -> Enum.map(s_weights, fn({s, w}) -> %{service_id: s.service_id, quote_id: q.quote_id, weight: w} end) end)
   |> List.flatten()
 
-
 # Repo.insert_all(Weight, zip_all)

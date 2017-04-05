@@ -27,14 +27,8 @@ defmodule What3things.Router do
     pipe_through :browser
     pipe_through :admin
 
-    get "/quotes", QuoteController, :index
-    get "/quotes/new", QuoteController, :new
-    post "/quotes", QuoteController, :create
-
-    get "/services", ServiceController, :index
-    get "/services/new", ServiceController, :new
-    post "/services", ServiceController, :create
-
+    resources "/quotes", QuoteController, only: [:index, :new, :create]
+    resources "/services", ServiceController, only: [:index, :new, :create]
     resources "/weights", WeightController, only: [:index, :update, :edit]
   end
 
