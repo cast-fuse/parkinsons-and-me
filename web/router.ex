@@ -34,6 +34,8 @@ defmodule What3things.Router do
     get "/services", ServiceController, :index
     get "/services/new", ServiceController, :new
     post "/services", ServiceController, :create
+
+    resources "/weights", WeightController, only: [:index, :update, :edit]
   end
 
   # Other scopes may use custom stacks.

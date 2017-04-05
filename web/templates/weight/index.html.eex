@@ -1,0 +1,16 @@
+<h1>All Weights</h1>
+
+<%= for weight <- @weights do %>
+  <h3>
+    <%= weight.quote.body %>
+  </h3>
+  <p class="blue">
+    <%= weight.service.title %>
+  </p>
+
+
+  <%= link to: weight_path(@conn, :edit, weight), class: "red f5 no-underline" do %>
+    <%= weight.weight %>
+  <% end %>
+
+<% end %>
