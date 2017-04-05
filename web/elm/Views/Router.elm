@@ -4,8 +4,6 @@ import Views.Home exposing (home)
 import Views.UserInfo.Name exposing (name)
 import Views.UserInfo.Postcode exposing (postcode)
 import Views.UserInfo.Age exposing (age)
-import Views.Quotes exposing (quotes)
-import Views.Services exposing (services)
 import Model exposing (..)
 import Html exposing (..)
 
@@ -25,8 +23,5 @@ router model =
         Age ->
             age model
 
-        Quotes ->
-            quotes model
-
-        Services ->
-            services model
+        _ ->
+            div [] [ text "stuff" ]

@@ -9,9 +9,6 @@ type alias Model =
     , postcode : Postcode
     , ageRange : Maybe AgeRange
     , email : Maybe String
-    , currentQuote : ( Int, Quote )
-    , quotes : Dict Int Quote
-    , services : List Service
     }
 
 
@@ -39,23 +36,39 @@ type Postcode
     | Invalid String
 
 
-type alias Quote =
-    { body : String
-    , answer : YesNo
-    }
+type alias Quotes =
+    Dict QuoteId String
 
 
-type YesNo
-    = Yes
-    | No
+type alias Services =
+    Dict ServiceId ServiceData
 
 
-type alias Service =
+type alias ServiceData =
     { title : String
     , body : String
-    , url : String
     , cta : String
+    , url : String
     }
+
+
+type alias Weightings =
+    Dict QuoteId (Dict ServiceId Float)
+
+
+type alias RawWeighting =
+    { quote_id : Int
+    , service_id : Int
+    , weight : Float
+    }
+
+
+type alias QuoteId =
+    Int
+
+
+type alias ServiceId =
+    Int
 
 
 type Msg
@@ -64,4 +77,3 @@ type Msg
     | SetPostcode String
     | SetAgeRange AgeRange
     | SetEmail String
-    | UpdateAnswer YesNo ( Int, Quote )
