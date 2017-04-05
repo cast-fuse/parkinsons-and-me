@@ -40,14 +40,36 @@ services =
   "Publications"]
   |> Enum.map(fn(s) -> %{title: s, body: "lorem ipsum", cta: "lorem", url: "www.#{s |> String.replace(" ", "")}.com"} end)
 
-Repo.insert_all(Quote, quotes)
-Repo.insert_all(Service, services)
+  all_weights =
+    [[0,0, 0, 0.5, 0, 1, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 1, 0.25, 0, 0.5, 0, 0, 0.25, 0, 0],
+    [0.5, 1, 0, 0, 0, 0, 0, 0.5, 0.25, 0, 0, 0],
+    [0, 0, 1, 0, 0.25, 0, 0.5, 0, 0, 0, 0, 0],
+    [0, 0, 0.25, 0, 0, 0, 0, 0, 0.25, 1, 0.5, 0.5],
+    [0.5, 0, 0, 0.5, 0, 0.5, 0, 0.5, 0, 0.25, 0, 1],
+    [0.25, 0, 0, 0.25, 0, 0.5, 0, 1, 0, 0, 0, 0],
+    [0, 0.75, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
+    [0, 0, 0, 0.25, 0.5, 0.5, 0, 0, 0, 0.25, 0.25, 0.5]]
+    |> Enum.map(fn(x) -> Enum.map(x, fn(y) -> y * 1.0 end) end)
+
+# Repo.insert_all(Quote, quotes)
+# Repo.insert_all(Service, services)
 
 quotes = Repo.all(Quote)
 services = Repo.all(Service)
 
-rawWeights = for q <- quotes, s <- services do
-  %{service_id: s.id, quote_id: q.id, weight: 0.0}
+services_weight_zip = for weights <- all_weights do
+  services
+  |> Enum.map(fn(x) -> %{service_id: x.id} end)
+  |> Enum.zip(weights)
 end
 
-Repo.insert_all(Weight, rawWeights)
+zip_all =
+  quotes
+  |> Enum.map(fn(x) -> %{quote_id: x.id} end)
+  |> Enum.zip(services_weight_zip)
+  |> Enum.map(fn({q, s_weights}) -> Enum.map(s_weights, fn({s, w}) -> %{service_id: s.service_id, quote_id: q.quote_id, weight: w} end) end)
+  |> List.flatten()
+
+
+# Repo.insert_all(Weight, zip_all)

@@ -9,6 +9,7 @@ defmodule What3things.WeightController do
       |> Repo.preload(:quote)
       |> Repo.preload(:service)
 
+    weights = Enum.chunk_by(weights, fn(x) -> x.quote.body end)
     render conn, "index.html", weights: weights
   end
 
@@ -20,7 +21,6 @@ defmodule What3things.WeightController do
       |> Repo.preload(:service)
 
     changeset = Weight.changeset(weight)
-    IO.inspect changeset
     render conn, "edit.html", changeset: changeset, weight: weight
   end
 
@@ -34,7 +34,7 @@ defmodule What3things.WeightController do
         |> put_flash(:info, "weight updated")
         |> redirect(to: weight_path(conn, :index))
       {:error, changeset} ->
-        render conn, "edit.html", changeset: changeset, weight: old_weight 
+        render conn, "edit.html", changeset: changeset, weight: old_weight
     end
   end
 end
