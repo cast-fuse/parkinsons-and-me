@@ -8,6 +8,5 @@ defmodule What3things.Repo.Migrations.AddServices do
       add :cta, :string
       add :url, :string
     end
-
   end
 end

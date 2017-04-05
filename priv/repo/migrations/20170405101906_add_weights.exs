@@ -7,8 +7,6 @@ defmodule What3things.Repo.Migrations.AddWeights do
       add :quote_id, references(:quotes)
       add :service_id, references(:services)
     end
-
     create unique_index(:weights, [:quote_id, :service_id])
-
   end
 end
