@@ -1,6 +1,7 @@
 defmodule What3things.Service do
   use What3things.Web, :model
 
+  @derive{Poison.Encoder, only: [:title, :body, :id, :cta, :url]}
   schema "services" do
     field :title, :string
     field :body, :string

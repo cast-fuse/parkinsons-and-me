@@ -1,6 +1,7 @@
 module Model exposing (..)
 
 import Dict exposing (..)
+import Http
 
 
 type alias Model =
@@ -71,9 +72,17 @@ type alias ServiceId =
     Int
 
 
+type alias WebData =
+    { quotes : Quotes
+    , services : Services
+    , weights : Weightings
+    }
+
+
 type Msg
     = SetView View
     | SetName String
     | SetPostcode String
     | SetAgeRange AgeRange
     | SetEmail String
+    | ReceiveWebData (Result Http.Error WebData)

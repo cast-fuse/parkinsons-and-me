@@ -2,11 +2,12 @@ module Update exposing (..)
 
 import Model exposing (..)
 import Data.UserInfo exposing (validatePostcode)
+import Data.Web exposing (getWebData)
 
 
 init : ( Model, Cmd Msg )
 init =
-    initialModel ! []
+    initialModel ! [ getWebData ]
 
 
 initialModel : Model
@@ -36,3 +37,13 @@ update msg model =
 
         SetEmail email ->
             { model | email = Just email } ! []
+
+        ReceiveWebData (Err _) ->
+            model ! []
+
+        ReceiveWebData (Ok data) ->
+            let
+                log =
+                    Debug.log "ermagerd data" data
+            in
+                model ! []
