@@ -1,6 +1,7 @@
 defmodule What3things.Weight do
   use What3things.Web, :model
 
+  @derive{Poison.Encoder, only: [:weight, :quote_id, :service_id]}
   schema "weights" do
     field :weight, :float
     belongs_to :quote, What3things.Quote

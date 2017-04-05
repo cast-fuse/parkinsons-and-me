@@ -33,7 +33,9 @@ defmodule What3things.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", What3things do
-  #   pipe_through :api
-  # end
+  scope "/api", What3things do
+    pipe_through :api
+
+    get "/all", ElmController, :all
+  end
 end
