@@ -1,0 +1,12 @@
+<h1>Edit weight</h1>
+<%= form_for @changeset, weight_path(@conn, :update, @weight), fn f -> %>
+  <h5 class="orange">Quote</h5>
+  <%= @weight.quote.body %>
+
+  <h5>service</h5>
+  <%= @weight.service.body %>
+
+  <h5>weight</h5>
+  <%= text_input f, :weight, placeholder: "weight" %>
+  <%= submit "edit weight" %>
+<% end %>

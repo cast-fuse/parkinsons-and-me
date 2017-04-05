@@ -1,0 +1,7 @@
+<h1>add a new quote</h1>
+<%= form_for @changeset, quote_path(@conn, :create), fn f -> %>
+  <%= text_input f, :body, placeholder: "Enter your quote" %>
+  <%= error_tag f, :body %>
+
+  <%= submit "Save quote" %>
+<% end %>

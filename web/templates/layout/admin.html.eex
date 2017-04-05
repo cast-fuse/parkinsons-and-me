@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>What3things</title>
+    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+  </head>
+
+  <body>
+    <p class="blue pa3 absolute" role="alert"><%= get_flash(@conn, :info) %></p>
+    <p class="red pa3 absolute" role="alert"><%= get_flash(@conn, :error) %></p>
+
+      <main class="ma3">
+        <%= render @view_module, @view_template, assigns %>
+      </main>
+
+  </body>
+</html>
