@@ -1,6 +1,7 @@
 module Model exposing (..)
 
 import Dict exposing (..)
+import Http
 
 
 type alias Model =
@@ -9,9 +10,12 @@ type alias Model =
     , postcode : Postcode
     , ageRange : Maybe AgeRange
     , email : Maybe String
-    , currentQuote : ( Int, Quote )
-    , quotes : Dict Int Quote
-    , services : List Service
+    , quotes : Quotes
+    , services : Services
+    , weightings : Weightings
+    , fetchErrorMessage : String
+    , currentQuote : Maybe QuoteId
+    , remainingQuotes : Maybe (List QuoteId)
     }
 
 
@@ -39,22 +43,45 @@ type Postcode
     | Invalid String
 
 
-type alias Quote =
-    { body : String
-    , answer : YesNo
+type alias Quotes =
+    Dict QuoteId String
+
+
+type alias Services =
+    Dict ServiceId ServiceData
+
+
+type alias ServiceData =
+    { title : String
+    , body : String
+    , cta : String
+    , url : String
     }
 
 
-type YesNo
-    = Yes
-    | No
+type alias Weightings =
+    Dict QuoteId (Dict ServiceId Float)
 
 
-type alias Service =
-    { title : String
-    , body : String
-    , url : String
-    , cta : String
+type alias RawWeighting =
+    { quote_id : Int
+    , service_id : Int
+    , weight : Float
+    }
+
+
+type alias QuoteId =
+    Int
+
+
+type alias ServiceId =
+    Int
+
+
+type alias QuoteServiceWeighting =
+    { quotes : Quotes
+    , services : Services
+    , weightings : Weightings
     }
 
 
@@ -64,4 +91,4 @@ type Msg
     | SetPostcode String
     | SetAgeRange AgeRange
     | SetEmail String
-    | UpdateAnswer YesNo ( Int, Quote )
+    | ReceiveQuoteServiceWeighting (Result Http.Error QuoteServiceWeighting)

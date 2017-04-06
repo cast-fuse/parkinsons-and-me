@@ -2,13 +2,13 @@ module Update exposing (..)
 
 import Model exposing (..)
 import Data.UserInfo exposing (validatePostcode)
-import Data.Services exposing (serviceList)
-import Data.Quotes exposing (..)
+import Data.Api exposing (getQuoteServiceWeighting)
+import Dict
 
 
 init : ( Model, Cmd Msg )
 init =
-    initialModel ! []
+    initialModel ! [ getQuoteServiceWeighting ]
 
 
 initialModel : Model
@@ -18,9 +18,12 @@ initialModel =
     , postcode = NotEntered
     , ageRange = Nothing
     , email = Nothing
-    , currentQuote = firstQuote quoteDict
-    , quotes = quoteDict
-    , services = serviceList
+    , quotes = Dict.empty
+    , services = Dict.empty
+    , weightings = Dict.empty
+    , fetchErrorMessage = ""
+    , currentQuote = Nothing
+    , remainingQuotes = Nothing
     }
 
 
@@ -42,5 +45,13 @@ update msg model =
         SetEmail email ->
             { model | email = Just email } ! []
 
-        UpdateAnswer answer currentQuote ->
-            handleUpdateAnswers model answer currentQuote ! []
+        ReceiveQuoteServiceWeighting (Err _) ->
+            { model | fetchErrorMessage = "Something went wrong fetching the data." } ! []
+
+        ReceiveQuoteServiceWeighting (Ok data) ->
+            { model
+                | quotes = data.quotes
+                , services = data.services
+                , weightings = data.weightings
+            }
+                ! []

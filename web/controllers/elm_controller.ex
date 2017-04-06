@@ -9,8 +9,8 @@ defmodule What3things.ElmController do
   def all(conn, _params) do
     quotes = Repo.all(Quote)
     services = Repo.all(Service)
-    weights = Repo.all(Weight)
+    weightings = Repo.all(Weight)
 
-    json conn, %{quotes: quotes, services: services, weights: weights}
+    json conn, %{quotes: quotes, services: services, weightings: weightings}
   end
 end
