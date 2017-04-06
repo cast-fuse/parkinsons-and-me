@@ -3,6 +3,7 @@ module Update exposing (..)
 import Model exposing (..)
 import Data.UserInfo exposing (validatePostcode)
 import Data.Api exposing (getQuoteServiceWeighting)
+import Data.Quotes exposing (..)
 import Dict
 
 
@@ -53,5 +54,6 @@ update msg model =
                 | quotes = data.quotes
                 , services = data.services
                 , weightings = data.weightings
+                , remainingQuotes = data.quotes |> getQuoteIds |> Just
             }
                 ! []

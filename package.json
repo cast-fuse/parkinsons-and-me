@@ -4,8 +4,9 @@
   "scripts": {
     "deploy": "brunch build --production",
     "watch": "brunch watch --stdin",
-    "test": "cd ./test/elm/ && elm-package install -y && elm-test Main.elm",
-    "test-ci": "sysconfcpus --num 1 npm test"
+    "test": "cd ./test/elm/ && elm-test Main.elm",
+    "elm-test-install-run": "cd ./test/elm/ && elm-package install -y && elm-test Main.elm",
+    "test-ci": "sysconfcpus --num 1 npm run elm-test-install-run"
   },
   "dependencies": {
     "elm": "^0.18.0",
