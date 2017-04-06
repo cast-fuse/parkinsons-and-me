@@ -4,6 +4,7 @@ import Model exposing (..)
 import Data.UserInfo exposing (validatePostcode)
 import Data.Api exposing (getQuoteServiceWeighting)
 import Data.Quotes exposing (..)
+import Data.Weightings exposing (..)
 import Dict
 
 
@@ -56,5 +57,17 @@ update msg model =
                 , services = data.services
                 , weightings = data.weightings
                 , remainingQuotes = data.quotes |> getQuoteIds |> Just
+                , userWeightings = makeEmptyWeightingsDict data.services
             }
                 ! []
+
+        SubmitAnswer answer ->
+            (model
+                |> handleAnswer answer
+                |> handleNextQuote
+                |> handleGoToServices
+            )
+                ! []
+
+        HandleGoToQuotes ->
+            (handleGoToQuotes model) ! []

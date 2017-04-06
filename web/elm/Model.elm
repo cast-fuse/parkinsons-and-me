@@ -102,3 +102,5 @@ type Msg
     | SetAgeRange AgeRange
     | SetEmail String
     | ReceiveQuoteServiceWeighting (Result Http.Error QuoteServiceWeighting)
+    | SubmitAnswer Answer
+    | HandleGoToQuotes
