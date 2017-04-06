@@ -2,12 +2,13 @@ module Update exposing (..)
 
 import Model exposing (..)
 import Data.UserInfo exposing (validatePostcode)
-import Data.Web exposing (getWebData)
+import Data.Web exposing (getQuoteServiceWeighting)
+import Dict
 
 
 init : ( Model, Cmd Msg )
 init =
-    initialModel ! [ getWebData ]
+    initialModel ! [ getQuoteServiceWeighting ]
 
 
 initialModel : Model
@@ -17,6 +18,12 @@ initialModel =
     , postcode = NotEntered
     , ageRange = Nothing
     , email = Nothing
+    , quotes = Dict.empty
+    , services = Dict.empty
+    , weightings = Dict.empty
+    , fetchErrorMessage = ""
+    , currentQuote = Nothing
+    , remainingQuotes = Nothing
     }
 
 
@@ -38,12 +45,13 @@ update msg model =
         SetEmail email ->
             { model | email = Just email } ! []
 
-        ReceiveWebData (Err _) ->
-            model ! []
+        ReceiveQuoteServiceWeighting (Err _) ->
+            { model | fetchErrorMessage = "Something went wrong fetching the data." } ! []
 
-        ReceiveWebData (Ok data) ->
-            let
-                log =
-                    Debug.log "ermagerd data" data
-            in
-                model ! []
+        ReceiveQuoteServiceWeighting (Ok data) ->
+            { model
+                | quotes = data.quotes
+                , services = data.services
+                , weightings = data.weightings
+            }
+                ! []

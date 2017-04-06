@@ -10,6 +10,12 @@ type alias Model =
     , postcode : Postcode
     , ageRange : Maybe AgeRange
     , email : Maybe String
+    , quotes : Quotes
+    , services : Services
+    , weightings : Weightings
+    , fetchErrorMessage : String
+    , currentQuote : Maybe QuoteId
+    , remainingQuotes : Maybe (List QuoteId)
     }
 
 
@@ -72,10 +78,10 @@ type alias ServiceId =
     Int
 
 
-type alias WebData =
+type alias QuoteServiceWeighting =
     { quotes : Quotes
     , services : Services
-    , weights : Weightings
+    , weightings : Weightings
     }
 
 
@@ -85,4 +91,4 @@ type Msg
     | SetPostcode String
     | SetAgeRange AgeRange
     | SetEmail String
-    | ReceiveWebData (Result Http.Error WebData)
+    | ReceiveQuoteServiceWeighting (Result Http.Error QuoteServiceWeighting)

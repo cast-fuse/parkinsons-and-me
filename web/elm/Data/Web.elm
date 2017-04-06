@@ -8,18 +8,18 @@ import Dict exposing (..)
 import Set
 
 
-getWebData : Cmd Msg
-getWebData =
-    Http.get "/api/all" webDecoder
-        |> Http.send ReceiveWebData
+getQuoteServiceWeighting : Cmd Msg
+getQuoteServiceWeighting =
+    Http.get "/api/all" quoteServiceWeightingDecoder
+        |> Http.send ReceiveQuoteServiceWeighting
 
 
-webDecoder : Decoder WebData
-webDecoder =
-    decode WebData
+quoteServiceWeightingDecoder : Decoder QuoteServiceWeighting
+quoteServiceWeightingDecoder =
+    decode QuoteServiceWeighting
         |> required "quotes" quoteDecoder
         |> required "services" servicesDecoder
-        |> required "weights" weightingDecoder
+        |> required "weightings" weightingDecoder
 
 
 quoteDecoder : Decoder Quotes
@@ -64,10 +64,13 @@ rawWeightingDecoder =
 
 getQuoteIdsFromWeightings : List RawWeighting -> List Int
 getQuoteIdsFromWeightings rawWeightings =
-    rawWeightings
-        |> List.map .quote_id
-        |> Set.fromList
-        |> Set.toList
+    let
+        filterUnique =
+            Set.fromList >> Set.toList
+    in
+        rawWeightings
+            |> List.map .quote_id
+            |> filterUnique
 
 
 rawWeightingToDict : List RawWeighting -> Dict QuoteId (Dict ServiceId Float)
