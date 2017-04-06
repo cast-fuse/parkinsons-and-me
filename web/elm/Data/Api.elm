@@ -1,4 +1,4 @@
-module Data.Web exposing (..)
+module Data.Api exposing (..)
 
 import Json.Decode exposing (..)
 import Json.Decode.Pipeline exposing (..)
@@ -65,12 +65,12 @@ rawWeightingDecoder =
 getQuoteIdsFromWeightings : List RawWeighting -> List Int
 getQuoteIdsFromWeightings rawWeightings =
     let
-        filterUnique =
+        removeDuplicates =
             Set.fromList >> Set.toList
     in
         rawWeightings
             |> List.map .quote_id
-            |> filterUnique
+            |> removeDuplicates
 
 
 rawWeightingToDict : List RawWeighting -> Dict QuoteId (Dict ServiceId Float)

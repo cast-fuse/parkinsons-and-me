@@ -2,7 +2,7 @@ module Update exposing (..)
 
 import Model exposing (..)
 import Data.UserInfo exposing (validatePostcode)
-import Data.Web exposing (getQuoteServiceWeighting)
+import Data.Api exposing (getQuoteServiceWeighting)
 import Dict
 
 
