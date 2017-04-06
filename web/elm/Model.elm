@@ -16,6 +16,7 @@ type alias Model =
     , fetchErrorMessage : String
     , currentQuote : Maybe QuoteId
     , remainingQuotes : Maybe (List QuoteId)
+    , userWeightings : WeightingsDict
     }
 
 
@@ -60,7 +61,11 @@ type alias ServiceData =
 
 
 type alias Weightings =
-    Dict QuoteId (Dict ServiceId Float)
+    Dict QuoteId WeightingsDict
+
+
+type alias WeightingsDict =
+    Dict ServiceId Float
 
 
 type alias RawWeighting =

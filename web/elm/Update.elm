@@ -25,6 +25,7 @@ initialModel =
     , fetchErrorMessage = ""
     , currentQuote = Nothing
     , remainingQuotes = Nothing
+    , userWeightings = Dict.empty
     }
 
 
