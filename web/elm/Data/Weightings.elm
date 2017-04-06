@@ -4,8 +4,30 @@ import Model exposing (..)
 import Dict exposing (..)
 
 
--- import Data.Quotes exposing (..)
--- mergeWeightings : Weighting
+handleAnswer : Answer -> Model -> Model
+handleAnswer answer model =
+    let
+        newWeightings =
+            addWeightings model.userWeightings (getWeightingsById model.currentQuote model.weightings)
+    in
+        case answer of
+            Yes ->
+                { model | userWeightings = newWeightings }
+
+            No ->
+                model
+
+
+getWeightingsById : Maybe QuoteId -> Weightings -> WeightingsDict
+getWeightingsById qId weightings =
+    case qId of
+        Just i ->
+            weightings
+                |> Dict.get i
+                |> Maybe.withDefault Dict.empty
+
+        Nothing ->
+            Dict.empty
 
 
 makeEmptyWeightingsDict : Services -> WeightingsDict

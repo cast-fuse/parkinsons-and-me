@@ -44,6 +44,11 @@ type Postcode
     | Invalid String
 
 
+type Answer
+    = Yes
+    | No
+
+
 type alias Quotes =
     Dict QuoteId String
 
