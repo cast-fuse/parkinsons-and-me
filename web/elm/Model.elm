@@ -12,10 +12,12 @@ type alias Model =
     , email : Maybe String
     , quotes : Quotes
     , services : Services
+    , top3things : List ServiceData
     , weightings : Weightings
     , fetchErrorMessage : String
     , currentQuote : Maybe QuoteId
     , remainingQuotes : Maybe (List QuoteId)
+    , userWeightings : WeightingsDict
     }
 
 
@@ -43,6 +45,11 @@ type Postcode
     | Invalid String
 
 
+type Answer
+    = Yes
+    | No
+
+
 type alias Quotes =
     Dict QuoteId String
 
@@ -60,7 +67,11 @@ type alias ServiceData =
 
 
 type alias Weightings =
-    Dict QuoteId (Dict ServiceId Float)
+    Dict QuoteId WeightingsDict
+
+
+type alias WeightingsDict =
+    Dict ServiceId Float
 
 
 type alias RawWeighting =
@@ -92,3 +103,5 @@ type Msg
     | SetAgeRange AgeRange
     | SetEmail String
     | ReceiveQuoteServiceWeighting (Result Http.Error QuoteServiceWeighting)
+    | SubmitAnswer Answer
+    | HandleGoToQuotes

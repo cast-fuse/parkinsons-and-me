@@ -45,6 +45,6 @@ ageOption model ageRange =
 handleNext : Model -> Html Msg
 handleNext model =
     if isValidAgeRange model then
-        button [ class Styles.buttonBlue, onClick <| SetView Quotes ] [ text "Next" ]
+        button [ class Styles.buttonBlue, onClick <| HandleGoToQuotes ] [ text "Next" ]
     else
         button [ class Styles.buttonDisabled ] [ text "Next" ]
