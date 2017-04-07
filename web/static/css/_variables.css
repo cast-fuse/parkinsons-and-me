@@ -3,7 +3,7 @@
 @custom-media --breakpoint-large screen and (min-width: 60em);
 
 :root {
-  --sans-serif: lato, 'helvetica neue', helvetica, arial;
+  --sans-serif: Open Sans, Helvetica, Arial;
   --serif: georgia, serif;
   --code: consolas, monaco, monospace;
 
@@ -44,13 +44,15 @@
   --width-3: 4rem;
   --width-4: 6rem;
   --width-5: 8rem;
+  --width-6: 16rem;
+  --width-7: 24rem;
 
   --max-width-1: 1rem;
   --max-width-2: 2rem;
   --max-width-3: 4rem;
   --max-width-4: 8rem;
   --max-width-5: 16rem;
-  --max-width-6: 32rem;
+  --max-width-6: 35rem;
   --max-width-7: 48rem;
   --max-width-8: 64rem;
   --max-width-9: 96rem;
@@ -133,8 +135,8 @@
   --green:  #19a974;
   --light-green:  #C7FFDF;
   --navy:  #001b44;
-  --dark-blue:  #00449e;
-  --blue:  #357edd;
+  --dark-blue:  #006990;
+  --blue:  #0192C8;
   --light-blue:  #96ccff;
   --lightest-blue:  #cdecff;
   --washed-blue:  #f6fffe;

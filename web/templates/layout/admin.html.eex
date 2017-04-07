@@ -13,12 +13,12 @@
   </head>
 
   <body>
+    <p class="blue pa3 absolute" role="alert"><%= get_flash(@conn, :info) %></p>
+    <p class="red pa3 absolute" role="alert"><%= get_flash(@conn, :error) %></p>
 
-      <main>
+      <main class="ma3">
         <%= render @view_module, @view_template, assigns %>
       </main>
 
-    <script src="<%= static_path(@conn, "/js/elm.js") %>"></script>
-    <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </body>
 </html>

@@ -3,9 +3,10 @@ module View exposing (..)
 import Model exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Views.Router exposing (router)
 
 
 view : Model -> Html Msg
 view model =
-    div [ class "tc mt5" ]
-        [ p [ class "sans-serif" ] [ text "hello what3things" ] ]
+    div [ class "tc" ]
+        [ router model ]
