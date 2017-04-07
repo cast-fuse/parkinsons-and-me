@@ -12,6 +12,7 @@ type alias Model =
     , email : Maybe String
     , quotes : Quotes
     , services : Services
+    , top3things : List ServiceData
     , weightings : Weightings
     , fetchErrorMessage : String
     , currentQuote : Maybe QuoteId

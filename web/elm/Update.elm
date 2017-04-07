@@ -5,6 +5,7 @@ import Data.UserInfo exposing (validatePostcode)
 import Data.Api exposing (getQuoteServiceWeighting)
 import Data.Quotes exposing (..)
 import Data.Weightings exposing (..)
+import Data.Services exposing (..)
 import Dict
 
 
@@ -22,6 +23,7 @@ initialModel =
     , email = Nothing
     , quotes = Dict.empty
     , services = Dict.empty
+    , top3things = []
     , weightings = Dict.empty
     , fetchErrorMessage = ""
     , currentQuote = Nothing
@@ -66,6 +68,7 @@ update msg model =
                 |> handleAnswer answer
                 |> handleNextQuote
                 |> handleGoToServices
+                |> handleTop3Things
             )
                 ! []
 
