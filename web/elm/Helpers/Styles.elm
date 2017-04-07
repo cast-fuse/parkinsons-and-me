@@ -3,7 +3,7 @@ module Helpers.Styles exposing (..)
 
 button : String
 button =
-    "ph4 pv3 f5 outline-0"
+    "ph4 pv3 f5 outline-0 pointer"
 
 
 buttonBlue : String
