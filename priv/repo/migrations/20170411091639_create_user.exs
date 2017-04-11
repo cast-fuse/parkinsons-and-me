@@ -1,4 +1,4 @@
-defmodule What3things.Repo.Migrations.AddUsers do
+defmodule What3things.Repo.Migrations.CreateUser do
   use Ecto.Migration
 
   def change do
@@ -10,5 +10,6 @@ defmodule What3things.Repo.Migrations.AddUsers do
 
       timestamps()
     end
+
   end
 end

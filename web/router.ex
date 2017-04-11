@@ -38,5 +38,6 @@ defmodule What3things.Router do
     pipe_through :api
 
     get "/all", ElmController, :all
+    resources "/users", UserController, except: [:new, :edit, :delete]
   end
 end
