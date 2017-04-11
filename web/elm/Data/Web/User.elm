@@ -9,8 +9,8 @@ import Data.UserInfo exposing (..)
 
 postUserDetails : Model -> Cmd Msg
 postUserDetails model =
-    Http.post "/api/users" (Http.jsonBody <| makeUserJson model) createUserIdDecoder
-        |> Http.send PostUserDetails
+    Http.post "/api/users" (Http.jsonBody <| makeUserJson model) userIdDecoder
+        |> Http.send ReceiveUserId
 
 
 makeUserJson : Model -> Value
@@ -47,6 +47,6 @@ encodePostcode model =
     postCodeToString model.postcode
 
 
-createUserIdDecoder : Decoder Int
-createUserIdDecoder =
+userIdDecoder : Decoder Int
+userIdDecoder =
     Decode.at [ "data", "id" ] Decode.int

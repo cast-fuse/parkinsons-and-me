@@ -2,6 +2,7 @@ module Views.Services exposing (..)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Html.Events exposing (..)
 import Helpers.Styles as Styles
 import Components.Logo exposing (..)
 import Model exposing (..)
@@ -13,6 +14,8 @@ services model =
         [ logo
         , h2 [ class "blue mb4" ] [ text <| renderName model ]
         , div [ class "bg-blue pb6" ] (List.map renderService model.top3things)
+        , input [ onInput SetEmail, placeholder "put your email" ] []
+        , button [ onClick SubmitEmail ] [ text "submit" ]
         ]
 
 

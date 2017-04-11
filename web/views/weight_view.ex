@@ -5,7 +5,7 @@ defmodule What3things.WeightView do
     raw_weights
     |> Enum.sort_by(fn(x) -> x.quote.id end)
     |> Enum.chunk_by(fn(x) -> x.quote.body end)
-    |> Enum.map(fn(x) -> sort_by_sid(x) end)
+    |> Enum.map(&sort_by_sid/1)
   end
 
   def sort_by_sid(services) do

@@ -106,4 +106,6 @@ type Msg
     | ReceiveQuoteServiceWeighting (Result Http.Error QuoteServiceWeighting)
     | SubmitAnswer Answer
     | HandleGoToQuotes
-    | PostUserDetails (Result Http.Error Int)
+    | ReceiveUserId (Result Http.Error Int)
+    | PutUserEmail (Result Http.Error ())
+    | SubmitEmail

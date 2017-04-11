@@ -4,6 +4,7 @@ import Model exposing (..)
 import Data.UserInfo exposing (validatePostcode)
 import Data.Web.QuoteServiceWeighting exposing (getQuoteServiceWeighting)
 import Data.Web.User exposing (..)
+import Data.Web.UserEmail exposing (..)
 import Data.Quotes exposing (..)
 import Data.Weightings exposing (..)
 import Data.Services exposing (..)
@@ -47,11 +48,7 @@ update msg model =
             { model | postcode = validatePostcode postcode } ! []
 
         SetAgeRange ageRange ->
-            let
-                newModel =
-                    { model | ageRange = Just ageRange }
-            in
-                { model | ageRange = Just ageRange } ! [ postUserDetails newModel ]
+            { model | ageRange = Just ageRange } ! []
 
         SetEmail email ->
             { model | email = Just email } ! []
@@ -79,18 +76,27 @@ update msg model =
                 ! []
 
         HandleGoToQuotes ->
-            (handleGoToQuotes model) ! []
+            (handleGoToQuotes model) ! [ postUserDetails model ]
 
-        PostUserDetails (Err err) ->
+        ReceiveUserId (Err _) ->
+            model ! []
+
+        ReceiveUserId (Ok uId) ->
+            { model | userId = Just uId } ! []
+
+        PutUserEmail (Ok _) ->
             let
                 log =
-                    Debug.log "err" err
+                    Debug.log "user email submitted" ()
             in
                 model ! []
 
-        PostUserDetails (Ok data) ->
+        PutUserEmail (Err _) ->
             let
                 log =
-                    Debug.log "data" data
+                    Debug.log "error submitting email" ()
             in
                 model ! []
+
+        SubmitEmail ->
+            model ! [ sendUserEmail model ]
