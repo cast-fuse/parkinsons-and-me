@@ -6,6 +6,16 @@ import Json.Encode as Encode
 import Json.Decode as Decode exposing (..)
 
 
+handlePostAnswers : Model -> Cmd Msg
+handlePostAnswers model =
+    case model.view of
+        Services ->
+            postAnswers model
+
+        _ ->
+            Cmd.none
+
+
 postAnswers : Model -> Cmd Msg
 postAnswers model =
     case model.userId of

@@ -3,7 +3,7 @@ module Update exposing (..)
 import Model exposing (..)
 import Data.UserInfo exposing (validatePostcode)
 import Data.Web.QuoteServiceWeighting exposing (getQuoteServiceWeighting)
-import Data.Web.Answers exposing (postAnswers)
+import Data.Web.Answers exposing (handlePostAnswers)
 import Data.Web.User exposing (..)
 import Data.Web.UserEmail exposing (..)
 import Data.Quotes exposing (..)
@@ -74,14 +74,16 @@ update msg model =
                     ! []
 
         SubmitAnswer answer ->
-            (model
-                |> handleAnswer answer
-                |> updateWeightings answer
-                |> handleNextQuote
-                |> handleGoToServices
-                |> handleTop3Things
-            )
-                ! []
+            let
+                newModel =
+                    model
+                        |> handleAnswer answer
+                        |> updateWeightings answer
+                        |> handleNextQuote
+                        |> handleGoToServices
+                        |> handleTop3Things
+            in
+                newModel ! [ handlePostAnswers newModel ]
 
         HandleGoToQuotes ->
             (handleGoToQuotes model) ! [ postUserDetails model ]
