@@ -9,7 +9,6 @@ defmodule What3things.WeightController do
       |> Repo.preload(:quote)
       |> Repo.preload(:service)
 
-    weights = Enum.chunk_by(weights, fn(x) -> x.quote.body end)
     render conn, "index.html", weights: weights
   end
 

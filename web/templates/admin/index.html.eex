@@ -1,0 +1,19 @@
+<h1 class="tc">Admin Dashboard</h1>
+
+<div class="center flex justify-center">
+  <%= link to: quote_path(@conn, :index), class: "w-30 no-underline blue mr3" do %>
+    <div class="w-100 dib center mb4 tc bg-light-blue pa4">
+        <h3>Quotes</h3>
+    </div>
+  <% end %>
+  <%= link to: service_path(@conn, :index), class: "w-30 no-underline green mr3" do %>
+    <div class="w-100 dib center mb4 tc bg-light-green pa4">
+        <h3>Services</h3>
+    </div>
+  <% end %>
+  <%= link to: weight_path(@conn, :index), class: "w-30 no-underline orange" do %>
+    <div class="w-100 dib center mb4 tc bg-yellow pa4">
+        <h3>Weights</h3>
+    </div>
+  <% end %>
+</div>
