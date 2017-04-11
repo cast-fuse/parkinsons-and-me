@@ -59,18 +59,24 @@ update msg model =
             { model | fetchErrorMessage = "Something went wrong fetching the data." } ! []
 
         ReceiveQuoteServiceWeighting (Ok data) ->
-            { model
-                | quotes = data.quotes
-                , services = data.services
-                , weightings = data.weightings
-                , remainingQuotes = data.quotes |> getQuoteIds |> Just
-                , userWeightings = makeEmptyWeightingsDict data.services
-            }
-                ! []
+            let
+                qIds =
+                    getQuoteIds data.quotes
+            in
+                { model
+                    | quotes = data.quotes
+                    , services = data.services
+                    , weightings = data.weightings
+                    , remainingQuotes = List.tail qIds
+                    , currentQuote = List.head qIds
+                    , userWeightings = makeEmptyWeightingsDict data.services
+                }
+                    ! []
 
         SubmitAnswer answer ->
             (model
                 |> handleAnswer answer
+                |> updateWeightings answer
                 |> handleNextQuote
                 |> handleGoToServices
                 |> handleTop3Things
