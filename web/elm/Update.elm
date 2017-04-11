@@ -2,7 +2,8 @@ module Update exposing (..)
 
 import Model exposing (..)
 import Data.UserInfo exposing (validatePostcode)
-import Data.Api exposing (getQuoteServiceWeighting)
+import Data.Web.QuoteServiceWeighting exposing (getQuoteServiceWeighting)
+import Data.Web.User exposing (..)
 import Data.Quotes exposing (..)
 import Data.Weightings exposing (..)
 import Data.Services exposing (..)
@@ -21,6 +22,7 @@ initialModel =
     , postcode = NotEntered
     , ageRange = Nothing
     , email = Nothing
+    , userId = Nothing
     , quotes = Dict.empty
     , services = Dict.empty
     , top3things = []
@@ -45,7 +47,11 @@ update msg model =
             { model | postcode = validatePostcode postcode } ! []
 
         SetAgeRange ageRange ->
-            { model | ageRange = Just ageRange } ! []
+            let
+                newModel =
+                    { model | ageRange = Just ageRange }
+            in
+                { model | ageRange = Just ageRange } ! [ postUserDetails newModel ]
 
         SetEmail email ->
             { model | email = Just email } ! []
@@ -74,3 +80,17 @@ update msg model =
 
         HandleGoToQuotes ->
             (handleGoToQuotes model) ! []
+
+        PostUserDetails (Err err) ->
+            let
+                log =
+                    Debug.log "err" err
+            in
+                model ! []
+
+        PostUserDetails (Ok data) ->
+            let
+                log =
+                    Debug.log "data" data
+            in
+                model ! []
