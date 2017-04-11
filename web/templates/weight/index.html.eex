@@ -1,18 +1,28 @@
-<h1>All Weights</h1>
+<%= render What3things.AdminView, "back.html", conn: @conn %>
 
-<%= for [h | t] = weight <- @weights do %>
-  <h3>
-    <%= h.quote.body %>
-  </h3>
-  <%= for w <- weight do %>
-    <div class="dib">
-      <p class="blue">
-        <%= w.service.title %>
-      </p>
-      <%= link to: weight_path(@conn, :edit, w), class: "red f5 no-underline" do %>
-        <%= w.weight %>
-      <% end %>
-    </div>
-  <% end %>
+<h1 class="tc mb5">Weights</h1>
 
+<%= for [h | _t] = weight <- group_by_quote(@weights) do %>
+    <h3>
+      Quote - "<%= h.quote.body %>"
+    </h3>
+    <table class="mb5">
+      <tr>
+        <%= for w <- weight do %>
+          <th class="blue pb3" style="font-size: 0.75rem">
+            <%= w.service.title %>
+          </th>
+        <% end %>
+      </tr>
+      <tr>
+        <%= for w <- weight do %>
+          <td class="tc">
+            <% weight_color = get_color(w.weight) %>
+            <%= link to: weight_path(@conn, :edit, w), class: "#{weight_color} pa2 br3 f5 no-underline" do %>
+              <%= w.weight %>
+            <% end %>
+          </td>
+        <% end %>
+      </tr>
+    </table>
 <% end %>

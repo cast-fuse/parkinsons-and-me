@@ -27,9 +27,10 @@ defmodule What3things.Router do
     pipe_through :browser
     pipe_through :admin
 
-    resources "/quotes", QuoteController, only: [:index, :new, :create]
-    resources "/services", ServiceController, only: [:index, :new, :create]
-    resources "/weights", WeightController, only: [:index, :update, :edit]
+    get "/", AdminController, :index
+    resources "/quotes", QuoteController, only: [:index]
+    resources "/services", ServiceController, only: [:index]
+    resources "/weights", WeightController, only: [:index, :edit, :update]
   end
 
   # Other scopes may use custom stacks.

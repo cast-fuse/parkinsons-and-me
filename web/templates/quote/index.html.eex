@@ -1,8 +1,6 @@
-<h1>Quotes</h1>
+<%= render What3things.AdminView, "back.html", conn: @conn %>
 
-<%= link "New Quotes", to: quote_path(@conn, :new), class: "blue" %>
-
-<h2>current quotes</h2>
+<h1 class="tc">Quotes</h1>
 <ul>
   <%= for q <- @quotes do %>
     <li>
