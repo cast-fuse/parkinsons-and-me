@@ -3,6 +3,7 @@ module Update exposing (..)
 import Model exposing (..)
 import Data.UserInfo exposing (validatePostcode)
 import Data.Web.QuoteServiceWeighting exposing (getQuoteServiceWeighting)
+import Data.Web.Answers exposing (postAnswers)
 import Data.Web.User exposing (..)
 import Data.Web.UserEmail exposing (..)
 import Data.Quotes exposing (..)
@@ -32,6 +33,7 @@ initialModel =
     , currentQuote = Nothing
     , remainingQuotes = Nothing
     , userWeightings = Dict.empty
+    , userAnswers = []
     }
 
 
@@ -85,18 +87,13 @@ update msg model =
             { model | userId = Just uId } ! []
 
         PutUserEmail (Ok _) ->
-            let
-                log =
-                    Debug.log "user email submitted" ()
-            in
-                model ! []
+            model ! []
 
         PutUserEmail (Err _) ->
-            let
-                log =
-                    Debug.log "error submitting email" ()
-            in
-                model ! []
+            model ! []
 
         SubmitEmail ->
             model ! [ sendUserEmail model ]
+
+        PostUserAnswers _ ->
+            model ! []

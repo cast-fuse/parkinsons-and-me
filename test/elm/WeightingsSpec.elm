@@ -14,16 +14,16 @@ all =
     describe "Weightings Spec Test Suite"
         [ makeEmptyWeightingsDictSpec
         , addWeightingsSpec
-        , handleAnswerSpec
+        , updateWeightingsSpec
         ]
 
 
-handleAnswerSpec : Test
-handleAnswerSpec =
-    describe "handleAnswer"
+updateWeightingsSpec : Test
+updateWeightingsSpec =
+    describe "updateWeightings"
         [ test "given a Yes will add the current weightings together" <|
             \() ->
-                Expect.equal (handleAnswer Yes firstQuoteModel) secondQuoteModel
+                Expect.equal (updateWeightings Yes firstQuoteModel) secondQuoteModel
         ]
 
 
