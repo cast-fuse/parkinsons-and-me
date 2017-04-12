@@ -62,12 +62,23 @@ getWeightingsById qId weightings =
 
 relevantWeightings : Model -> Weightings
 relevantWeightings model =
+    if shouldReceiveEarlyOnsetWeightings model then
+        model.earlyOnsetWeightings
+    else
+        model.weightings
+
+
+shouldReceiveEarlyOnsetWeightings : Model -> Bool
+shouldReceiveEarlyOnsetWeightings model =
     case model.ageRange of
         Just UnderForty ->
-            model.earlyOnsetWeightings
+            True
+
+        Just Forties ->
+            True
 
         _ ->
-            model.weightings
+            False
 
 
 makeEmptyWeightingsDict : Services -> WeightingsDict
