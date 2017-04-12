@@ -14,8 +14,11 @@ services model =
         [ logo
         , h2 [ class "blue mb4" ] [ text <| renderName model ]
         , div [ class "bg-blue pb6" ] (List.map renderService model.top3things)
-        , input [ onInput SetEmail, placeholder "put your email" ] []
-        , button [ onClick SubmitEmail ] [ text "submit" ]
+        , div [ class "mw7 center mv4" ]
+            [ h3 [ class "blue" ] [ text "If you'd like a copy of your results for futute reference, please enter your email" ]
+            , input [ onInput SetEmail, class (Styles.inputField ++ " mw5 center"), placeholder "put your email" ] []
+            , button [ onClick SubmitEmail, class (Styles.buttonBlue ++ " mt3") ] [ text "submit" ]
+            ]
         ]
 
 
