@@ -7,7 +7,6 @@ import Dict exposing (..)
 handleGoToQuotes : Model -> Model
 handleGoToQuotes model =
     { model | view = Quotes }
-        |> handleNextQuote
 
 
 handleGoToServices : Model -> Model
@@ -26,6 +25,16 @@ handleNextQuote model =
         | currentQuote = nextQuote model.remainingQuotes
         , remainingQuotes = remainingQuotes model.remainingQuotes
     }
+
+
+handleAnswer : Answer -> Model -> Model
+handleAnswer answer model =
+    case model.currentQuote of
+        Just qId ->
+            { model | userAnswers = model.userAnswers ++ [ ( qId, answer ) ] }
+
+        Nothing ->
+            model
 
 
 nextQuote : Maybe (List QuoteId) -> Maybe QuoteId

@@ -10,6 +10,7 @@ type alias Model =
     , postcode : Postcode
     , ageRange : Maybe AgeRange
     , email : Maybe String
+    , userId : Maybe Int
     , quotes : Quotes
     , services : Services
     , top3things : List ServiceData
@@ -18,6 +19,7 @@ type alias Model =
     , currentQuote : Maybe QuoteId
     , remainingQuotes : Maybe (List QuoteId)
     , userWeightings : WeightingsDict
+    , userAnswers : List ( QuoteId, Answer )
     }
 
 
@@ -105,3 +107,7 @@ type Msg
     | ReceiveQuoteServiceWeighting (Result Http.Error QuoteServiceWeighting)
     | SubmitAnswer Answer
     | HandleGoToQuotes
+    | ReceiveUserId (Result Http.Error Int)
+    | PutUserEmail (Result Http.Error ())
+    | SubmitEmail
+    | PostUserAnswers (Result Http.Error ())

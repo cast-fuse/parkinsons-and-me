@@ -2,6 +2,7 @@ defmodule What3things.UserController do
   use What3things.Web, :controller
 
   alias What3things.User
+  import Ecto.Query
 
   def index(conn, _params) do
     users = Repo.all(User)
@@ -9,8 +10,29 @@ defmodule What3things.UserController do
   end
 
   def create(conn, %{"user" => user_params}) do
+    %{"name" => name,
+      "postcode" => postcode,
+      "age_range" => age_range} = user_params
+
+    existing_user = Repo.all(
+      from u in What3things.User,
+      where: u.name == ^name and u.postcode == ^postcode and u.age_range == ^age_range,
+      select: u
+    )
+
     changeset = User.changeset(%User{}, user_params)
 
+    case existing_user do
+      [] ->
+        conn
+        |> create_user(changeset)
+      [user | _] ->
+        conn
+        |> render("show.json", user: user)
+    end
+  end
+
+  defp create_user(conn, changeset) do
     case Repo.insert(changeset) do
       {:ok, user} ->
         conn

@@ -1,4 +1,4 @@
-module Data.Api exposing (..)
+module Data.Web.QuoteServiceWeighting exposing (..)
 
 import Json.Decode exposing (..)
 import Json.Decode.Pipeline exposing (..)

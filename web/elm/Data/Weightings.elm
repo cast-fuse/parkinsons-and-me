@@ -4,8 +4,8 @@ import Model exposing (..)
 import Dict exposing (..)
 
 
-handleAnswer : Answer -> Model -> Model
-handleAnswer answer model =
+updateWeightings : Answer -> Model -> Model
+updateWeightings answer model =
     let
         newWeightings =
             addWeightings model.userWeightings (getWeightingsById model.currentQuote model.weightings)
