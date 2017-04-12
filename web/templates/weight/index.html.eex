@@ -9,7 +9,7 @@
     <table class="mb5">
       <tr>
         <%= for w <- weight do %>
-          <th class="blue pb3" style="font-size: 0.75rem">
+          <th class="blue pa3" style="font-size: 0.75rem">
             <%= w.service.title %>
           </th>
         <% end %>

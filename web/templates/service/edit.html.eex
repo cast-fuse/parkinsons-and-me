@@ -2,5 +2,25 @@
 <h1 class="orange">Edit Service</h1>
 <%= form_for @changeset, service_path(@conn, :update, @service), fn f -> %>
   <h5 class="blue">Title</h5>
-  <%= text_input f, :title, placeholder: "Service title" %>
+  <p class="red"><%= error_tag f, :title %></p>
+  <%= text_input f, :title, placeholder: "Service title", class: "w6" %>
+
+  <h5 class="blue">Body</h5>
+  <p class="red"><%= error_tag f, :body %></p>
+  <%= textarea f, :body, placeholder: "service body", class: "w7 h4" %>
+
+  <h5 class="blue">Call to action</h5>
+  <p class="red"><%= error_tag f, :cta %></p>
+  <%= text_input f, :cta, placeholder: "call to action", class: "w6" %>
+
+  <h5 class="blue">Link to service</h5>
+  <p class="red"><%= error_tag f, :url %></p>
+  <%= text_input f, :url, placeholder: "link to service", class: "w6" %>
+
+  <div>
+    <h5 class="blue dib">Is early onset</h5>
+    <%= checkbox f, :early_onset, class: "dib" %>
+  </div>
+
+  <%= submit "Edit service" %>
 <% end %>
