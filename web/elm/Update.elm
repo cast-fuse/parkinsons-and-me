@@ -2,7 +2,7 @@ module Update exposing (..)
 
 import Model exposing (..)
 import Data.UserInfo exposing (validatePostcode)
-import Data.Web.QuoteServiceWeighting exposing (getQuoteServiceWeighting)
+import Data.Web.QuoteServiceWeightings exposing (getQuoteServiceWeightings)
 import Data.Web.Answers exposing (handlePostAnswers)
 import Data.Web.User exposing (..)
 import Data.Web.UserEmail exposing (..)
@@ -14,7 +14,7 @@ import Dict
 
 init : ( Model, Cmd Msg )
 init =
-    initialModel ! [ getQuoteServiceWeighting ]
+    initialModel ! [ getQuoteServiceWeightings ]
 
 
 initialModel : Model
@@ -29,6 +29,7 @@ initialModel =
     , services = Dict.empty
     , top3things = []
     , weightings = Dict.empty
+    , earlyOnsetWeightings = Dict.empty
     , fetchErrorMessage = ""
     , currentQuote = Nothing
     , remainingQuotes = Nothing
@@ -55,10 +56,10 @@ update msg model =
         SetEmail email ->
             { model | email = Just email } ! []
 
-        ReceiveQuoteServiceWeighting (Err _) ->
+        ReceiveQuoteServiceWeightings (Err _) ->
             { model | fetchErrorMessage = "Something went wrong fetching the data." } ! []
 
-        ReceiveQuoteServiceWeighting (Ok data) ->
+        ReceiveQuoteServiceWeightings (Ok data) ->
             let
                 qIds =
                     getQuoteIds data.quotes
@@ -67,6 +68,7 @@ update msg model =
                     | quotes = data.quotes
                     , services = data.services
                     , weightings = data.weightings
+                    , earlyOnsetWeightings = handleEarlyOnsetWeightings data
                     , remainingQuotes = List.tail qIds
                     , currentQuote = List.head qIds
                     , userWeightings = makeEmptyWeightingsDict data.services

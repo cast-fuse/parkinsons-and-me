@@ -1,4 +1,4 @@
-module Data.Web.QuoteServiceWeighting exposing (..)
+module Data.Web.QuoteServiceWeightings exposing (..)
 
 import Json.Decode exposing (..)
 import Json.Decode.Pipeline exposing (..)
@@ -8,15 +8,15 @@ import Dict exposing (..)
 import Set
 
 
-getQuoteServiceWeighting : Cmd Msg
-getQuoteServiceWeighting =
-    Http.get "/api/all" quoteServiceWeightingDecoder
-        |> Http.send ReceiveQuoteServiceWeighting
+getQuoteServiceWeightings : Cmd Msg
+getQuoteServiceWeightings =
+    Http.get "/api/all" quoteServiceWeightingsDecoder
+        |> Http.send ReceiveQuoteServiceWeightings
 
 
-quoteServiceWeightingDecoder : Decoder QuoteServiceWeighting
-quoteServiceWeightingDecoder =
-    decode QuoteServiceWeighting
+quoteServiceWeightingsDecoder : Decoder QuoteServiceWeightings
+quoteServiceWeightingsDecoder =
+    decode QuoteServiceWeightings
         |> required "quotes" quoteDecoder
         |> required "services" servicesDecoder
         |> required "weightings" weightingDecoder

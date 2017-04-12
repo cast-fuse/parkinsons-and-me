@@ -15,6 +15,7 @@ type alias Model =
     , services : Services
     , top3things : List ServiceData
     , weightings : Weightings
+    , earlyOnsetWeightings : Weightings
     , fetchErrorMessage : String
     , currentQuote : Maybe QuoteId
     , remainingQuotes : Maybe (List QuoteId)
@@ -92,7 +93,7 @@ type alias ServiceId =
     Int
 
 
-type alias QuoteServiceWeighting =
+type alias QuoteServiceWeightings =
     { quotes : Quotes
     , services : Services
     , weightings : Weightings
@@ -105,7 +106,7 @@ type Msg
     | SetPostcode String
     | SetAgeRange AgeRange
     | SetEmail String
-    | ReceiveQuoteServiceWeighting (Result Http.Error QuoteServiceWeighting)
+    | ReceiveQuoteServiceWeightings (Result Http.Error QuoteServiceWeightings)
     | SubmitAnswer Answer
     | HandleGoToQuotes
     | ReceiveUserId (Result Http.Error Int)
