@@ -13,7 +13,7 @@ dummyWeightings =
 
 dummyServiceData : ServiceData
 dummyServiceData =
-    ServiceData "" "" "" ""
+    ServiceData "" "" "" "" False
 
 
 servicesDict : Services

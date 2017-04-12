@@ -4,11 +4,41 @@ import Model exposing (..)
 import Dict exposing (..)
 
 
+handleEarlyOnsetWeightings : QuoteServiceWeightings -> Weightings
+handleEarlyOnsetWeightings quoteServiceWeightings =
+    let
+        serviceIds =
+            getEarlyOnsetIds quoteServiceWeightings.services
+    in
+        alterWeightings serviceIds quoteServiceWeightings.weightings
+
+
+alterWeightings : List ServiceId -> Weightings -> Weightings
+alterWeightings serviceIds weightings =
+    let
+        alterWeight sId weight =
+            if List.member sId serviceIds then
+                weight * 3
+            else
+                weight
+    in
+        weightings
+            |> Dict.map (\_ weightingsDict -> Dict.map alterWeight weightingsDict)
+
+
+getEarlyOnsetIds : Services -> List ServiceId
+getEarlyOnsetIds services =
+    services
+        |> Dict.toList
+        |> List.filter (\( sid, { earlyOnset } ) -> earlyOnset)
+        |> List.map Tuple.first
+
+
 updateWeightings : Answer -> Model -> Model
 updateWeightings answer model =
     let
         newWeightings =
-            addWeightings model.userWeightings (getWeightingsById model.currentQuote model.weightings)
+            addWeightings model.userWeightings (getWeightingsById model.currentQuote <| relevantWeightings model)
     in
         case answer of
             Yes ->
@@ -28,6 +58,27 @@ getWeightingsById qId weightings =
 
         Nothing ->
             Dict.empty
+
+
+relevantWeightings : Model -> Weightings
+relevantWeightings model =
+    if shouldReceiveEarlyOnsetWeightings model then
+        model.earlyOnsetWeightings
+    else
+        model.weightings
+
+
+shouldReceiveEarlyOnsetWeightings : Model -> Bool
+shouldReceiveEarlyOnsetWeightings model =
+    case model.ageRange of
+        Just UnderForty ->
+            True
+
+        Just Forties ->
+            True
+
+        _ ->
+            False
 
 
 makeEmptyWeightingsDict : Services -> WeightingsDict
