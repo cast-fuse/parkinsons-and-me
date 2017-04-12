@@ -4,6 +4,14 @@ import Model exposing (..)
 import Dict exposing (..)
 
 
+getEarlyOnsetIds : Services -> List ServiceId
+getEarlyOnsetIds services =
+    services
+        |> Dict.toList
+        |> List.filter (\( sid, { earlyOnset } ) -> earlyOnset)
+        |> List.map Tuple.first
+
+
 updateWeightings : Answer -> Model -> Model
 updateWeightings answer model =
     let

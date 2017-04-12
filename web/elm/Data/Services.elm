@@ -30,4 +30,4 @@ top3things userWeightings services =
 
 nullServiceData : ServiceData
 nullServiceData =
-    ServiceData "" "" "" ""
+    ServiceData "" "" "" "" False

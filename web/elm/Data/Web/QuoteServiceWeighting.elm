@@ -41,12 +41,13 @@ servicesDecoder =
 
 rawServiceDecoder : Decoder ( ServiceId, ServiceData )
 rawServiceDecoder =
-    decode (\serviceId body title cta url -> ( serviceId, ServiceData title body cta url ))
+    decode (\serviceId body title cta url earlyOnset -> ( serviceId, ServiceData title body cta url earlyOnset ))
         |> required "id" int
         |> required "body" string
         |> required "title" string
         |> required "cta" string
         |> required "url" string
+        |> required "early_onset" bool
 
 
 weightingDecoder : Decoder Weightings
