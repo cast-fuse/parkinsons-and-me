@@ -1,0 +1,6 @@
+<%= link "back to services", to: service_path(@conn, :index), class: "no-underline blue" %>
+<h1 class="orange">Edit Service</h1>
+<%= form_for @changeset, service_path(@conn, :update, @service), fn f -> %>
+  <h5 class="blue">Title</h5>
+  <%= text_input f, :title, placeholder: "Service title" %>
+<% end %>

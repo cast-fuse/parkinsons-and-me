@@ -6,4 +6,11 @@ defmodule What3things.ServiceController do
     services = Repo.all(Service)
     render conn, "index.html", services: services
   end
+
+  def edit(conn, %{"id" => service_id}) do
+    service = Repo.get(Service, service_id)
+    changeset = Service.changeset(service)
+
+    render conn, "edit.html", changeset: changeset, service: service
+  end
 end

@@ -6,6 +6,9 @@
   <%= for service <- @services do %>
   <li>
     <%= service.title %>
+    <%= link to: service_path(@conn, :edit, service) do %>
+      <p>Edit</p>
+    <% end %>
   </li>
   <% end %>
 </ul>
