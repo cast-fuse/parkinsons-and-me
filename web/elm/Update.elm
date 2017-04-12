@@ -9,6 +9,7 @@ import Data.Web.UserEmail exposing (..)
 import Data.Quotes exposing (..)
 import Data.Weightings exposing (..)
 import Data.Services exposing (..)
+import Data.Shuffle exposing (..)
 import Dict
 
 
@@ -60,20 +61,17 @@ update msg model =
             { model | fetchErrorMessage = "Something went wrong fetching the data." } ! []
 
         ReceiveQuoteServiceWeightings (Ok data) ->
-            let
-                qIds =
-                    getQuoteIds data.quotes
-            in
-                { model
-                    | quotes = data.quotes
-                    , services = data.services
-                    , weightings = data.weightings
-                    , earlyOnsetWeightings = handleEarlyOnsetWeightings data
-                    , remainingQuotes = List.tail qIds
-                    , currentQuote = List.head qIds
-                    , userWeightings = makeEmptyWeightingsDict data.services
-                }
-                    ! []
+            { model
+                | quotes = data.quotes
+                , services = data.services
+                , weightings = data.weightings
+                , userWeightings = makeEmptyWeightingsDict data.services
+                , earlyOnsetWeightings = handleEarlyOnsetWeightings data
+            }
+                ! [ shuffleQuoteIds <| getQuoteIds data.quotes ]
+
+        ShuffleQuoteIds qIds randomList ->
+            (model |> handleShuffleQuotes qIds randomList) ! []
 
         SubmitAnswer answer ->
             let
@@ -97,7 +95,7 @@ update msg model =
             { model | userId = Just uId } ! []
 
         PutUserEmail (Ok _) ->
-            model ! []
+            { model | email = Nothing } ! []
 
         PutUserEmail (Err _) ->
             model ! []

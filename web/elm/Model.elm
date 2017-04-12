@@ -107,6 +107,7 @@ type Msg
     | SetAgeRange AgeRange
     | SetEmail String
     | ReceiveQuoteServiceWeightings (Result Http.Error QuoteServiceWeightings)
+    | ShuffleQuoteIds (List QuoteId) (List Int)
     | SubmitAnswer Answer
     | HandleGoToQuotes
     | ReceiveUserId (Result Http.Error Int)
