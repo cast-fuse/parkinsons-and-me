@@ -1,7 +1,7 @@
 defmodule What3things.User do
   use What3things.Web, :model
 
-  @derive{Poison.Encoder, only: [:name, :age_range, :postcode, :email]}
+  @derive{Poison.Encoder, only: [:name, :age_range, :postcode, :email, :id]}
   schema "users" do
     field :name, :string
     field :age_range, :string

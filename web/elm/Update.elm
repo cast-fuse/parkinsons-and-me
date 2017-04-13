@@ -4,6 +4,7 @@ import Model exposing (..)
 import Data.UserInfo exposing (validatePostcode)
 import Data.Web.QuoteServiceWeightings exposing (getQuoteServiceWeightings)
 import Data.Web.Answers exposing (handlePostAnswers)
+import Data.Web.PreviousResults exposing (getPreviousResults)
 import Data.Web.User exposing (..)
 import Data.Web.UserEmail exposing (..)
 import Data.Quotes exposing (..)
@@ -17,7 +18,9 @@ import Navigation
 init : Navigation.Location -> ( Model, Cmd Msg )
 init location =
     { initialModel | currentHash = location.hash }
-        ! [ getQuoteServiceWeightings ]
+        ! [ getQuoteServiceWeightings
+          , getPreviousResults
+          ]
 
 
 initialModel : Model
@@ -111,3 +114,9 @@ update msg model =
 
         UrlChange location ->
             { model | currentHash = location.hash } ! []
+
+        ReceivePreviousResults (Err err) ->
+            model ! []
+
+        ReceivePreviousResults (Ok res) ->
+            model ! []

@@ -87,12 +87,27 @@ type alias RawWeighting =
     }
 
 
+type alias RawUser =
+    { id : Int
+    , name : String
+    , ageRange : AgeRange
+    , email : String
+    , postcode : String
+    }
+
+
 type alias QuoteId =
     Int
 
 
 type alias ServiceId =
     Int
+
+
+type alias PreviousResults =
+    { user : RawUser
+    , answers : List ( QuoteId, Answer )
+    }
 
 
 type alias QuoteServiceWeightings =
@@ -117,3 +132,4 @@ type Msg
     | SubmitEmail
     | PostUserAnswers (Result Http.Error ())
     | UrlChange Navigation.Location
+    | ReceivePreviousResults (Result Http.Error PreviousResults)

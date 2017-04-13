@@ -15,18 +15,14 @@ defmodule What3things.ElmController do
   end
 
   def previous_results(conn, %{"answer_id" => answer_id}) do
-    quotes = Repo.all(Quote)
-    services = Repo.all(Service)
-    weightings = Repo.all(Weight)
-
     case Repo.get(Answer, answer_id) do
       nil ->
         conn
         |> put_status(:not_found)
         |> render(What3things.ErrorView, "404.json")
-      answer ->
-        user = Repo.get(User, answer.user_id)
-        json conn, %{quotes: quotes, services: services, weightings: weightings, user: user, answer: answer}
+      answers ->
+        user = Repo.get(User, answers.user_id)
+        json conn, %{user: user, answers: answers}
     end
   end
 end
