@@ -5,6 +5,7 @@ import Http exposing (..)
 import Json.Encode as Encode
 import Json.Decode as Decode exposing (..)
 import Data.UserInfo exposing (..)
+import Data.Web.Normalise exposing (..)
 
 
 postUserDetails : Model -> Cmd Msg
@@ -34,17 +35,19 @@ makeUserDetailsJson model =
 encodeName : Model -> String
 encodeName model =
     Maybe.withDefault "" model.name
+        |> normaliseName
 
 
 encodeAgeRange : Model -> String
 encodeAgeRange model =
     Maybe.withDefault UnderForty model.ageRange
-        |> ageRangeToString
+        |> normaliseAgeRange
 
 
 encodePostcode : Model -> String
 encodePostcode model =
     postCodeToString model.postcode
+        |> normalisePostcode
 
 
 userIdDecoder : Decoder Int
