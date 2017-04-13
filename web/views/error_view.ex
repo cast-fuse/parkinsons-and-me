@@ -14,4 +14,8 @@ defmodule What3things.ErrorView do
  def template_not_found(_template, assigns) do
    render "500.html", assigns
  end
+
+ def render("404.json", _assigns) do
+   %{error: "resource not found"}
+ end
 end
