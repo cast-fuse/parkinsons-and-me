@@ -11,11 +11,13 @@ import Data.Weightings exposing (..)
 import Data.Services exposing (..)
 import Data.Shuffle exposing (..)
 import Dict
+import Navigation
 
 
-init : ( Model, Cmd Msg )
-init =
-    initialModel ! [ getQuoteServiceWeightings ]
+init : Navigation.Location -> ( Model, Cmd Msg )
+init location =
+    { initialModel | currentHash = location.hash }
+        ! [ getQuoteServiceWeightings ]
 
 
 initialModel : Model
@@ -36,6 +38,7 @@ initialModel =
     , remainingQuotes = Nothing
     , userWeightings = Dict.empty
     , userAnswers = []
+    , currentHash = ""
     }
 
 
@@ -105,3 +108,6 @@ update msg model =
 
         PostUserAnswers _ ->
             model ! []
+
+        UrlChange location ->
+            { model | currentHash = location.hash } ! []

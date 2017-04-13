@@ -2,6 +2,7 @@ module Model exposing (..)
 
 import Dict exposing (..)
 import Http
+import Navigation
 
 
 type alias Model =
@@ -21,6 +22,7 @@ type alias Model =
     , remainingQuotes : Maybe (List QuoteId)
     , userWeightings : WeightingsDict
     , userAnswers : List ( QuoteId, Answer )
+    , currentHash : String
     }
 
 
@@ -114,3 +116,4 @@ type Msg
     | PutUserEmail (Result Http.Error ())
     | SubmitEmail
     | PostUserAnswers (Result Http.Error ())
+    | UrlChange Navigation.Location
