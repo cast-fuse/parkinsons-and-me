@@ -78,7 +78,10 @@ update msg model =
                 ! [ shuffleQuoteIds <| getQuoteIds data.quotes ]
 
         ShuffleQuoteIds qIds randomList ->
-            (model |> handleShuffleQuotes qIds randomList) ! []
+            (model
+                |> handleShuffleQuotes qIds randomList
+            )
+                ! []
 
         SubmitAnswer answer ->
             let
@@ -114,10 +117,10 @@ update msg model =
             model ! []
 
         UrlChange location ->
-            { model | currentHash = location.hash } ! []
+            { model | entryPoint = setEntryPoint location } ! []
 
         ReceivePreviousResults (Err err) ->
             model ! []
 
         ReceivePreviousResults (Ok res) ->
-            model ! []
+            (model |> loadPreviousResults res) ! []

@@ -21,8 +21,11 @@ defmodule What3things.ElmController do
         |> put_status(:not_found)
         |> render(What3things.ErrorView, "404.json")
       answers ->
+        quotes = Repo.all(Quote)
+        services = Repo.all(Service)
+        weightings = Repo.all(Weight)
         user = Repo.get(User, answers.user_id)
-        json conn, %{user: user, answers: answers}
+        json conn, %{user: user, answers: answers, quotes: quotes, services: services, weightings: weightings}
     end
   end
 end

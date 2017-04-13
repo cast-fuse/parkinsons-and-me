@@ -5,6 +5,7 @@ import Json.Decode exposing (..)
 import Json.Decode.Pipeline exposing (..)
 import Data.Web.Normalise exposing (..)
 import Data.Web.Answers exposing (..)
+import Data.Web.QuoteServiceWeightings exposing (..)
 import Model exposing (..)
 import Dict exposing (..)
 
@@ -20,6 +21,9 @@ previousResultsDecoder =
     decode PreviousResults
         |> required "user" rawUserDecoder
         |> required "answers" answersDecoder
+        |> required "quotes" quoteDecoder
+        |> required "services" servicesDecoder
+        |> required "weightings" weightingDecoder
 
 
 answersDecoder : Decoder (List ( QuoteId, Answer ))

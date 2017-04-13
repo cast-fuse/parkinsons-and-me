@@ -107,6 +107,9 @@ type alias ServiceId =
 type alias PreviousResults =
     { user : RawUser
     , answers : List ( QuoteId, Answer )
+    , quotes : Quotes
+    , services : Services
+    , weightings : Weightings
     }
 
 
