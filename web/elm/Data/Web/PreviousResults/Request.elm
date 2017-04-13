@@ -1,4 +1,4 @@
-module Data.Web.PreviousResults exposing (..)
+module Data.Web.PreviousResults.Request exposing (..)
 
 import Http exposing (..)
 import Json.Decode exposing (..)
@@ -9,9 +9,9 @@ import Model exposing (..)
 import Dict exposing (..)
 
 
-getPreviousResults : Cmd Msg
-getPreviousResults =
-    Http.get "/api/previous-results/15" previousResultsDecoder
+getPreviousResults : String -> Cmd Msg
+getPreviousResults aId =
+    Http.get ("/api/previous-results/" ++ aId) previousResultsDecoder
         |> Http.send ReceivePreviousResults
 
 
@@ -42,7 +42,7 @@ rawUserDecoder =
         |> required "id" int
         |> required "name" string
         |> required "age_range" ageRangeDecoder
-        |> required "email" string
+        |> optional "email" string ""
         |> required "postcode" string
 
 

@@ -22,7 +22,7 @@ type alias Model =
     , remainingQuotes : Maybe (List QuoteId)
     , userWeightings : WeightingsDict
     , userAnswers : List ( QuoteId, Answer )
-    , currentHash : String
+    , entryPoint : EntryPoint
     }
 
 
@@ -115,6 +115,11 @@ type alias QuoteServiceWeightings =
     , services : Services
     , weightings : Weightings
     }
+
+
+type EntryPoint
+    = Start
+    | Finish String
 
 
 type Msg

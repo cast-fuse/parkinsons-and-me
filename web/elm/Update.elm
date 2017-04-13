@@ -2,9 +2,9 @@ module Update exposing (..)
 
 import Model exposing (..)
 import Data.UserInfo exposing (validatePostcode)
-import Data.Web.QuoteServiceWeightings exposing (getQuoteServiceWeightings)
 import Data.Web.Answers exposing (handlePostAnswers)
-import Data.Web.PreviousResults exposing (getPreviousResults)
+import Data.Web.PreviousResults.UrlParser exposing (..)
+import Data.Web.PreviousResults.HandleEntryPoint exposing (..)
 import Data.Web.User exposing (..)
 import Data.Web.UserEmail exposing (..)
 import Data.Quotes exposing (..)
@@ -17,10 +17,11 @@ import Navigation
 
 init : Navigation.Location -> ( Model, Cmd Msg )
 init location =
-    { initialModel | currentHash = location.hash }
-        ! [ getQuoteServiceWeightings
-          , getPreviousResults
-          ]
+    let
+        model =
+            { initialModel | entryPoint = setEntryPoint location }
+    in
+        model ! handleGetUserData model
 
 
 initialModel : Model
@@ -41,7 +42,7 @@ initialModel =
     , remainingQuotes = Nothing
     , userWeightings = Dict.empty
     , userAnswers = []
-    , currentHash = ""
+    , entryPoint = Start
     }
 
 
