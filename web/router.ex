@@ -37,7 +37,7 @@ defmodule What3things.Router do
   scope "/api", What3things do
     pipe_through :api
 
-    get "/all", ElmController, :all
+    get "/quotes-services-weightings", ElmController, :quotes_services_weightings
 
     resources "/users", UserController, except: [:new, :edit, :delete] do
       resources "/answers", AnswerController, except: [:new, :edit, :delete]

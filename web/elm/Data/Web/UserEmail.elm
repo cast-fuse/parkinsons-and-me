@@ -3,6 +3,7 @@ module Data.Web.UserEmail exposing (..)
 import Model exposing (..)
 import Json.Encode as Encode exposing (..)
 import Http exposing (..)
+import Data.Web.Normalise exposing (normaliseEmail)
 
 
 sendUserEmail : Model -> Cmd Msg
@@ -23,12 +24,14 @@ makeUserJson model =
 
 makeEmailJson : Model -> Encode.Value
 makeEmailJson model =
-    let
-        email =
-            Maybe.withDefault "" model.email
-    in
-        Encode.object
-            [ ( "email", Encode.string email ) ]
+    Encode.object
+        [ ( "email", Encode.string <| encodeEmail model ) ]
+
+
+encodeEmail : Model -> String
+encodeEmail model =
+    Maybe.withDefault "" model.email
+        |> normaliseEmail
 
 
 put : String -> Http.Body -> Request ()

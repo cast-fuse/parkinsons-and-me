@@ -6,7 +6,7 @@ defmodule What3things.ElmController do
     render conn, "index.html"
   end
 
-  def all(conn, _params) do
+  def quotes_services_weightings(conn, _params) do
     quotes = Repo.all(Quote)
     services = Repo.all(Service)
     weightings = Repo.all(Weight)
