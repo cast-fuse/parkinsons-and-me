@@ -104,7 +104,7 @@ type alias ServiceId =
     Int
 
 
-type alias PreviousResults =
+type alias Results =
     { user : RawUser
     , answers : List ( QuoteId, Answer )
     , quotes : Quotes
@@ -140,4 +140,4 @@ type Msg
     | SubmitEmail
     | PostUserAnswers (Result Http.Error ())
     | UrlChange Navigation.Location
-    | ReceivePreviousResults (Result Http.Error PreviousResults)
+    | ReceiveResults (Result Http.Error Results)

@@ -3,8 +3,8 @@ module Data.Web.Results.EntryPoint exposing (..)
 import Model exposing (..)
 import Data.Web.QuoteServiceWeightings exposing (..)
 import Data.Web.Results.Request exposing (..)
+import Data.QuoteServiceWeightings exposing (..)
 import Data.Services exposing (..)
-import Data.Weightings exposing (..)
 import Data.Quotes exposing (..)
 import Data.Answers exposing (handleAnswer)
 
@@ -16,11 +16,11 @@ handleGetUserData model =
             [ getQuoteServiceWeightings ]
 
         Finish aId ->
-            [ getPreviousResults aId ]
+            [ getResults aId ]
 
 
-loadPreviousResults : PreviousResults -> Model -> Model
-loadPreviousResults { user, answers, quotes, services, weightings } model =
+loadResults : Results -> Model -> Model
+loadResults { user, answers, quotes, services, weightings } model =
     let
         qIds =
             getQuoteIds quotes
@@ -50,17 +50,6 @@ repopulateUserData user model =
         , postcode = Valid user.postcode
         , email = Just user.email
         , ageRange = Just user.ageRange
-    }
-
-
-setQuoteServiceWeightings : QuoteServiceWeightings -> Model -> Model
-setQuoteServiceWeightings data model =
-    { model
-        | quotes = data.quotes
-        , services = data.services
-        , weightings = data.weightings
-        , userWeightings = makeEmptyWeightingsDict data.services
-        , earlyOnsetWeightings = handleEarlyOnsetWeightings data
     }
 
 

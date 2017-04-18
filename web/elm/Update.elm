@@ -3,13 +3,13 @@ module Update exposing (..)
 import Model exposing (..)
 import Data.UserInfo exposing (validatePostcode)
 import Data.Answers exposing (handleAnswer)
+import Data.QuoteServiceWeightings exposing (setQuoteServiceWeightings)
 import Data.Web.Answers exposing (handlePostAnswers)
 import Data.Web.Results.UrlParser exposing (..)
 import Data.Web.Results.EntryPoint exposing (..)
 import Data.Web.User exposing (..)
 import Data.Web.UserEmail exposing (..)
 import Data.Quotes exposing (..)
-import Data.Weightings exposing (..)
 import Data.Services exposing (..)
 import Data.Shuffle exposing (..)
 import Dict
@@ -69,20 +69,10 @@ update msg model =
             { model | fetchErrorMessage = "Something went wrong fetching the data." } ! []
 
         ReceiveQuoteServiceWeightings (Ok data) ->
-            { model
-                | quotes = data.quotes
-                , services = data.services
-                , weightings = data.weightings
-                , userWeightings = makeEmptyWeightingsDict data.services
-                , earlyOnsetWeightings = handleEarlyOnsetWeightings data
-            }
-                ! [ shuffleQuoteIds <| getQuoteIds data.quotes ]
+            (model |> setQuoteServiceWeightings data) ! [ shuffleQuoteIds <| getQuoteIds data.quotes ]
 
         ShuffleQuoteIds qIds randomList ->
-            (model
-                |> handleShuffleQuotes qIds randomList
-            )
-                ! []
+            (model |> handleShuffleQuotes qIds randomList) ! []
 
         SubmitAnswer answer ->
             let
@@ -118,8 +108,8 @@ update msg model =
         UrlChange location ->
             { model | entryPoint = setEntryPoint location } ! []
 
-        ReceivePreviousResults (Err err) ->
+        ReceiveResults (Err err) ->
             model ! []
 
-        ReceivePreviousResults (Ok res) ->
-            (model |> loadPreviousResults res) ! []
+        ReceiveResults (Ok res) ->
+            (model |> loadResults res) ! []

@@ -8,7 +8,7 @@ import Data.Quotes exposing (handleNextQuote)
 handleAnswer : Answer -> Model -> Model
 handleAnswer answer model =
     model
-        |> handleAnswer answer
+        |> storeAnswer answer
         |> updateWeightings answer
         |> handleNextQuote
 

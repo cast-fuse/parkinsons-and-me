@@ -10,15 +10,15 @@ import Model exposing (..)
 import Dict exposing (..)
 
 
-getPreviousResults : String -> Cmd Msg
-getPreviousResults aId =
+getResults : String -> Cmd Msg
+getResults aId =
     Http.get ("/api/my-results/" ++ aId) previousResultsDecoder
-        |> Http.send ReceivePreviousResults
+        |> Http.send ReceiveResults
 
 
-previousResultsDecoder : Decoder PreviousResults
+previousResultsDecoder : Decoder Results
 previousResultsDecoder =
-    decode PreviousResults
+    decode Results
         |> required "user" rawUserDecoder
         |> required "answers" answersDecoder
         |> required "quotes" quoteDecoder
