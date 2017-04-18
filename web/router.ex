@@ -38,6 +38,7 @@ defmodule What3things.Router do
     pipe_through :api
 
     get "/quotes-services-weightings", ElmController, :quotes_services_weightings
+    get "/my-results/:answer_id", ElmController, :results
 
     resources "/users", UserController, except: [:new, :edit, :delete] do
       resources "/answers", AnswerController, except: [:new, :edit, :delete]

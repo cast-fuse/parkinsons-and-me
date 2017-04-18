@@ -50,3 +50,13 @@ answerToBool answer =
 
         No ->
             False
+
+
+boolToAnswer : Bool -> Answer
+boolToAnswer answer =
+    case answer of
+        True ->
+            Yes
+
+        False ->
+            No

@@ -5,12 +5,12 @@ import Json.Decode.Pipeline exposing (..)
 import Http exposing (..)
 import Model exposing (..)
 import Dict exposing (..)
-import Set
+import Data.QuoteServiceWeightings exposing (..)
 
 
 getQuoteServiceWeightings : Cmd Msg
 getQuoteServiceWeightings =
-    Http.get "/api/quotes-services-weightings" quoteServiceWeightingsDecoder
+    Http.get "/api/quotes-services-weightings" (field "data" quoteServiceWeightingsDecoder)
         |> Http.send ReceiveQuoteServiceWeightings
 
 
@@ -61,34 +61,3 @@ rawWeightingDecoder =
         |> required "quote_id" int
         |> required "service_id" int
         |> required "weight" float
-
-
-getQuoteIdsFromWeightings : List RawWeighting -> List Int
-getQuoteIdsFromWeightings rawWeightings =
-    let
-        removeDuplicates =
-            Set.fromList >> Set.toList
-    in
-        rawWeightings
-            |> List.map .quote_id
-            |> removeDuplicates
-
-
-rawWeightingToDict : List RawWeighting -> Dict QuoteId (Dict ServiceId Float)
-rawWeightingToDict rawWeightings =
-    let
-        quoteIds =
-            getQuoteIdsFromWeightings rawWeightings
-
-        filterQuotesById qId =
-            List.filter (\{ quote_id } -> qId == quote_id) rawWeightings
-
-        makeWeightingsDict =
-            List.foldr (\a b -> Dict.insert a.service_id a.weight b) Dict.empty
-
-        weightingsByQuoteId =
-            filterQuotesById >> makeWeightingsDict
-    in
-        quoteIds
-            |> List.map (\qId -> ( qId, weightingsByQuoteId qId ))
-            |> Dict.fromList

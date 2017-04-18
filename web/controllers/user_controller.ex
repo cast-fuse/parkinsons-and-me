@@ -4,11 +4,6 @@ defmodule What3things.UserController do
   alias What3things.User
   import Ecto.Query
 
-  def index(conn, _params) do
-    users = Repo.all(User)
-    render(conn, "index.json", users: users)
-  end
-
   def create(conn, %{"user" => user_params}) do
     %{"name" => name,
       "postcode" => postcode,
@@ -44,11 +39,6 @@ defmodule What3things.UserController do
         |> put_status(:unprocessable_entity)
         |> render(What3things.ChangesetView, "error.json", changeset: changeset)
     end
-  end
-
-  def show(conn, %{"id" => id}) do
-    user = Repo.get!(User, id)
-    render(conn, "show.json", user: user)
   end
 
   def update(conn, %{"id" => id, "user" => user_params}) do

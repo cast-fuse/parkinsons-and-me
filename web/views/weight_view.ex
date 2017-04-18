@@ -1,6 +1,13 @@
 defmodule What3things.WeightView do
   use What3things.Web, :view
 
+  def render("weight.json", %{weight: weight}) do
+    %{id: weight.id,
+      quote_id: weight.quote_id,
+      service_id: weight.service_id,
+      weight: weight.weight}
+  end
+
   def group_by_quote(raw_weights) do
     raw_weights
     |> Enum.sort_by(fn(x) -> x.quote.id end)

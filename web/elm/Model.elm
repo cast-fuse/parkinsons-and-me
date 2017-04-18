@@ -2,6 +2,7 @@ module Model exposing (..)
 
 import Dict exposing (..)
 import Http
+import Navigation
 
 
 type alias Model =
@@ -21,6 +22,7 @@ type alias Model =
     , remainingQuotes : Maybe (List QuoteId)
     , userWeightings : WeightingsDict
     , userAnswers : List ( QuoteId, Answer )
+    , entryPoint : EntryPoint
     }
 
 
@@ -85,6 +87,15 @@ type alias RawWeighting =
     }
 
 
+type alias RawUser =
+    { id : Int
+    , name : String
+    , ageRange : AgeRange
+    , email : String
+    , postcode : String
+    }
+
+
 type alias QuoteId =
     Int
 
@@ -93,11 +104,25 @@ type alias ServiceId =
     Int
 
 
+type alias Results =
+    { user : RawUser
+    , answers : List ( QuoteId, Answer )
+    , quotes : Quotes
+    , services : Services
+    , weightings : Weightings
+    }
+
+
 type alias QuoteServiceWeightings =
     { quotes : Quotes
     , services : Services
     , weightings : Weightings
     }
+
+
+type EntryPoint
+    = Start
+    | Finish String
 
 
 type Msg
@@ -114,3 +139,5 @@ type Msg
     | PutUserEmail (Result Http.Error ())
     | SubmitEmail
     | PostUserAnswers (Result Http.Error ())
+    | UrlChange Navigation.Location
+    | ReceiveResults (Result Http.Error Results)
