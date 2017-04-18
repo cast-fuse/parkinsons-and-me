@@ -7,21 +7,24 @@ defmodule What3things.ServiceController do
     render conn, "index.html", services: services
   end
 
-  def new(conn, _params) do
-    changeset = Service.changeset(%Service{}, %{})
-    render conn, "new.html", changeset: changeset
+  def edit(conn, %{"id" => service_id}) do
+    service = Repo.get(Service, service_id)
+    changeset = Service.changeset(service)
+
+    render conn, "edit.html", changeset: changeset, service: service
   end
 
-  def create(conn, %{"service" => service}) do
-    changeset = Service.changeset(%Service{}, service)
+  def update(conn, %{"id" => service_id, "service" => service}) do
+    old_service = Repo.get(Service, service_id)
+    changeset = Service.changeset(old_service, service)
 
-    case Repo.insert(changeset) do
+    case Repo.update(changeset) do
       {:ok, _service} ->
         conn
-        |> put_flash(:info, "Service added!")
+        |> put_flash(:info, "service updated")
         |> redirect(to: service_path(conn, :index))
       {:error, changeset} ->
-        render conn, "new.html", changeset: changeset
+        render conn, "edit.html", changeset: changeset, service: old_service
     end
   end
 end

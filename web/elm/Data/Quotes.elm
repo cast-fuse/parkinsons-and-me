@@ -7,7 +7,6 @@ import Dict exposing (..)
 handleGoToQuotes : Model -> Model
 handleGoToQuotes model =
     { model | view = Quotes }
-        |> handleNextQuote
 
 
 handleGoToServices : Model -> Model

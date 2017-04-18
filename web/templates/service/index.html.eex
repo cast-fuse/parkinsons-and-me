@@ -1,11 +1,13 @@
-<h1>Services</h1>
+<%= render What3things.AdminView, "back.html", conn: @conn %>
+
+<h1 class="tc">Services</h1>
 
 <ul>
-  <%= for service <- @services do %>
-  <li>
-    <%= service.title %>
-  </li>
+  <%= for service <- order_services(@services) do %>
+    <li>
+      <div class="">
+        <%= service.title %> -- <%= link "Edit", to: service_path(@conn, :edit, service) %>
+      </div>
+    </li>
   <% end %>
 </ul>
-
-<%= link "Create service", to: service_path(@conn, :new) %>

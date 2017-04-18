@@ -27,15 +27,21 @@ defmodule What3things.Router do
     pipe_through :browser
     pipe_through :admin
 
-    resources "/quotes", QuoteController, only: [:index, :new, :create]
-    resources "/services", ServiceController, only: [:index, :new, :create]
-    resources "/weights", WeightController, only: [:index, :update, :edit]
+    get "/", AdminController, :index
+    resources "/quotes", QuoteController, only: [:index]
+    resources "/services", ServiceController, only: [:index, :edit, :update]
+    resources "/weights", WeightController, only: [:index, :edit, :update]
   end
 
   # Other scopes may use custom stacks.
   scope "/api", What3things do
     pipe_through :api
 
-    get "/all", ElmController, :all
+    get "/quotes-services-weightings", ElmController, :quotes_services_weightings
+    get "/my-results/:answer_id", ElmController, :results
+
+    resources "/users", UserController, except: [:new, :edit, :delete] do
+      resources "/answers", AnswerController, except: [:new, :edit, :delete]
+    end
   end
 end

@@ -2,16 +2,27 @@ module Update exposing (..)
 
 import Model exposing (..)
 import Data.UserInfo exposing (validatePostcode)
-import Data.Api exposing (getQuoteServiceWeighting)
+import Data.Answers exposing (handleAnswer)
+import Data.QuoteServiceWeightings exposing (setQuoteServiceWeightings)
+import Data.Web.Answers exposing (handlePostAnswers)
+import Data.Web.Results.UrlParser exposing (..)
+import Data.Web.Results.EntryPoint exposing (..)
+import Data.Web.User exposing (..)
+import Data.Web.UserEmail exposing (..)
 import Data.Quotes exposing (..)
-import Data.Weightings exposing (..)
 import Data.Services exposing (..)
+import Data.Shuffle exposing (..)
 import Dict
+import Navigation
 
 
-init : ( Model, Cmd Msg )
-init =
-    initialModel ! [ getQuoteServiceWeighting ]
+init : Navigation.Location -> ( Model, Cmd Msg )
+init location =
+    let
+        model =
+            { initialModel | entryPoint = setEntryPoint location }
+    in
+        model ! handleGetUserData model
 
 
 initialModel : Model
@@ -21,14 +32,18 @@ initialModel =
     , postcode = NotEntered
     , ageRange = Nothing
     , email = Nothing
+    , userId = Nothing
     , quotes = Dict.empty
     , services = Dict.empty
     , top3things = []
     , weightings = Dict.empty
+    , earlyOnsetWeightings = Dict.empty
     , fetchErrorMessage = ""
     , currentQuote = Nothing
     , remainingQuotes = Nothing
     , userWeightings = Dict.empty
+    , userAnswers = []
+    , entryPoint = Start
     }
 
 
@@ -50,27 +65,51 @@ update msg model =
         SetEmail email ->
             { model | email = Just email } ! []
 
-        ReceiveQuoteServiceWeighting (Err _) ->
+        ReceiveQuoteServiceWeightings (Err _) ->
             { model | fetchErrorMessage = "Something went wrong fetching the data." } ! []
 
-        ReceiveQuoteServiceWeighting (Ok data) ->
-            { model
-                | quotes = data.quotes
-                , services = data.services
-                , weightings = data.weightings
-                , remainingQuotes = data.quotes |> getQuoteIds |> Just
-                , userWeightings = makeEmptyWeightingsDict data.services
-            }
-                ! []
+        ReceiveQuoteServiceWeightings (Ok data) ->
+            (model |> setQuoteServiceWeightings data) ! [ shuffleQuoteIds <| getQuoteIds data.quotes ]
+
+        ShuffleQuoteIds qIds randomList ->
+            (model |> handleShuffleQuotes qIds randomList) ! []
 
         SubmitAnswer answer ->
-            (model
-                |> handleAnswer answer
-                |> handleNextQuote
-                |> handleGoToServices
-                |> handleTop3Things
-            )
-                ! []
+            let
+                newModel =
+                    model
+                        |> handleAnswer answer
+                        |> handleGoToServices
+                        |> handleTop3Things
+            in
+                newModel ! [ handlePostAnswers newModel ]
 
         HandleGoToQuotes ->
-            (handleGoToQuotes model) ! []
+            (handleGoToQuotes model) ! [ postUserDetails model ]
+
+        ReceiveUserId (Err _) ->
+            model ! []
+
+        ReceiveUserId (Ok uId) ->
+            { model | userId = Just uId } ! []
+
+        PutUserEmail (Ok _) ->
+            { model | email = Nothing } ! []
+
+        PutUserEmail (Err _) ->
+            model ! []
+
+        SubmitEmail ->
+            model ! [ sendUserEmail model ]
+
+        PostUserAnswers _ ->
+            model ! []
+
+        UrlChange location ->
+            { model | entryPoint = setEntryPoint location } ! []
+
+        ReceiveResults (Err err) ->
+            model ! []
+
+        ReceiveResults (Ok res) ->
+            (model |> loadResults res) ! []
