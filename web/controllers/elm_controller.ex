@@ -14,7 +14,7 @@ defmodule What3things.ElmController do
     json conn, %{quotes: quotes, services: services, weightings: weightings}
   end
 
-  def previous_results(conn, %{"answer_id" => answer_id}) do
+  def results(conn, %{"answer_id" => answer_id}) do
     case Repo.get(Answer, answer_id) do
       nil ->
         conn

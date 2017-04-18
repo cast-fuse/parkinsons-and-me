@@ -1,8 +1,8 @@
-module Data.Web.PreviousResults.HandleEntryPoint exposing (..)
+module Data.Web.Results.EntryPoint exposing (..)
 
 import Model exposing (..)
 import Data.Web.QuoteServiceWeightings exposing (..)
-import Data.Web.PreviousResults.Request exposing (..)
+import Data.Web.Results.Request exposing (..)
 import Data.Services exposing (..)
 import Data.Weightings exposing (..)
 import Data.Quotes exposing (..)
@@ -32,22 +32,36 @@ loadPreviousResults { user, answers, quotes, services, weightings } model =
             }
     in
         { model
-            | userId = Just user.id
-            , name = Just user.name
-            , postcode = Valid user.postcode
-            , email = Just user.email
-            , ageRange = Just user.ageRange
-            , quotes = quotes
-            , services = services
-            , weightings = weightings
-            , userWeightings = makeEmptyWeightingsDict services
-            , earlyOnsetWeightings = handleEarlyOnsetWeightings data
-            , currentQuote = List.head qIds
+            | currentQuote = List.head qIds
             , remainingQuotes = List.tail qIds
         }
+            |> repopulateUserData user
+            |> setQuoteServiceWeightings data
             |> foldAnswers answers
             |> handleGoToServices
             |> handleTop3Things
+
+
+repopulateUserData : RawUser -> Model -> Model
+repopulateUserData user model =
+    { model
+        | userId = Just user.id
+        , name = Just user.name
+        , postcode = Valid user.postcode
+        , email = Just user.email
+        , ageRange = Just user.ageRange
+    }
+
+
+setQuoteServiceWeightings : QuoteServiceWeightings -> Model -> Model
+setQuoteServiceWeightings data model =
+    { model
+        | quotes = data.quotes
+        , services = data.services
+        , weightings = data.weightings
+        , userWeightings = makeEmptyWeightingsDict data.services
+        , earlyOnsetWeightings = handleEarlyOnsetWeightings data
+    }
 
 
 foldAnswers : List ( QuoteId, Answer ) -> Model -> Model

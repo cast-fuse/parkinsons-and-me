@@ -1,4 +1,4 @@
-module Data.Web.PreviousResults.Request exposing (..)
+module Data.Web.Results.Request exposing (..)
 
 import Http exposing (..)
 import Json.Decode exposing (..)
@@ -12,7 +12,7 @@ import Dict exposing (..)
 
 getPreviousResults : String -> Cmd Msg
 getPreviousResults aId =
-    Http.get ("/api/previous-results/" ++ aId) previousResultsDecoder
+    Http.get ("/api/my-results/" ++ aId) previousResultsDecoder
         |> Http.send ReceivePreviousResults
 
 
