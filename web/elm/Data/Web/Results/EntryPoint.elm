@@ -15,8 +15,8 @@ handleGetUserData model =
         Start ->
             [ getQuoteServiceWeightings ]
 
-        Finish aId ->
-            [ getResults aId ]
+        Finish answerUUID ->
+            [ getResults answerUUID ]
 
 
 loadResults : Results -> Model -> Model

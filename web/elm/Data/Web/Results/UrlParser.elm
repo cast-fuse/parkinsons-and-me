@@ -12,8 +12,8 @@ setEntryPoint location =
             parseHash (s "my-results" </> string) location
     in
         case parsedHash of
-            Just answer_id ->
-                Finish answer_id
+            Just answerUUID ->
+                Finish answerUUID
 
             Nothing ->
                 Start
