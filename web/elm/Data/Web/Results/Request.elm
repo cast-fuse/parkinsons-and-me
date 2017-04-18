@@ -12,7 +12,7 @@ import Dict exposing (..)
 
 getResults : String -> Cmd Msg
 getResults aId =
-    Http.get ("/api/my-results/" ++ aId) previousResultsDecoder
+    Http.get ("/api/my-results/" ++ aId) (field "data" previousResultsDecoder)
         |> Http.send ReceiveResults
 
 

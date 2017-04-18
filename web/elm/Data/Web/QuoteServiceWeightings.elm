@@ -10,7 +10,7 @@ import Data.QuoteServiceWeightings exposing (..)
 
 getQuoteServiceWeightings : Cmd Msg
 getQuoteServiceWeightings =
-    Http.get "/api/quotes-services-weightings" quoteServiceWeightingsDecoder
+    Http.get "/api/quotes-services-weightings" (field "data" quoteServiceWeightingsDecoder)
         |> Http.send ReceiveQuoteServiceWeightings
 
 

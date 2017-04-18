@@ -1,7 +1,6 @@
 defmodule What3things.Answer do
   use What3things.Web, :model
 
-  @derive{Poison.Encoder, only: [:answers]}
   schema "answers" do
     field :answers, {:map, :boolean}
     belongs_to :user, What3things.User

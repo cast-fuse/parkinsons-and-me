@@ -11,7 +11,7 @@ defmodule What3things.ElmController do
     services = Repo.all(Service)
     weightings = Repo.all(Weight)
 
-    json conn, %{quotes: quotes, services: services, weightings: weightings}
+    render conn, "quotes_services_weightings.json", %{quotes: quotes, services: services, weightings: weightings}
   end
 
   def results(conn, %{"answer_id" => answer_id}) do
@@ -25,7 +25,10 @@ defmodule What3things.ElmController do
         services = Repo.all(Service)
         weightings = Repo.all(Weight)
         user = Repo.get(User, answers.user_id)
-        json conn, %{user: user, answers: answers, quotes: quotes, services: services, weightings: weightings}
+        results =
+          %{data: %{quotes: quotes, services: services, weightings: weightings},
+            user_data: %{user: user, answers: answers}}
+        render conn, "results.json", results
     end
   end
 end
