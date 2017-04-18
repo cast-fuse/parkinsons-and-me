@@ -1,5 +1,6 @@
 defmodule What3things.Router do
   use What3things.Web, :router
+  alias What3things.{Auth, Repo}
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -11,6 +12,7 @@ defmodule What3things.Router do
 
   pipeline :admin do
     plug :put_layout, {What3things.LayoutView, :admin}
+    plug Auth, repo: Repo
   end
 
   pipeline :api do
@@ -28,6 +30,7 @@ defmodule What3things.Router do
     pipe_through :admin
 
     get "/", AdminController, :index
+    resources "/login", SessionController, only: [:new, :create, :delete]
     resources "/quotes", QuoteController, only: [:index]
     resources "/services", ServiceController, only: [:index, :edit, :update]
     resources "/weights", WeightController, only: [:index, :edit, :update]
