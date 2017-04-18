@@ -6,6 +6,7 @@ import Data.Web.PreviousResults.Request exposing (..)
 import Data.Services exposing (..)
 import Data.Weightings exposing (..)
 import Data.Quotes exposing (..)
+import Data.Answers exposing (handleAnswer)
 
 
 handleGetUserData : Model -> List (Cmd Msg)
@@ -35,13 +36,14 @@ loadPreviousResults { user, answers, quotes, services, weightings } model =
             , name = Just user.name
             , postcode = Valid user.postcode
             , email = Just user.email
-            , currentQuote = List.head qIds
-            , remainingQuotes = List.tail qIds
+            , ageRange = Just user.ageRange
             , quotes = quotes
             , services = services
             , weightings = weightings
             , userWeightings = makeEmptyWeightingsDict services
             , earlyOnsetWeightings = handleEarlyOnsetWeightings data
+            , currentQuote = List.head qIds
+            , remainingQuotes = List.tail qIds
         }
             |> foldAnswers answers
             |> handleGoToServices
@@ -50,4 +52,4 @@ loadPreviousResults { user, answers, quotes, services, weightings } model =
 
 foldAnswers : List ( QuoteId, Answer ) -> Model -> Model
 foldAnswers answers model =
-    List.foldl (\( _, answer ) model -> handleAnswer answer model |> updateWeightings answer |> handleNextQuote) model answers
+    List.foldl (\( _, answer ) model -> handleAnswer answer model) model answers

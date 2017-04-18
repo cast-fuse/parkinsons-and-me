@@ -27,16 +27,6 @@ handleNextQuote model =
     }
 
 
-handleAnswer : Answer -> Model -> Model
-handleAnswer answer model =
-    case model.currentQuote of
-        Just qId ->
-            { model | userAnswers = model.userAnswers ++ [ ( qId, answer ) ] }
-
-        Nothing ->
-            model
-
-
 nextQuote : Maybe (List QuoteId) -> Maybe QuoteId
 nextQuote quoteIds =
     quoteIds

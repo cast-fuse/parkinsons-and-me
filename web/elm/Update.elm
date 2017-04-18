@@ -2,6 +2,7 @@ module Update exposing (..)
 
 import Model exposing (..)
 import Data.UserInfo exposing (validatePostcode)
+import Data.Answers exposing (handleAnswer)
 import Data.Web.Answers exposing (handlePostAnswers)
 import Data.Web.PreviousResults.UrlParser exposing (..)
 import Data.Web.PreviousResults.HandleEntryPoint exposing (..)
@@ -88,8 +89,6 @@ update msg model =
                 newModel =
                     model
                         |> handleAnswer answer
-                        |> updateWeightings answer
-                        |> handleNextQuote
                         |> handleGoToServices
                         |> handleTop3Things
             in
