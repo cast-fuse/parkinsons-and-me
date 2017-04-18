@@ -4,7 +4,8 @@ defmodule What3things.AnswerController do
   alias What3things.Answer
 
   def create(conn, %{"answer" => answer_params, "user_id" => user_id}) do
-    changeset = Answer.changeset(%Answer{}, Map.merge(answer_params, %{"user_id" => user_id}))
+    uuid = Ecto.UUID.generate() |> String.slice(0, 8)
+    changeset = Answer.changeset(%Answer{}, Map.merge(answer_params, %{"user_id" => user_id, "uuid" => uuid}))
 
     case Repo.insert(changeset) do
       {:ok, answer} ->

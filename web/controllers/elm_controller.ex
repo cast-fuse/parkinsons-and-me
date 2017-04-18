@@ -14,8 +14,8 @@ defmodule What3things.ElmController do
     render conn, "quotes_services_weightings.json", %{quotes: quotes, services: services, weightings: weightings}
   end
 
-  def results(conn, %{"answer_id" => answer_id}) do
-    case Repo.get(Answer, answer_id) do
+  def results(conn, %{"answer_uuid" => answer_uuid}) do
+    case Repo.get_by(Answer, uuid: answer_uuid) do
       nil ->
         conn
         |> put_status(:not_found)
