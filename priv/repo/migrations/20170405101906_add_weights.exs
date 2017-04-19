@@ -4,8 +4,8 @@ defmodule What3things.Repo.Migrations.AddWeights do
   def change do
     create table(:weights) do
       add :weight, :float
-      add :quote_id, references(:quotes)
-      add :service_id, references(:services)
+      add :quote_id, references(:quotes, on_delete: :delete_all)
+      add :service_id, references(:services, on_delete: :delete_all)
     end
     create unique_index(:weights, [:quote_id, :service_id])
   end
