@@ -2,6 +2,6 @@
 
 <%= form_for @conn, session_path(@conn, :create), [as: :session], fn f -> %>
   <%= text_input f, :user_name, placeholder: "username" %>
-  <%= text_input f, :password, placeholder: "password" %>
+  <%= password_input f, :password, placeholder: "password" %>
   <%= submit "login" %>
 <% end %>
