@@ -1,3 +1,6 @@
 import elmEmbed from './elm-embed.js'
+import "phoenix_html"
 
-elmEmbed.init()
+if (window.Elm) {
+  elmEmbed.init()
+}

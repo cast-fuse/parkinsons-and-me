@@ -17,8 +17,14 @@
     <p class="red pv3 ph4 ma0 right-0 top-0 absolute" role="alert"><%= get_flash(@conn, :error) %></p>
 
       <main class="ma3">
+        <%= if @admin do %>
+          <%= link to: session_path(@conn, :delete, @admin), method: "delete", class: "no-underline" do %>
+            <p class="blue ma0 mh3">logout</p>
+          <% end %>
+        <% end %>
         <%= render @view_module, @view_template, assigns %>
       </main>
 
   </body>
+  <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
 </html>

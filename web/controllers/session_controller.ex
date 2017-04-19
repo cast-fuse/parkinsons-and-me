@@ -17,4 +17,10 @@ defmodule What3things.SessionController do
         |> render("new.html")
     end
   end
+
+  def delete(conn, _params) do
+    conn
+    |> What3things.Auth.logout()
+    |> redirect(to: session_path(conn, :new))
+  end
 end

@@ -1,6 +1,5 @@
 defmodule What3things.UserController do
   use What3things.Web, :controller
-
   alias What3things.User
   import Ecto.Query
 
