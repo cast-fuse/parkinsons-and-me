@@ -1,6 +1,5 @@
 defmodule What3things.AnswerController do
   use What3things.Web, :controller
-
   alias What3things.Answer
 
   def create(conn, %{"answer" => answer_params, "user_id" => user_id}) do

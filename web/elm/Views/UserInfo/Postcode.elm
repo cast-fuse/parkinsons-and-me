@@ -28,6 +28,7 @@ postcodeField model =
         , input
             [ class Styles.inputField
             , onInput SetPostcode
+            , autocomplete False
             , value <| postCodeToString model.postcode
             ]
             []
