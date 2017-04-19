@@ -5,6 +5,7 @@
   <%= for q <- @quotes do %>
     <li>
       <%= q.body %>
+      <%= link "edit", to: quote_path(@conn, :edit, q.id) %>
     </li>
   <% end %>
 </ul>

@@ -31,7 +31,7 @@ defmodule What3things.Router do
 
     get "/", AdminController, :index
     resources "/login", SessionController, only: [:new, :create, :delete]
-    resources "/quotes", QuoteController, only: [:index]
+    resources "/quotes", QuoteController, only: [:index, :edit, :update]
     resources "/services", ServiceController, only: [:index, :edit, :update]
     resources "/weights", WeightController, only: [:index, :edit, :update]
   end
