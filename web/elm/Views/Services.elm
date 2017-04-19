@@ -17,7 +17,12 @@ services model =
         , div [ class "mw7 center mv4" ]
             [ h3 [ class "blue" ] [ text "If you'd like a copy of your results for futute reference, please enter your email" ]
             , input [ onInput SetEmail, class (Styles.inputField ++ " mw5 center"), placeholder "put your email", value <| Maybe.withDefault "" model.email ] []
-            , button [ onClick SubmitEmail, class (Styles.buttonBlue ++ " mt3") ] [ text "submit" ]
+            , button
+                [ onClick SubmitEmail
+                , autocomplete False
+                , class (Styles.buttonBlue ++ " mt3")
+                ]
+                [ text "submit" ]
             ]
         ]
 
