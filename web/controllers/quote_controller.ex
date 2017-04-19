@@ -4,7 +4,10 @@ defmodule What3things.QuoteController do
   plug :authenticate_admin
 
   def index(conn, _params) do
-    quotes = Repo.all(Quote)
+    quotes =
+      Quote
+      |> Quote.in_order
+      |> Repo.all
     render conn, "index.html", quotes: quotes
   end
 
