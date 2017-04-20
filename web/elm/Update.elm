@@ -1,7 +1,7 @@
 module Update exposing (..)
 
 import Model exposing (..)
-import Data.UserInfo exposing (validatePostcode)
+import Data.UserInfo exposing (validatePostcode, validateEmail)
 import Data.Answers exposing (handleAnswer)
 import Data.QuoteServiceWeightings exposing (setQuoteServiceWeightings)
 import Data.Web.Answers exposing (handlePostAnswers)
@@ -64,7 +64,7 @@ update msg model =
             { model | ageRange = Just ageRange } ! []
 
         SetEmail email ->
-            { model | email = ValidEmail email } ! []
+            { model | email = validateEmail email } ! []
 
         ReceiveQuoteServiceWeightings (Err _) ->
             { model | fetchErrorMessage = "Something went wrong fetching the data." } ! []

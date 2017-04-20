@@ -72,14 +72,11 @@ postcodeRegex =
 isValidPostcode : Model -> Bool
 isValidPostcode model =
     case model.postcode of
-        NotEnteredPostcode ->
-            False
-
-        InvalidPostcode _ ->
-            False
-
         ValidPostcode _ ->
             True
+
+        _ ->
+            False
 
 
 isValidName : Model -> Bool
@@ -100,3 +97,29 @@ isValidAgeRange model =
 
         Just _ ->
             True
+
+
+emailRegex : Regex
+emailRegex =
+    regex
+        "^(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$"
+
+
+validateEmail : String -> Email
+validateEmail email =
+    if Regex.contains emailRegex email then
+        ValidEmail email
+    else if email == "" then
+        NotEnteredEmail
+    else
+        InvalidEmail email
+
+
+isValidEmail : Model -> Bool
+isValidEmail model =
+    case model.email of
+        ValidEmail _ ->
+            True
+
+        _ ->
+            False

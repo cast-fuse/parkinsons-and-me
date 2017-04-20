@@ -6,6 +6,7 @@ import Html.Events exposing (..)
 import Helpers.Styles as Styles
 import Components.Logo exposing (..)
 import Model exposing (..)
+import Data.UserInfo exposing (isValidEmail)
 
 
 services : Model -> Html Msg
@@ -50,27 +51,35 @@ renderEmailForm model =
             div [] []
 
         ValidEmail email ->
-            emailForm email
+            emailForm model email
 
         NotEnteredEmail ->
-            emailForm ""
+            emailForm model ""
 
         InvalidEmail email ->
-            emailForm email
+            emailForm model email
 
         SubmittedEmail ->
             div [] []
 
 
-emailForm : String -> Html Msg
-emailForm email =
+emailForm : Model -> String -> Html Msg
+emailForm model email =
     div []
         [ h3 [ class "blue" ] [ text "If you'd like a copy of them for futute reference, please enter your email" ]
         , input [ onInput SetEmail, class (Styles.inputField ++ " mw5 center"), placeholder "put your email", value email ] []
-        , button
+        , (handleSubmitEmail model)
+        ]
+
+
+handleSubmitEmail : Model -> Html Msg
+handleSubmitEmail model =
+    if isValidEmail model then
+        button
             [ onClick SubmitEmail
             , autocomplete False
             , class (Styles.buttonBlue ++ " mt3")
             ]
-            [ text "submit" ]
-        ]
+            [ text "Submit" ]
+    else
+        button [ class Styles.buttonDisabled ] [ text "Submit" ]
