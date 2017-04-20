@@ -24,6 +24,7 @@ previousResultsDecoder =
         |> required "quotes" quoteDecoder
         |> required "services" servicesDecoder
         |> required "weightings" weightingDecoder
+        |> requiredAt [ "answers", "uuid" ] string
 
 
 answersDecoder : Decoder (List ( QuoteId, Answer ))

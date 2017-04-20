@@ -8,6 +8,7 @@ defmodule What3things.AnswerView do
   def render("answer.json", %{answer: answer}) do
     %{id: answer.id,
       answers: answer.answers,
-      user_id: answer.user_id}
+      user_id: answer.user_id,
+      uuid: answer.uuid}
   end
 end
