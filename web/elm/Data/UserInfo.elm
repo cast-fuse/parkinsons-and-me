@@ -40,24 +40,24 @@ ageRangeToString ageRange =
 postCodeToString : Postcode -> String
 postCodeToString postcode =
     case postcode of
-        NotEntered ->
+        NotEnteredPostcode ->
             ""
 
-        Invalid string ->
+        InvalidPostcode string ->
             string
 
-        Valid postcode ->
+        ValidPostcode postcode ->
             postcode
 
 
 validatePostcode : String -> Postcode
 validatePostcode postcode =
     if Regex.contains postcodeRegex postcode then
-        Valid postcode
+        ValidPostcode postcode
     else if postcode == "" then
-        NotEntered
+        NotEnteredPostcode
     else
-        Invalid postcode
+        InvalidPostcode postcode
 
 
 
@@ -72,13 +72,13 @@ postcodeRegex =
 isValidPostcode : Model -> Bool
 isValidPostcode model =
     case model.postcode of
-        NotEntered ->
+        NotEnteredPostcode ->
             False
 
-        Invalid _ ->
+        InvalidPostcode _ ->
             False
 
-        Valid _ ->
+        ValidPostcode _ ->
             True
 
 

@@ -47,8 +47,8 @@ repopulateUserData user model =
     { model
         | userId = Just user.id
         , name = Just user.name
-        , postcode = Valid user.postcode
-        , email = Just user.email
+        , postcode = ValidPostcode user.postcode
+        , email = RetrievedEmail user.email
         , ageRange = Just user.ageRange
     }
 

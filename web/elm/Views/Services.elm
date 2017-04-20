@@ -46,17 +46,31 @@ renderResultsLink model =
 renderEmailForm : Model -> Html Msg
 renderEmailForm model =
     case model.email of
-        Just email ->
+        RetrievedEmail email ->
             div [] []
 
-        Nothing ->
-            div []
-                [ h3 [ class "blue" ] [ text "If you'd like a copy of them for futute reference, please enter your email" ]
-                , input [ onInput SetEmail, class (Styles.inputField ++ " mw5 center"), placeholder "put your email", value <| Maybe.withDefault "" model.email ] []
-                , button
-                    [ onClick SubmitEmail
-                    , autocomplete False
-                    , class (Styles.buttonBlue ++ " mt3")
-                    ]
-                    [ text "submit" ]
-                ]
+        ValidEmail email ->
+            emailForm email
+
+        NotEnteredEmail ->
+            emailForm ""
+
+        InvalidEmail email ->
+            emailForm email
+
+        SubmittedEmail ->
+            div [] []
+
+
+emailForm : String -> Html Msg
+emailForm email =
+    div []
+        [ h3 [ class "blue" ] [ text "If you'd like a copy of them for futute reference, please enter your email" ]
+        , input [ onInput SetEmail, class (Styles.inputField ++ " mw5 center"), placeholder "put your email", value email ] []
+        , button
+            [ onClick SubmitEmail
+            , autocomplete False
+            , class (Styles.buttonBlue ++ " mt3")
+            ]
+            [ text "submit" ]
+        ]

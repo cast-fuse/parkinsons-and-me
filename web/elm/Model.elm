@@ -10,7 +10,7 @@ type alias Model =
     , name : Maybe String
     , postcode : Postcode
     , ageRange : Maybe AgeRange
-    , email : Maybe String
+    , email : Email
     , userId : Maybe Int
     , quotes : Quotes
     , services : Services
@@ -46,14 +46,22 @@ type AgeRange
 
 
 type Postcode
-    = NotEntered
-    | Valid String
-    | Invalid String
+    = NotEnteredPostcode
+    | ValidPostcode String
+    | InvalidPostcode String
 
 
 type Answer
     = Yes
     | No
+
+
+type Email
+    = NotEnteredEmail
+    | ValidEmail String
+    | InvalidEmail String
+    | RetrievedEmail String
+    | SubmittedEmail
 
 
 type alias Quotes =
@@ -111,7 +119,6 @@ type alias Results =
     , quotes : Quotes
     , services : Services
     , weightings : Weightings
-    , uuid : String
     }
 
 

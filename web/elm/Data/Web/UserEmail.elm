@@ -30,8 +30,24 @@ makeEmailJson model =
 
 encodeEmail : Model -> String
 encodeEmail model =
-    Maybe.withDefault "" model.email
+    emailToString model
         |> normaliseEmail
+
+
+emailToString : Model -> String
+emailToString model =
+    case model.email of
+        ValidEmail email ->
+            email
+
+        InvalidEmail email ->
+            email
+
+        RetrievedEmail email ->
+            email
+
+        _ ->
+            ""
 
 
 put : String -> Http.Body -> Request ()

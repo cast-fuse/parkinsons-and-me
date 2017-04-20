@@ -29,9 +29,9 @@ initialModel : Model
 initialModel =
     { view = Home
     , name = Nothing
-    , postcode = NotEntered
+    , postcode = NotEnteredPostcode
     , ageRange = Nothing
-    , email = Nothing
+    , email = NotEnteredEmail
     , userId = Nothing
     , quotes = Dict.empty
     , services = Dict.empty
@@ -64,7 +64,7 @@ update msg model =
             { model | ageRange = Just ageRange } ! []
 
         SetEmail email ->
-            { model | email = Just email } ! []
+            { model | email = ValidEmail email } ! []
 
         ReceiveQuoteServiceWeightings (Err _) ->
             { model | fetchErrorMessage = "Something went wrong fetching the data." } ! []
@@ -93,7 +93,7 @@ update msg model =
             { model | userId = Just uId } ! []
 
         PutUserEmail (Ok _) ->
-            { model | email = Nothing } ! []
+            { model | email = SubmittedEmail } ! []
 
         PutUserEmail (Err _) ->
             model ! []
