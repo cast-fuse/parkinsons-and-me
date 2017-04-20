@@ -23,6 +23,7 @@ type alias Model =
     , userWeightings : WeightingsDict
     , userAnswers : List ( QuoteId, Answer )
     , entryPoint : EntryPoint
+    , uuid : Maybe String
     }
 
 
@@ -110,6 +111,7 @@ type alias Results =
     , quotes : Quotes
     , services : Services
     , weightings : Weightings
+    , uuid : String
     }
 
 
@@ -138,6 +140,6 @@ type Msg
     | ReceiveUserId (Result Http.Error Int)
     | PutUserEmail (Result Http.Error ())
     | SubmitEmail
-    | PostUserAnswers (Result Http.Error ())
+    | PostUserAnswers (Result Http.Error String)
     | UrlChange Navigation.Location
     | ReceiveResults (Result Http.Error Results)

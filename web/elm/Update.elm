@@ -44,6 +44,7 @@ initialModel =
     , userWeightings = Dict.empty
     , userAnswers = []
     , entryPoint = Start
+    , uuid = Nothing
     }
 
 
@@ -79,8 +80,6 @@ update msg model =
                 newModel =
                     model
                         |> handleAnswer answer
-                        |> handleGoToServices
-                        |> handleTop3Things
             in
                 newModel ! [ handlePostAnswers newModel ]
 
@@ -102,8 +101,17 @@ update msg model =
         SubmitEmail ->
             model ! [ sendUserEmail model ]
 
-        PostUserAnswers _ ->
+        PostUserAnswers (Err _) ->
             model ! []
+
+        PostUserAnswers (Ok uuid) ->
+            let
+                newModel =
+                    { model | uuid = Just uuid }
+                        |> handleGoToServices
+                        |> handleTop3Things
+            in
+                newModel ! []
 
         UrlChange location ->
             { model | entryPoint = setEntryPoint location } ! []
