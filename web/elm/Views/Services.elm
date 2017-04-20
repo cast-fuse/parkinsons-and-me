@@ -15,14 +15,8 @@ services model =
         , h2 [ class "blue mb4" ] [ text "Here you are, your tailored list of Parkinson's services" ]
         , div [ class "bg-blue pb6" ] (List.map renderService model.top3things)
         , div [ class "mw7 center mv4" ]
-            [ h3 [ class "blue" ] [ text "If you'd like a copy of your results for futute reference, please enter your email" ]
-            , input [ onInput SetEmail, class (Styles.inputField ++ " mw5 center"), placeholder "put your email", value <| Maybe.withDefault "" model.email ] []
-            , button
-                [ onClick SubmitEmail
-                , autocomplete False
-                , class (Styles.buttonBlue ++ " mt3")
-                ]
-                [ text "submit" ]
+            [ (renderResultsLink model)
+            , (renderEmailForm model)
             ]
         ]
 
@@ -34,3 +28,35 @@ renderService s =
         , p [] [ text s.body ]
         , button [ class Styles.buttonBlue ] [ text s.cta ]
         ]
+
+
+renderResultsLink : Model -> Html Msg
+renderResultsLink model =
+    case model.uuid of
+        Just uuid ->
+            div []
+                [ h3 [ class "blue" ] [ text "Your results will be accessible at the following URL" ]
+                , a [ class "blue", href <| "http://localhost:4000/#my-results/" ++ uuid ] [ text <| (++) "http://localhost:4000/#my-results/" <| Maybe.withDefault "" model.uuid ]
+                ]
+
+        Nothing ->
+            div [] []
+
+
+renderEmailForm : Model -> Html Msg
+renderEmailForm model =
+    case model.email of
+        Just email ->
+            div [] []
+
+        Nothing ->
+            div []
+                [ h3 [ class "blue" ] [ text "If you'd like a copy of them for futute reference, please enter your email" ]
+                , input [ onInput SetEmail, class (Styles.inputField ++ " mw5 center"), placeholder "put your email", value <| Maybe.withDefault "" model.email ] []
+                , button
+                    [ onClick SubmitEmail
+                    , autocomplete False
+                    , class (Styles.buttonBlue ++ " mt3")
+                    ]
+                    [ text "submit" ]
+                ]
