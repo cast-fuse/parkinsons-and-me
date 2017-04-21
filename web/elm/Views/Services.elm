@@ -6,6 +6,7 @@ import Html.Events exposing (..)
 import Helpers.Styles as Styles
 import Components.Logo exposing (..)
 import Model exposing (..)
+import Model.Email exposing (..)
 import Data.UserInfo exposing (isValidEmail)
 
 
@@ -48,13 +49,13 @@ renderResultsLink model =
 renderEmailForm : Model -> Html Msg
 renderEmailForm model =
     case model.email of
-        ValidEmail email ->
+        Valid email ->
             emailForm model email
 
-        NotEnteredEmail ->
+        NotEntered ->
             emailForm model ""
 
-        InvalidEmail email ->
+        Invalid email ->
             emailForm model email
 
         _ ->
@@ -86,7 +87,7 @@ handleSubmitEmail model =
 emailSubmitted : Model -> Html Msg
 emailSubmitted model =
     case model.email of
-        SubmittedEmail email ->
+        Submitted email ->
             h3 [ class "blue" ] [ text <| "Your results have been sent to " ++ email ]
 
         _ ->

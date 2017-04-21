@@ -1,6 +1,8 @@
 module Update exposing (..)
 
 import Model exposing (..)
+import Model.Postcode as Postcode
+import Model.Email as Email
 import Data.UserInfo exposing (validatePostcode, validateEmail, emailToString)
 import Data.Answers exposing (handleAnswer)
 import Data.QuoteServiceWeightings exposing (setQuoteServiceWeightings)
@@ -29,9 +31,9 @@ initialModel : Model
 initialModel =
     { view = Home
     , name = Nothing
-    , postcode = NotEnteredPostcode
+    , postcode = Postcode.NotEntered
     , ageRange = Nothing
-    , email = NotEnteredEmail
+    , email = Email.NotEntered
     , userId = Nothing
     , quotes = Dict.empty
     , services = Dict.empty
@@ -93,7 +95,7 @@ update msg model =
             { model | userId = Just uId } ! []
 
         PutUserEmail (Ok _) ->
-            { model | email = SubmittedEmail <| emailToString model.email } ! []
+            { model | email = Email.Submitted <| emailToString model.email } ! []
 
         PutUserEmail (Err _) ->
             model ! []

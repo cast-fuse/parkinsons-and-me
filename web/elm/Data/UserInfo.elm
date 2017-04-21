@@ -1,5 +1,7 @@
 module Data.UserInfo exposing (..)
 
+import Model.Postcode as Postcode exposing (Postcode)
+import Model.Email as Email exposing (Email)
 import Model exposing (..)
 import Regex exposing (..)
 
@@ -40,24 +42,24 @@ ageRangeToString ageRange =
 postCodeToString : Postcode -> String
 postCodeToString postcode =
     case postcode of
-        NotEnteredPostcode ->
+        Postcode.NotEntered ->
             ""
 
-        InvalidPostcode string ->
+        Postcode.Invalid string ->
             string
 
-        ValidPostcode postcode ->
+        Postcode.Valid postcode ->
             postcode
 
 
 validatePostcode : String -> Postcode
 validatePostcode postcode =
     if Regex.contains postcodeRegex postcode then
-        ValidPostcode postcode
+        Postcode.Valid postcode
     else if postcode == "" then
-        NotEnteredPostcode
+        Postcode.NotEntered
     else
-        InvalidPostcode postcode
+        Postcode.Invalid postcode
 
 
 
@@ -72,7 +74,7 @@ postcodeRegex =
 isValidPostcode : Postcode -> Bool
 isValidPostcode postcode =
     case postcode of
-        ValidPostcode _ ->
+        Postcode.Valid _ ->
             True
 
         _ ->
@@ -108,17 +110,17 @@ emailRegex =
 validateEmail : String -> Email
 validateEmail email =
     if Regex.contains emailRegex email then
-        ValidEmail email
+        Email.Valid email
     else if email == "" then
-        NotEnteredEmail
+        Email.NotEntered
     else
-        InvalidEmail email
+        Email.Invalid email
 
 
 isValidEmail : Email -> Bool
 isValidEmail email =
     case email of
-        ValidEmail _ ->
+        Email.Valid _ ->
             True
 
         _ ->
@@ -128,16 +130,16 @@ isValidEmail email =
 emailToString : Email -> String
 emailToString email =
     case email of
-        ValidEmail email ->
+        Email.Valid email ->
             email
 
-        InvalidEmail email ->
+        Email.Invalid email ->
             email
 
-        RetrievedEmail email ->
+        Email.Retrieved email ->
             email
 
-        SubmittedEmail email ->
+        Email.Submitted email ->
             email
 
         _ ->

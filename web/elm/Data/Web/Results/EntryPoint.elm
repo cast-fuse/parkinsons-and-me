@@ -1,6 +1,8 @@
 module Data.Web.Results.EntryPoint exposing (..)
 
 import Model exposing (..)
+import Model.Email exposing (Email(Retrieved))
+import Model.Postcode exposing (Postcode(Valid))
 import Data.Web.QuoteServiceWeightings exposing (..)
 import Data.Web.Results.Request exposing (..)
 import Data.QuoteServiceWeightings exposing (..)
@@ -47,8 +49,8 @@ repopulateUserData user model =
     { model
         | userId = Just user.id
         , name = Just user.name
-        , postcode = ValidPostcode user.postcode
-        , email = RetrievedEmail user.email
+        , postcode = Valid user.postcode
+        , email = Retrieved user.email
         , ageRange = Just user.ageRange
     }
 
