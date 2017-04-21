@@ -55,6 +55,8 @@ makeEmailUrl uId model =
         |> prepend (toString uId)
         |> prepend "?"
         |> prepend (sIdQueryString model)
+        |> prepend "&uuid="
+        |> prepend (Maybe.withDefault "" model.uuid)
 
 
 prepend : String -> String -> String

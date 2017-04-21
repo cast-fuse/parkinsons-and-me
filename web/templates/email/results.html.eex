@@ -4,3 +4,6 @@
     <%= x.title %>
   </p>
 <% end %>
+<p class="blue">Revisit your results at any time by clicking this link:</p>
+<% results_url = "https://what3things.herokuapp.com/#my-results/#{@uuid}" %>
+<a href="<%= results_url %>"><%= results_url %></a>

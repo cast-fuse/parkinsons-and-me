@@ -40,14 +40,13 @@ defmodule What3things.UserController do
     end
   end
 
-  #
-  def update(conn, %{"id" => id, "user" => %{"email" => email}, "service_ids" => service_ids}) do
+  def update(conn, %{"id" => id, "user" => %{"email" => email}, "service_ids" => service_ids, "uuid" => uuid}) do
     user = Repo.get!(User, id)
     changeset = User.changeset(user, %{email: email})
 
     case Repo.update(changeset) do
       {:ok, user} ->
-        handle_email(%{"email" => email, "service_ids" => service_ids})
+        handle_email(%{email: email, service_ids: service_ids, uuid: uuid})
         render(conn, "show.json", user: user)
       {:error, changeset} ->
         conn
@@ -73,8 +72,8 @@ defmodule What3things.UserController do
     |> Enum.map(&String.to_integer/1)
   end
 
-  def handle_email(%{"email" => email, "service_ids" => service_ids}) do
-    params = %{to: email, top3things: get_top3things(service_ids)}
+  def handle_email(%{email: email, service_ids: service_ids, uuid: uuid}) do
+    params = %{to: email, top3things: get_top3things(service_ids), uuid: uuid}
     params
     |> Email.welcome_email()
     |> Mailer.deliver_later()

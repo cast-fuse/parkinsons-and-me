@@ -63,6 +63,9 @@ renderEmailForm model =
         Invalid email ->
             emailForm model email
 
+        Retrieved email ->
+            emailForm model email
+
         _ ->
             emptyDiv
 

@@ -88,11 +88,11 @@ update msg model =
         HandleGoToQuotes ->
             (handleGoToQuotes model) ! [ postUserDetails model ]
 
-        ReceiveUserId (Err _) ->
+        ReceiveUser (Err _) ->
             model ! []
 
-        ReceiveUserId (Ok uId) ->
-            { model | userId = Just uId } ! []
+        ReceiveUser (Ok rawUser) ->
+            (model |> handleRetrievedUserData rawUser) ! []
 
         PutUserEmail (Ok _) ->
             { model | email = Email.Submitted <| emailToString model.email } ! []
