@@ -4,6 +4,7 @@ import Model exposing (..)
 import Json.Encode as Encode exposing (..)
 import Http exposing (..)
 import Data.Web.Normalise exposing (normaliseEmail)
+import Data.UserInfo exposing (emailToString)
 
 
 sendUserEmail : Model -> Cmd Msg
@@ -30,7 +31,7 @@ makeEmailJson model =
 
 encodeEmail : Model -> String
 encodeEmail model =
-    Maybe.withDefault "" model.email
+    emailToString model.email
         |> normaliseEmail
 
 

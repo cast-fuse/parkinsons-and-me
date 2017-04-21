@@ -1,5 +1,7 @@
 module Model exposing (..)
 
+import Model.Email exposing (Email)
+import Model.Postcode exposing (Postcode)
 import Dict exposing (..)
 import Http
 import Navigation
@@ -10,7 +12,7 @@ type alias Model =
     , name : Maybe String
     , postcode : Postcode
     , ageRange : Maybe AgeRange
-    , email : Maybe String
+    , email : Email
     , userId : Maybe Int
     , quotes : Quotes
     , services : Services
@@ -23,6 +25,7 @@ type alias Model =
     , userWeightings : WeightingsDict
     , userAnswers : List ( QuoteId, Answer )
     , entryPoint : EntryPoint
+    , uuid : Maybe String
     }
 
 
@@ -42,12 +45,6 @@ type AgeRange
     | Sixties
     | Seventies
     | OverEighty
-
-
-type Postcode
-    = NotEntered
-    | Valid String
-    | Invalid String
 
 
 type Answer
@@ -138,6 +135,6 @@ type Msg
     | ReceiveUserId (Result Http.Error Int)
     | PutUserEmail (Result Http.Error ())
     | SubmitEmail
-    | PostUserAnswers (Result Http.Error ())
+    | PostUserAnswers (Result Http.Error String)
     | UrlChange Navigation.Location
     | ReceiveResults (Result Http.Error Results)

@@ -37,7 +37,7 @@ postcodeField model =
 
 handleNext : Model -> Html Msg
 handleNext model =
-    if isValidPostcode model then
+    if isValidPostcode model.postcode then
         button [ class Styles.buttonBlue, onClick <| SetView Age ] [ text "Next" ]
     else
         button [ class Styles.buttonDisabled ] [ text "Next" ]

@@ -3,6 +3,7 @@ module UserInfoSpec exposing (all)
 import Test exposing (..)
 import Expect
 import Model exposing (..)
+import Model.Postcode as Postcode
 import Update exposing (initialModel)
 import Data.UserInfo
     exposing
@@ -28,27 +29,27 @@ valdidatePostcodeSpec =
         [ describe "validatePostcode"
             [ test "an empty postcode should return a NotEntered Value" <|
                 \() ->
-                    Expect.equal (validatePostcode "") NotEntered
+                    Expect.equal (validatePostcode "") Postcode.NotEntered
             , test "an invalid postcode should return the postcode wrapped in an Invalid value" <|
                 \() ->
-                    Expect.equal (validatePostcode "e83") (Invalid "e83")
+                    Expect.equal (validatePostcode "e83") (Postcode.Invalid "e83")
             , test "a valid postcode should return the postcoed wrapped in a Valid value" <|
                 \() ->
-                    Expect.equal (validatePostcode "e82na") (Valid "e82na")
+                    Expect.equal (validatePostcode "e82na") (Postcode.Valid "e82na")
             , test "should handle capital letters" <|
                 \() ->
-                    Expect.equal (validatePostcode "E82NA") (Valid "E82NA")
+                    Expect.equal (validatePostcode "E82NA") (Postcode.Valid "E82NA")
             ]
         , describe "isValidPostcode"
             [ test "returns True for a Valid Postcode" <|
                 \() ->
-                    Expect.true "" (isValidPostcode validFormModel)
+                    Expect.true "" (isValidPostcode validFormModel.postcode)
             , test "returns False for an Invalid Postcode" <|
                 \() ->
-                    Expect.false "" (isValidPostcode invalidPostcodeModel)
+                    Expect.false "" (isValidPostcode invalidPostcodeModel.postcode)
             , test "returns False for a NotEntered Postcode" <|
                 \() ->
-                    Expect.false "" (isValidPostcode notEnteredPostcodeModel)
+                    Expect.false "" (isValidPostcode notEnteredPostcodeModel.postcode)
             ]
         ]
 
@@ -81,7 +82,7 @@ validFormModel : Model
 validFormModel =
     { initialModel
         | name = Just "andrew"
-        , postcode = Valid "e82na"
+        , postcode = Postcode.Valid "e82na"
         , ageRange = Just UnderForty
     }
 
@@ -103,12 +104,12 @@ invalidAgeModel =
 invalidPostcodeModel : Model
 invalidPostcodeModel =
     { validFormModel
-        | postcode = Invalid "e82"
+        | postcode = Postcode.Invalid "e82"
     }
 
 
 notEnteredPostcodeModel : Model
 notEnteredPostcodeModel =
     { validFormModel
-        | postcode = NotEntered
+        | postcode = Postcode.NotEntered
     }

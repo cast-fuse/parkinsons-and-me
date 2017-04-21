@@ -8,8 +8,8 @@ import Json.Decode as Decode exposing (..)
 
 handlePostAnswers : Model -> Cmd Msg
 handlePostAnswers model =
-    case model.view of
-        Services ->
+    case model.currentQuote of
+        Nothing ->
             postAnswers model
 
         _ ->
@@ -20,11 +20,16 @@ postAnswers : Model -> Cmd Msg
 postAnswers model =
     case model.userId of
         Just uId ->
-            Http.post ("/api/users/" ++ (toString uId) ++ "/answers") (Http.jsonBody <| makeAnswersJson model) (Decode.succeed ())
+            Http.post ("/api/users/" ++ (toString uId) ++ "/answers") (Http.jsonBody <| makeAnswersJson model) (answerResponseDecoder)
                 |> Http.send PostUserAnswers
 
         Nothing ->
             Cmd.none
+
+
+answerResponseDecoder : Decoder String
+answerResponseDecoder =
+    at [ "data", "uuid" ] string
 
 
 makeAnswersJson : Model -> Value
