@@ -16,16 +16,19 @@ handleTop3Things model =
 
 top3things : WeightingsDict -> Services -> List ServiceData
 top3things userWeightings services =
-    let
-        top3sIds =
-            userWeightings
-                |> Dict.toList
-                |> List.sortWith (\( _, w1 ) ( _, w2 ) -> compare w2 w1)
-                |> List.take 3
-    in
-        top3sIds
-            |> List.map (\( sId, _ ) -> Dict.get sId services)
-            |> List.map (Maybe.withDefault nullServiceData)
+    userWeightings
+        |> top3Ids
+        |> List.map (\sId -> Dict.get sId services)
+        |> List.map (Maybe.withDefault nullServiceData)
+
+
+top3Ids : WeightingsDict -> List ServiceId
+top3Ids userWeightings =
+    userWeightings
+        |> Dict.toList
+        |> List.sortWith (\( _, w1 ) ( _, w2 ) -> compare w2 w1)
+        |> List.take 3
+        |> List.map Tuple.first
 
 
 nullServiceData : ServiceData
