@@ -1,9 +1,10 @@
 defmodule What3things.Email do
   use Bamboo.Phoenix, view: What3things.EmailView
 
-  def welcome_email(%{to: to}) do
+  def welcome_email(%{to: to, top3things: top3things}) do
     base_email()
     |> to(to)
+    |> assign(:top3things, top3things)
     |> subject("here are your top 3 things")
     |> render(:results)
   end

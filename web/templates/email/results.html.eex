@@ -1,1 +1,6 @@
 <h1 class="blue">hello results</h1>
+<%= for x <- @top3things do %>
+  <p>
+    <%= x.title %>
+  </p>
+<% end %>
