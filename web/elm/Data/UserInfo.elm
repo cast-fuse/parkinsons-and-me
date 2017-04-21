@@ -123,6 +123,9 @@ isValidEmail email =
         Email.Valid _ ->
             True
 
+        Email.Retrieved _ ->
+            True
+
         _ ->
             False
 

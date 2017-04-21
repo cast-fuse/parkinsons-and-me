@@ -132,7 +132,7 @@ type Msg
     | ShuffleQuoteIds (List QuoteId) (List Int)
     | SubmitAnswer Answer
     | HandleGoToQuotes
-    | ReceiveUserId (Result Http.Error Int)
+    | ReceiveUser (Result Http.Error RawUser)
     | PutUserEmail (Result Http.Error ())
     | SubmitEmail
     | PostUserAnswers (Result Http.Error String)

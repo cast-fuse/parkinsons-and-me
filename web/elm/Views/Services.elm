@@ -39,11 +39,16 @@ renderResultsLink model =
         Just uuid ->
             div []
                 [ h3 [ class "blue" ] [ text "Your results will be accessible at the following URL" ]
-                , a [ class "blue", href <| "http://localhost:4000/#my-results/" ++ uuid ] [ text <| (++) "http://localhost:4000/#my-results/" <| Maybe.withDefault "" model.uuid ]
+                , a [ class "blue", href <| resultsUrl uuid ] [ text <| resultsUrl uuid ]
                 ]
 
         Nothing ->
             emptyDiv
+
+
+resultsUrl : String -> String
+resultsUrl uuid =
+    "https://what3things-staging.herokuapp.com/#my-results/" ++ uuid
 
 
 renderEmailForm : Model -> Html Msg
@@ -56,6 +61,9 @@ renderEmailForm model =
             emailForm model ""
 
         Invalid email ->
+            emailForm model email
+
+        Retrieved email ->
             emailForm model email
 
         _ ->

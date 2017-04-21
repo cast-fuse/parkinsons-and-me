@@ -6,6 +6,7 @@ import Json.Decode.Pipeline exposing (..)
 import Data.Web.Normalise exposing (..)
 import Data.Web.Answers exposing (..)
 import Data.Web.QuoteServiceWeightings exposing (..)
+import Data.Web.User exposing (rawUserDecoder)
 import Model exposing (..)
 import Dict exposing (..)
 
@@ -38,18 +39,3 @@ transformRawAnswers answers =
         |> Dict.toList
         |> List.map (\( qId, answerBool ) -> ( String.toInt qId, boolToAnswer answerBool ))
         |> List.map (\( x, y ) -> ( Result.withDefault 0 x, y ))
-
-
-rawUserDecoder : Decoder RawUser
-rawUserDecoder =
-    decode RawUser
-        |> required "id" int
-        |> required "name" string
-        |> required "age_range" ageRangeDecoder
-        |> optional "email" string ""
-        |> required "postcode" string
-
-
-ageRangeDecoder : Decoder AgeRange
-ageRangeDecoder =
-    string |> andThen (\x -> (succeed (stringToAgeRange x)))
