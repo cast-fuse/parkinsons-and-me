@@ -69,9 +69,9 @@ postcodeRegex =
     regex "^(([gG][iI][rR] {0,}0[aA]{2})|((([a-pr-uwyzA-PR-UWYZ][a-hk-yA-HK-Y]?[0-9][0-9]?)|(([a-pr-uwyzA-PR-UWYZ][0-9][a-hjkstuwA-HJKSTUW])|([a-pr-uwyzA-PR-UWYZ][a-hk-yA-HK-Y][0-9][abehmnprv-yABEHMNPRV-Y]))) {0,}[0-9][abd-hjlnp-uw-zABD-HJLNP-UW-Z]{2}))$"
 
 
-isValidPostcode : Model -> Bool
-isValidPostcode model =
-    case model.postcode of
+isValidPostcode : Postcode -> Bool
+isValidPostcode postcode =
+    case postcode of
         ValidPostcode _ ->
             True
 
@@ -115,11 +115,30 @@ validateEmail email =
         InvalidEmail email
 
 
-isValidEmail : Model -> Bool
-isValidEmail model =
-    case model.email of
+isValidEmail : Email -> Bool
+isValidEmail email =
+    case email of
         ValidEmail _ ->
             True
 
         _ ->
             False
+
+
+emailToString : Email -> String
+emailToString email =
+    case email of
+        ValidEmail email ->
+            email
+
+        InvalidEmail email ->
+            email
+
+        RetrievedEmail email ->
+            email
+
+        SubmittedEmail email ->
+            email
+
+        _ ->
+            ""

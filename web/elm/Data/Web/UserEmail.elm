@@ -4,6 +4,7 @@ import Model exposing (..)
 import Json.Encode as Encode exposing (..)
 import Http exposing (..)
 import Data.Web.Normalise exposing (normaliseEmail)
+import Data.UserInfo exposing (emailToString)
 
 
 sendUserEmail : Model -> Cmd Msg
@@ -30,24 +31,8 @@ makeEmailJson model =
 
 encodeEmail : Model -> String
 encodeEmail model =
-    emailToString model
+    emailToString model.email
         |> normaliseEmail
-
-
-emailToString : Model -> String
-emailToString model =
-    case model.email of
-        ValidEmail email ->
-            email
-
-        InvalidEmail email ->
-            email
-
-        RetrievedEmail email ->
-            email
-
-        _ ->
-            ""
 
 
 put : String -> Http.Body -> Request ()

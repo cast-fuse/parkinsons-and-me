@@ -1,7 +1,7 @@
 module Update exposing (..)
 
 import Model exposing (..)
-import Data.UserInfo exposing (validatePostcode, validateEmail)
+import Data.UserInfo exposing (validatePostcode, validateEmail, emailToString)
 import Data.Answers exposing (handleAnswer)
 import Data.QuoteServiceWeightings exposing (setQuoteServiceWeightings)
 import Data.Web.Answers exposing (handlePostAnswers)
@@ -93,7 +93,7 @@ update msg model =
             { model | userId = Just uId } ! []
 
         PutUserEmail (Ok _) ->
-            { model | email = SubmittedEmail } ! []
+            { model | email = SubmittedEmail <| emailToString model.email } ! []
 
         PutUserEmail (Err _) ->
             model ! []

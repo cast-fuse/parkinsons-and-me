@@ -18,6 +18,7 @@ services model =
         , div [ class "mw7 center mv4" ]
             [ (renderResultsLink model)
             , (renderEmailForm model)
+            , (emailSubmitted model)
             ]
         ]
 
@@ -41,15 +42,12 @@ renderResultsLink model =
                 ]
 
         Nothing ->
-            div [] []
+            emptyDiv
 
 
 renderEmailForm : Model -> Html Msg
 renderEmailForm model =
     case model.email of
-        RetrievedEmail email ->
-            div [] []
-
         ValidEmail email ->
             emailForm model email
 
@@ -59,8 +57,8 @@ renderEmailForm model =
         InvalidEmail email ->
             emailForm model email
 
-        SubmittedEmail ->
-            div [] []
+        _ ->
+            emptyDiv
 
 
 emailForm : Model -> String -> Html Msg
@@ -74,7 +72,7 @@ emailForm model email =
 
 handleSubmitEmail : Model -> Html Msg
 handleSubmitEmail model =
-    if isValidEmail model then
+    if isValidEmail model.email then
         button
             [ onClick SubmitEmail
             , autocomplete False
@@ -83,3 +81,18 @@ handleSubmitEmail model =
             [ text "Submit" ]
     else
         button [ class Styles.buttonDisabled ] [ text "Submit" ]
+
+
+emailSubmitted : Model -> Html Msg
+emailSubmitted model =
+    case model.email of
+        SubmittedEmail email ->
+            h3 [ class "blue" ] [ text <| "Your results have been sent to " ++ email ]
+
+        _ ->
+            emptyDiv
+
+
+emptyDiv : Html Msg
+emptyDiv =
+    div [] []

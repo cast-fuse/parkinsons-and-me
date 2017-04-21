@@ -61,7 +61,7 @@ type Email
     | ValidEmail String
     | InvalidEmail String
     | RetrievedEmail String
-    | SubmittedEmail
+    | SubmittedEmail String
 
 
 type alias Quotes =
