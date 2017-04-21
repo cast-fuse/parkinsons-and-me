@@ -1,5 +1,7 @@
 module Model exposing (..)
 
+import Model.Email exposing (Email)
+import Model.Postcode exposing (Postcode)
 import Dict exposing (..)
 import Http
 import Navigation
@@ -45,23 +47,9 @@ type AgeRange
     | OverEighty
 
 
-type Postcode
-    = NotEnteredPostcode
-    | ValidPostcode String
-    | InvalidPostcode String
-
-
 type Answer
     = Yes
     | No
-
-
-type Email
-    = NotEnteredEmail
-    | ValidEmail String
-    | InvalidEmail String
-    | RetrievedEmail String
-    | SubmittedEmail String
 
 
 type alias Quotes =
