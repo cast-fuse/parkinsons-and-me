@@ -1,0 +1,12 @@
+<html>
+  <head>
+    <style type="text/css">
+      .blue {
+        color: #0192C8;
+      }
+    </style>
+  </head>
+  <body>
+    <%= render @view_module, @view_template, assigns %>
+  </body>
+</html>

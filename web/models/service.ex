@@ -1,5 +1,6 @@
 defmodule What3things.Service do
   use What3things.Web, :model
+  alias What3things.Service
 
   schema "services" do
     field :title, :string
@@ -18,4 +19,7 @@ defmodule What3things.Service do
     |> validate_required(@required_fields)
   end
 
+  def services_by_id(ids) do
+    from s in Service, where: s.id in ^ids
+  end
 end

@@ -1,7 +1,9 @@
 module Update exposing (..)
 
 import Model exposing (..)
-import Data.UserInfo exposing (validatePostcode)
+import Model.Postcode as Postcode
+import Model.Email as Email
+import Data.UserInfo exposing (validatePostcode, validateEmail, emailToString)
 import Data.Answers exposing (handleAnswer)
 import Data.QuoteServiceWeightings exposing (setQuoteServiceWeightings)
 import Data.Web.Answers exposing (handlePostAnswers)
@@ -29,9 +31,9 @@ initialModel : Model
 initialModel =
     { view = Home
     , name = Nothing
-    , postcode = NotEntered
+    , postcode = Postcode.NotEntered
     , ageRange = Nothing
-    , email = Nothing
+    , email = Email.NotEntered
     , userId = Nothing
     , quotes = Dict.empty
     , services = Dict.empty
@@ -44,6 +46,7 @@ initialModel =
     , userWeightings = Dict.empty
     , userAnswers = []
     , entryPoint = Start
+    , uuid = Nothing
     }
 
 
@@ -63,7 +66,7 @@ update msg model =
             { model | ageRange = Just ageRange } ! []
 
         SetEmail email ->
-            { model | email = Just email } ! []
+            { model | email = validateEmail email } ! []
 
         ReceiveQuoteServiceWeightings (Err _) ->
             { model | fetchErrorMessage = "Something went wrong fetching the data." } ! []
@@ -79,22 +82,20 @@ update msg model =
                 newModel =
                     model
                         |> handleAnswer answer
-                        |> handleGoToServices
-                        |> handleTop3Things
             in
                 newModel ! [ handlePostAnswers newModel ]
 
         HandleGoToQuotes ->
             (handleGoToQuotes model) ! [ postUserDetails model ]
 
-        ReceiveUserId (Err _) ->
+        ReceiveUser (Err _) ->
             model ! []
 
-        ReceiveUserId (Ok uId) ->
-            { model | userId = Just uId } ! []
+        ReceiveUser (Ok rawUser) ->
+            (model |> handleRetrievedUserData rawUser) ! []
 
         PutUserEmail (Ok _) ->
-            { model | email = Nothing } ! []
+            { model | email = Email.Submitted <| emailToString model.email } ! []
 
         PutUserEmail (Err _) ->
             model ! []
@@ -102,8 +103,17 @@ update msg model =
         SubmitEmail ->
             model ! [ sendUserEmail model ]
 
-        PostUserAnswers _ ->
+        PostUserAnswers (Err _) ->
             model ! []
+
+        PostUserAnswers (Ok uuid) ->
+            let
+                newModel =
+                    { model | uuid = Just uuid }
+                        |> handleGoToServices
+                        |> handleTop3Things
+            in
+                newModel ! []
 
         UrlChange location ->
             { model | entryPoint = setEntryPoint location } ! []

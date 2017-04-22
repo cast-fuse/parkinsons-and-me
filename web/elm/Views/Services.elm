@@ -6,6 +6,8 @@ import Html.Events exposing (..)
 import Helpers.Styles as Styles
 import Components.Logo exposing (..)
 import Model exposing (..)
+import Model.Email exposing (..)
+import Data.UserInfo exposing (isValidEmail)
 
 
 services : Model -> Html Msg
@@ -15,14 +17,9 @@ services model =
         , h2 [ class "blue mb4" ] [ text "Here you are, your tailored list of Parkinson's services" ]
         , div [ class "bg-blue pb6" ] (List.map renderService model.top3things)
         , div [ class "mw7 center mv4" ]
-            [ h3 [ class "blue" ] [ text "If you'd like a copy of your results for futute reference, please enter your email" ]
-            , input [ onInput SetEmail, class (Styles.inputField ++ " mw5 center"), placeholder "put your email", value <| Maybe.withDefault "" model.email ] []
-            , button
-                [ onClick SubmitEmail
-                , autocomplete False
-                , class (Styles.buttonBlue ++ " mt3")
-                ]
-                [ text "submit" ]
+            [ (renderResultsLink model)
+            , (renderEmailForm model)
+            , (emailSubmitted model)
             ]
         ]
 
@@ -34,3 +31,77 @@ renderService s =
         , p [] [ text s.body ]
         , button [ class Styles.buttonBlue ] [ text s.cta ]
         ]
+
+
+renderResultsLink : Model -> Html Msg
+renderResultsLink model =
+    case model.uuid of
+        Just uuid ->
+            div []
+                [ h3 [ class "blue" ] [ text "Your results will be accessible at the following URL" ]
+                , a [ class "blue", href <| resultsUrl uuid ] [ text <| resultsUrl uuid ]
+                ]
+
+        Nothing ->
+            emptyDiv
+
+
+resultsUrl : String -> String
+resultsUrl uuid =
+    "https://what3things-staging.herokuapp.com/#my-results/" ++ uuid
+
+
+renderEmailForm : Model -> Html Msg
+renderEmailForm model =
+    case model.email of
+        Valid email ->
+            emailForm model email
+
+        NotEntered ->
+            emailForm model ""
+
+        Invalid email ->
+            emailForm model email
+
+        Retrieved email ->
+            emailForm model email
+
+        _ ->
+            emptyDiv
+
+
+emailForm : Model -> String -> Html Msg
+emailForm model email =
+    div []
+        [ h3 [ class "blue" ] [ text "If you'd like a copy of them for futute reference, please enter your email" ]
+        , input [ onInput SetEmail, class (Styles.inputField ++ " mw5 center"), placeholder "put your email", value email ] []
+        , (handleSubmitEmail model)
+        ]
+
+
+handleSubmitEmail : Model -> Html Msg
+handleSubmitEmail model =
+    if isValidEmail model.email then
+        button
+            [ onClick SubmitEmail
+            , autocomplete False
+            , class (Styles.buttonBlue ++ " mt3")
+            ]
+            [ text "Submit" ]
+    else
+        button [ class Styles.buttonDisabled ] [ text "Submit" ]
+
+
+emailSubmitted : Model -> Html Msg
+emailSubmitted model =
+    case model.email of
+        Submitted email ->
+            h3 [ class "blue" ] [ text <| "Your results have been sent to " ++ email ]
+
+        _ ->
+            emptyDiv
+
+
+emptyDiv : Html Msg
+emptyDiv =
+    div [] []

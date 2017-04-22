@@ -1,17 +1,29 @@
 module Data.Web.User exposing (..)
 
 import Model exposing (..)
+import Model.Email exposing (..)
 import Http exposing (..)
 import Json.Encode as Encode
 import Json.Decode as Decode exposing (..)
+import Json.Decode.Pipeline exposing (..)
 import Data.UserInfo exposing (..)
 import Data.Web.Normalise exposing (..)
 
 
+handleRetrievedUserData : RawUser -> Model -> Model
+handleRetrievedUserData rawUser model =
+    case rawUser.email of
+        "" ->
+            { model | email = NotEntered, userId = Just rawUser.id }
+
+        _ ->
+            { model | email = Retrieved rawUser.email, userId = Just rawUser.id }
+
+
 postUserDetails : Model -> Cmd Msg
 postUserDetails model =
-    Http.post "/api/users" (Http.jsonBody <| makeUserJson model) userIdDecoder
-        |> Http.send ReceiveUserId
+    Http.post "/api/users" (Http.jsonBody <| makeUserJson model) (field "data" rawUserDecoder)
+        |> Http.send ReceiveUser
 
 
 makeUserJson : Model -> Value
@@ -50,6 +62,16 @@ encodePostcode model =
         |> normalisePostcode
 
 
-userIdDecoder : Decoder Int
-userIdDecoder =
-    Decode.at [ "data", "id" ] Decode.int
+rawUserDecoder : Decoder RawUser
+rawUserDecoder =
+    decode RawUser
+        |> required "id" int
+        |> required "name" string
+        |> required "age_range" ageRangeDecoder
+        |> optional "email" string ""
+        |> required "postcode" string
+
+
+ageRangeDecoder : Decoder AgeRange
+ageRangeDecoder =
+    string |> andThen (\x -> (succeed (stringToAgeRange x)))

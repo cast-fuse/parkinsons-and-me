@@ -4,13 +4,15 @@ import Model exposing (..)
 import Json.Encode as Encode exposing (..)
 import Http exposing (..)
 import Data.Web.Normalise exposing (normaliseEmail)
+import Data.UserInfo exposing (emailToString)
+import Data.Services exposing (top3Ids)
 
 
 sendUserEmail : Model -> Cmd Msg
 sendUserEmail model =
     case model.userId of
         Just uId ->
-            put ("/api/users/" ++ (toString uId)) (Http.jsonBody <| makeUserJson model)
+            put (makeEmailUrl uId model) (Http.jsonBody <| makeUserJson model)
                 |> Http.send PutUserEmail
 
         Nothing ->
@@ -30,7 +32,7 @@ makeEmailJson model =
 
 encodeEmail : Model -> String
 encodeEmail model =
-    Maybe.withDefault "" model.email
+    emailToString model.email
         |> normaliseEmail
 
 
@@ -45,3 +47,27 @@ put url body =
         , timeout = Nothing
         , withCredentials = False
         }
+
+
+makeEmailUrl : Int -> Model -> String
+makeEmailUrl uId model =
+    "/api/users/"
+        |> prepend (toString uId)
+        |> prepend "?"
+        |> prepend (sIdQueryString model)
+        |> prepend "&uuid="
+        |> prepend (Maybe.withDefault "" model.uuid)
+
+
+prepend : String -> String -> String
+prepend =
+    flip (++)
+
+
+sIdQueryString : Model -> String
+sIdQueryString model =
+    model.userWeightings
+        |> top3Ids
+        |> List.map toString
+        |> String.join ","
+        |> String.append "service_ids="
