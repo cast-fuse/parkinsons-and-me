@@ -1,8 +1,8 @@
 defmodule What3things.AnswerView do
   use What3things.Web, :view
 
-  def render("show_answer_set.json", %{answer_set: answer_set}) do
-    %{data: render("answer_set.json", %{answer_set: answer_set})}
+  def render("show_answer_set.json", answer_set) do
+    %{data: render("answer_set.json", answer_set)}
   end
 
   def render("show_answers.json", %{answers: answers}) do

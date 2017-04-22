@@ -5,8 +5,6 @@ defmodule What3things.Answer do
     field :answer, :boolean
     belongs_to :quote, What3things.Quote
     belongs_to :answer_set, What3things.AnswerSet
-
-    timestamps()
   end
 
   def changeset(struct, params \\ %{}) do
