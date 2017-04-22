@@ -3,7 +3,6 @@ module Data.Web.Results.Request exposing (..)
 import Http exposing (..)
 import Json.Decode exposing (..)
 import Json.Decode.Pipeline exposing (..)
-import Data.Web.Normalise exposing (..)
 import Data.Web.Answers exposing (..)
 import Data.Web.QuoteServiceWeightings exposing (..)
 import Data.Web.User exposing (rawUserDecoder)
@@ -29,7 +28,7 @@ previousResultsDecoder =
 
 answersDecoder : Decoder (List ( QuoteId, Answer ))
 answersDecoder =
-    field "answers" (dict bool)
+    (dict bool)
         |> andThen (\x -> (succeed (transformRawAnswers x)))
 
 
