@@ -15,13 +15,7 @@ defmodule What3things.ElmView do
 
   def user_answers(user_data) do
     %{user: render_one(user_data.user, UserView, "user.json"),
-      answers: format_answers(user_data.answers)}
-  end
-
-  def format_answers(answers) do
-    answers
-    |> Enum.map(fn(x) -> {Integer.to_string(x.quote_id), x.answer} end)
-    |> Enum.into(%{})
+      answers: render_many(user_data.answers, AnswerView, "answer.json")}
   end
 
   def quotes_services_weightings(data) do

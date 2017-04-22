@@ -29,7 +29,6 @@ defmodule What3things.ElmController do
         results =
           %{data: %{quotes: quotes, services: services, weightings: weightings},
             user_data: %{user: user, answers: answers}}
-        # IO.inspect results
         render conn, "results.json", results
     end
   end

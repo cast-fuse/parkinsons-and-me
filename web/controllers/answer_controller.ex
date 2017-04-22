@@ -9,7 +9,7 @@ defmodule What3things.AnswerController do
     answer_set =
       Multi.new
       |> Multi.insert(:create_answer_set, answer_set_changeset)
-      |> Multi.run(:add_answers, fn(x) -> insert_answers(x.create_answer_set.id, answers) end)
+      |> Multi.run(:add_answers, &insert_answers(answers, &1.create_answer_set.id))
       |> Repo.transaction
 
     case answer_set do
@@ -24,8 +24,8 @@ defmodule What3things.AnswerController do
     end
   end
 
-  defp insert_answers(answer_set_id, answers) do
-    formatted = format_answers(answer_set_id, answers)
+  defp insert_answers(answers, answer_set_id) do
+    formatted = answers |> Enum.map(&add_set_id(&1, answer_set_id))
     case Repo.insert_all(Answer, formatted) do
       {n, nil} ->
         {:ok, {n, nil}}
@@ -34,14 +34,8 @@ defmodule What3things.AnswerController do
     end
   end
 
-  defp format_answers(answer_set_id, answers) do
-    answers
-    |> Map.to_list
-    |> Enum.map(&construct_answer(&1, answer_set_id))
-  end
-
-  defp construct_answer({quote_id, answer}, answer_set_id) do
-    %{quote_id: String.to_integer(quote_id),
+  defp add_set_id(%{"quote_id" => quote_id, "answer" => answer}, answer_set_id) do
+    %{quote_id: quote_id,
       answer_set_id: answer_set_id,
       answer: answer}
   end
