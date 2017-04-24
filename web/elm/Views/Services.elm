@@ -6,6 +6,8 @@ import Html.Events exposing (..)
 import Helpers.Styles as Styles
 import Components.Utils exposing (emptyDiv)
 import Components.Logo exposing (..)
+import Views.Widget exposing (..)
+import Data.Services exposing (..)
 import Model exposing (..)
 import Model.Email exposing (..)
 import Data.UserInfo exposing (isValidEmail)
@@ -30,6 +32,7 @@ renderService s =
     div [ class "mw7 pa4 bg-light-gray center" ]
         [ h3 [ class "blue ma0" ] [ text s.title ]
         , p [] [ text s.body ]
+        , renderWidget <| shortcodeToWidget s
         , button [ class Styles.buttonBlue ] [ text s.cta ]
         ]
 

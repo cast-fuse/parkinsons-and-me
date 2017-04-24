@@ -52,6 +52,20 @@ type Answer
     | No
 
 
+type ServiceWidget
+    = PeerSupport
+    | Forum
+    | Groups
+    | ParkinsonsNurse
+    | SelfManagement
+    | LocalAdvisor
+    | HelpLine
+    | Facebook
+    | NewlyDiagnosed
+    | EarlyOnset
+    | Publications
+
+
 type alias Quotes =
     Dict QuoteId String
 
@@ -66,6 +80,7 @@ type alias ServiceData =
     , cta : String
     , url : String
     , earlyOnset : Bool
+    , shortcode : String
     }
 
 
