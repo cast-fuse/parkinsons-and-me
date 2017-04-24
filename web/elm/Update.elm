@@ -7,7 +7,7 @@ import Data.UserInfo exposing (validatePostcode, validateEmail, emailToString)
 import Data.Answers exposing (handleAnswer)
 import Data.QuoteServiceWeightings exposing (setQuoteServiceWeightings)
 import Web.Answers exposing (handlePostAnswers)
-import Web.Results.UrlParser exposing (..)
+import Web.Results.Url exposing (..)
 import Web.Results.EntryPoint exposing (..)
 import Web.User exposing (..)
 import Web.UserEmail exposing (..)
@@ -113,7 +113,7 @@ update msg model =
                         |> handleGoToServices
                         |> handleTop3Things
             in
-                newModel ! []
+                newModel ! [ setResultsUrl newModel ]
 
         UrlChange location ->
             { model | entryPoint = setEntryPoint location } ! []
