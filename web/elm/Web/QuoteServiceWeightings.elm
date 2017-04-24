@@ -1,6 +1,6 @@
-module Data.Web.QuoteServiceWeightings exposing (..)
+module Web.QuoteServiceWeightings exposing (..)
 
-import Json.Decode exposing (..)
+import Json.Decode as Json exposing (..)
 import Json.Decode.Pipeline exposing (..)
 import Http exposing (..)
 import Model exposing (..)
@@ -24,7 +24,8 @@ quoteServiceWeightingsDecoder =
 
 quoteDecoder : Decoder Quotes
 quoteDecoder =
-    Json.Decode.map Dict.fromList (list rawQuoteDecoder)
+    list rawQuoteDecoder
+        |> Json.map Dict.fromList
 
 
 rawQuoteDecoder : Decoder ( QuoteId, String )
@@ -36,7 +37,8 @@ rawQuoteDecoder =
 
 servicesDecoder : Decoder Services
 servicesDecoder =
-    Json.Decode.map Dict.fromList (list rawServiceDecoder)
+    list rawServiceDecoder
+        |> Json.map Dict.fromList
 
 
 rawServiceDecoder : Decoder ( ServiceId, ServiceData )
@@ -52,7 +54,8 @@ rawServiceDecoder =
 
 weightingDecoder : Decoder Weightings
 weightingDecoder =
-    Json.Decode.map rawWeightingToDict (list rawWeightingDecoder)
+    list rawWeightingDecoder
+        |> Json.map rawWeightingToDict
 
 
 rawWeightingDecoder : Decoder RawWeighting

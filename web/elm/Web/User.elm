@@ -1,4 +1,4 @@
-module Data.Web.User exposing (..)
+module Web.User exposing (..)
 
 import Model exposing (..)
 import Model.Email exposing (..)
@@ -7,7 +7,7 @@ import Json.Encode as Encode
 import Json.Decode as Decode exposing (..)
 import Json.Decode.Pipeline exposing (..)
 import Data.UserInfo exposing (..)
-import Data.Web.Normalise exposing (..)
+import Web.Normalise exposing (..)
 
 
 handleRetrievedUserData : RawUser -> Model -> Model
@@ -74,4 +74,4 @@ rawUserDecoder =
 
 ageRangeDecoder : Decoder AgeRange
 ageRangeDecoder =
-    string |> andThen (\x -> (succeed (stringToAgeRange x)))
+    string |> Decode.map stringToAgeRange

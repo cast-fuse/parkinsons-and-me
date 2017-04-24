@@ -1,12 +1,11 @@
-module Data.Web.Results.Request exposing (..)
+module Web.Results.Request exposing (..)
 
 import Http exposing (..)
-import Json.Decode exposing (..)
+import Json.Decode as Json exposing (..)
 import Json.Decode.Pipeline exposing (..)
-import Data.Web.Normalise exposing (..)
-import Data.Web.Answers exposing (..)
-import Data.Web.QuoteServiceWeightings exposing (..)
-import Data.Web.User exposing (rawUserDecoder)
+import Web.Answers exposing (..)
+import Web.QuoteServiceWeightings exposing (..)
+import Web.User exposing (rawUserDecoder)
 import Model exposing (..)
 import Dict exposing (..)
 
@@ -30,7 +29,7 @@ previousResultsDecoder =
 answersDecoder : Decoder (List ( QuoteId, Answer ))
 answersDecoder =
     field "answers" (dict bool)
-        |> andThen (\x -> (succeed (transformRawAnswers x)))
+        |> Json.map transformRawAnswers
 
 
 transformRawAnswers : Dict String Bool -> List ( QuoteId, Answer )

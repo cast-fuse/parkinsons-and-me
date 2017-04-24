@@ -1,4 +1,4 @@
-module Data.Web.Results.UrlParser exposing (..)
+module Web.Results.UrlParser exposing (..)
 
 import Model exposing (..)
 import UrlParser exposing (..)
