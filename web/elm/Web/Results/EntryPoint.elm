@@ -57,12 +57,15 @@ repopulateUserData user model =
 
 populateEmail : String -> Model -> Email
 populateEmail email model =
-    case model.entryPoint of
-        Start ->
-            Email.Valid email
+    if email == "" then
+        Email.NotEntered
+    else
+        case model.entryPoint of
+            Start ->
+                Email.Valid email
 
-        Finish _ ->
-            Email.Retrieved email
+            Finish _ ->
+                Email.Retrieved email
 
 
 foldAnswers : List ( QuoteId, Answer ) -> Model -> Model
