@@ -13,7 +13,7 @@ quotes model =
     div [ class "center mw6 mt4" ]
         [ p [ class "grey" ] [ text <| renderQuoteNumber model ]
         , div [ class "relative pa5" ]
-            [ div [ class "bg-white pa4 br4 ba-thick b--blue relative z-3" ] [ h2 [ class "blue" ] [ em [] [ text <| getQuote model ] ] ]
+            [ div [ class "bg-white ph4 pv2 br4 ba-thick b--blue relative z-3" ] [ h2 [ class "blue" ] [ em [] [ text <| getQuote model ] ] ]
             , div
                 [ style <| quoteBackground model
                 , class "bg-center contain absolute z-1 left-0 right-1"
