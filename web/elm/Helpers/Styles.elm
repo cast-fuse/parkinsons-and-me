@@ -34,6 +34,14 @@ spikesBackground =
     ]
 
 
+bubblesBackground : List ( String, String )
+bubblesBackground =
+    [ ( "background-image", "url(/images/bubbles.png)" )
+    , ( "height", "115%" )
+    , ( "top", "-2rem" )
+    ]
+
+
 fuzzBackground : List ( String, String )
 fuzzBackground =
     [ ( "background-image", "url(/images/fuzz.png)" )

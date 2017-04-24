@@ -27,10 +27,15 @@ quotes model =
 
 quoteBackground : Model -> List ( String, String )
 quoteBackground model =
-    if (quoteNumber model) % 2 == 0 then
-        Styles.spikesBackground
-    else
-        Styles.fuzzBackground
+    case quoteNumber model % 3 of
+        0 ->
+            Styles.spikesBackground
+
+        1 ->
+            Styles.fuzzBackground
+
+        _ ->
+            Styles.bubblesBackground
 
 
 renderQuoteNumber : Model -> String
