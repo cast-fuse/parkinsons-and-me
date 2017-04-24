@@ -17,7 +17,7 @@ handleRetrievedUserData rawUser model =
             { model | email = NotEntered, userId = Just rawUser.id }
 
         _ ->
-            { model | email = Retrieved rawUser.email, userId = Just rawUser.id }
+            { model | email = Valid rawUser.email, userId = Just rawUser.id }
 
 
 postUserDetails : Model -> Cmd Msg
