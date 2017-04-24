@@ -11,23 +11,47 @@ import Dict
 quotes : Model -> Html Msg
 quotes model =
     div [ class "center mw6 mt4" ]
-        [ p [ class "grey" ] [ text <| quoteNumber model ]
-        , div [ class "bg-light-gray pa4 br2" ] [ h2 [ class "blue" ] [ em [] [ text <| getQuote model ] ] ]
-        , button [ class (Styles.buttonBlue ++ " ma3"), onClick <| SubmitAnswer Yes ] [ text "Yes, I feel like this" ]
-        , button [ class Styles.buttonClear, onClick <| SubmitAnswer No ] [ text "No, not how I feel" ]
+        [ p [ class "grey" ] [ text <| renderQuoteNumber model ]
+        , div [ class "relative pa5" ]
+            [ div [ class "bg-white pa4 br4 ba-thick b--blue relative z-3" ] [ h2 [ class "blue" ] [ em [] [ text <| getQuote model ] ] ]
+            , div
+                [ style <| quoteBackground model
+                , class "bg-center contain absolute z-1 left-0 right-1"
+                ]
+                []
+            ]
+        , button [ class (Styles.buttonBlue ++ " ma3 relative z-3"), onClick <| SubmitAnswer Yes ] [ text "Yes, I feel like this" ]
+        , button [ class (Styles.buttonClear ++ " relative z-3"), onClick <| SubmitAnswer No ] [ text "No, not how I feel" ]
         ]
 
 
-quoteNumber : Model -> String
+quoteBackground : Model -> List ( String, String )
+quoteBackground model =
+    if (quoteNumber model) % 2 == 0 then
+        Styles.spikesBackground
+    else
+        Styles.fuzzBackground
+
+
+renderQuoteNumber : Model -> String
+renderQuoteNumber model =
+    let
+        current =
+            quoteNumber model
+
+        total =
+            Dict.size model.quotes
+    in
+        (toString current) ++ " of " ++ (toString total)
+
+
+quoteNumber : Model -> Int
 quoteNumber model =
     let
         total =
             Dict.size model.quotes
-
-        current =
-            total - (model.remainingQuotes |> Maybe.withDefault [] |> List.length)
     in
-        (toString current) ++ " of " ++ (toString total)
+        total - (model.remainingQuotes |> Maybe.withDefault [] |> List.length)
 
 
 getQuote : Model -> String
