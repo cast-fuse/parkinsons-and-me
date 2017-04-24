@@ -61,10 +61,6 @@ quoteNumber model =
 
 getQuote : Model -> String
 getQuote model =
-    case model.currentQuote of
-        Just qId ->
-            Dict.get qId model.quotes
-                |> Maybe.withDefault ""
-
-        Nothing ->
-            ""
+    model.currentQuote
+        |> Maybe.andThen (\x -> Dict.get x model.quotes)
+        |> Maybe.withDefault ""
