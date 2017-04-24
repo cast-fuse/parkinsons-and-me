@@ -56,7 +56,7 @@ renderEmailForm : Model -> Html Msg
 renderEmailForm model =
     let
         prompts =
-            { x = "If you'd like a copy of them for futute reference, please enter your email"
+            { x = "If you'd like a copy of these results for futute reference, please enter your email"
             , y = "If you'd like to have these resent to your email, click the button"
             }
     in
@@ -65,7 +65,7 @@ renderEmailForm model =
                 emailForm model prompts.x email
 
             NotEntered ->
-                emailForm model "" ""
+                emailForm model prompts.x ""
 
             Invalid email ->
                 emailForm model prompts.x email
