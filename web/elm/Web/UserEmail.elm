@@ -1,9 +1,9 @@
-module Data.Web.UserEmail exposing (..)
+module Web.UserEmail exposing (..)
 
 import Model exposing (..)
 import Json.Encode as Encode exposing (..)
 import Http exposing (..)
-import Data.Web.Normalise exposing (normaliseEmail)
+import Web.Normalise exposing (normaliseEmail)
 import Data.UserInfo exposing (emailToString)
 import Data.Services exposing (top3Ids)
 

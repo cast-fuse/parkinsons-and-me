@@ -1,4 +1,4 @@
-module Data.Web.Answers exposing (..)
+module Web.Answers exposing (..)
 
 import Model exposing (..)
 import Http exposing (..)

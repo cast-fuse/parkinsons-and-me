@@ -10,3 +10,8 @@ body {
 .w7 {
   width: var(--width-7);
 }
+
+.ba-thick {
+  border-style: solid;
+  border-width: 0.6rem;
+}

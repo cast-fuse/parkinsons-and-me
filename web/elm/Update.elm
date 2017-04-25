@@ -6,11 +6,11 @@ import Model.Email as Email
 import Data.UserInfo exposing (validatePostcode, validateEmail, emailToString)
 import Data.Answers exposing (handleAnswer)
 import Data.QuoteServiceWeightings exposing (setQuoteServiceWeightings)
-import Data.Web.Answers exposing (handlePostAnswers)
-import Data.Web.Results.UrlParser exposing (..)
-import Data.Web.Results.EntryPoint exposing (..)
-import Data.Web.User exposing (..)
-import Data.Web.UserEmail exposing (..)
+import Web.Answers exposing (handlePostAnswers)
+import Web.Results.Url exposing (..)
+import Web.Results.EntryPoint exposing (..)
+import Web.User exposing (..)
+import Web.UserEmail exposing (..)
 import Data.Quotes exposing (..)
 import Data.Services exposing (..)
 import Data.Shuffle exposing (..)
@@ -113,7 +113,7 @@ update msg model =
                         |> handleGoToServices
                         |> handleTop3Things
             in
-                newModel ! []
+                newModel ! [ setResultsUrl newModel ]
 
         UrlChange location ->
             { model | entryPoint = setEntryPoint location } ! []

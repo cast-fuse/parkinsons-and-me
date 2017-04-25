@@ -13,18 +13,18 @@ defmodule What3things.DatabaseSeeder do
     "I’m happy chatting on forums and social media.",
     "I want to understand my condition so I can plan for the long term."]
 
-  @services_list ["Peer Support Service",
-    "Forum",
-    "Groups",
-    "Parkinson's Nurse",
-    "Self-management programme",
-    "Parkinson's Local Advisor",
-    "First Steps",
-    "Helpline",
-    "Facebook",
-    "Newly diagnosed landing page",
-    "Early onset web page",
-    "Publications"]
+  @services_list [{"Peer Support Service", "peer_support"},
+    {"Forum", "forum"},
+    {"Groups", "groups"},
+    {"Parkinson's Nurse", "parkinsons_nurse"},
+    {"Self-management programme", "self_management"},
+    {"Parkinson's Local Advisor", "local_advisor"},
+    {"First Steps", "first_steps"},
+    {"Helpline", "helpline"},
+    {"Facebook", "facebook"},
+    {"Newly diagnosed landing page", "newly_diagnosed"},
+    {"Early onset web page", "early_onset"},
+    {"Publications", "publications"}]
 
   @weights_list [[0,0, 0, 0.5, 0, 1, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 1, 0.25, 0, 0.5, 0, 0, 0.25, 0, 0],
@@ -48,11 +48,12 @@ defmodule What3things.DatabaseSeeder do
     %{body: q}
   end
 
-  def make_service(s) do
-    %{title: s,
+  def make_service({title, shortcode}) do
+    %{title: title,
       body: "lorem ipsum",
       cta: "lorem",
-      url: "www.#{s |> String.replace(" ", "")}.com"}
+      url: "www.#{title |> String.replace(" ", "")}.com",
+      shortcode: shortcode}
   end
 
   def make_weight(q_id, s_id, w) do
@@ -124,7 +125,7 @@ defmodule What3things.DatabaseSeeder do
     |> Multi.insert_all(:add_services, Service, make_services())
     |> Multi.delete_all(:remove_service, remove_service_query("First Steps"))
     |> Multi.run(:add_weights, &add_weights/1)
-    |> Multi.insert(:add_extra_quote, Quote.changeset(%Quote{}, make_quote("Claires quote")))
+    |> Multi.insert(:add_extra_quote, Quote.changeset(%Quote{}, make_quote("I want to talk to other people who have been through this too.")))
     |> Multi.run(:add_empty_weights, &attach_empty_weights/1)
     |> Repo.transaction
   end

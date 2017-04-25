@@ -4,7 +4,10 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Helpers.Styles as Styles
+import Components.Utils exposing (emptyDiv)
 import Components.Logo exposing (..)
+import Views.Widget exposing (..)
+import Data.Services exposing (..)
 import Model exposing (..)
 import Model.Email exposing (..)
 import Data.UserInfo exposing (isValidEmail)
@@ -29,6 +32,7 @@ renderService s =
     div [ class "mw7 pa4 bg-light-gray center" ]
         [ h3 [ class "blue ma0" ] [ text s.title ]
         , p [] [ text s.body ]
+        , renderWidget <| shortcodeToWidget s
         , button [ class Styles.buttonBlue ] [ text s.cta ]
         ]
 
@@ -53,27 +57,33 @@ resultsUrl uuid =
 
 renderEmailForm : Model -> Html Msg
 renderEmailForm model =
-    case model.email of
-        Valid email ->
-            emailForm model email
+    let
+        prompts =
+            { x = "If you'd like a copy of these results for futute reference, please enter your email"
+            , y = "If you'd like to have these resent to your email, click the button"
+            }
+    in
+        case model.email of
+            Valid email ->
+                emailForm model prompts.x email
 
-        NotEntered ->
-            emailForm model ""
+            NotEntered ->
+                emailForm model prompts.x ""
 
-        Invalid email ->
-            emailForm model email
+            Invalid email ->
+                emailForm model prompts.x email
 
-        Retrieved email ->
-            emailForm model email
+            Retrieved email ->
+                emailForm model prompts.y email
 
-        _ ->
-            emptyDiv
+            _ ->
+                span [] []
 
 
-emailForm : Model -> String -> Html Msg
-emailForm model email =
+emailForm : Model -> String -> String -> Html Msg
+emailForm model prompt email =
     div []
-        [ h3 [ class "blue" ] [ text "If you'd like a copy of them for futute reference, please enter your email" ]
+        [ h3 [ class "blue" ] [ text prompt ]
         , input [ onInput SetEmail, class (Styles.inputField ++ " mw5 center"), placeholder "put your email", value email ] []
         , (handleSubmitEmail model)
         ]
@@ -100,8 +110,3 @@ emailSubmitted model =
 
         _ ->
             emptyDiv
-
-
-emptyDiv : Html Msg
-emptyDiv =
-    div [] []

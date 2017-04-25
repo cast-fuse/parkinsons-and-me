@@ -1,15 +1,15 @@
-defmodule What3things.Repo.Migrations.AddEarlyOnsetField do
+defmodule What3things.Repo.Migrations.AddServiceShortcode do
   use Ecto.Migration
 
   def up do
     alter table(:services) do
-      add :early_onset, :boolean, default: false
+      add :shortcode, :string
     end
   end
 
   def down do
     alter table(:services) do
-      remove :early_onset
+      remove :shortcode
     end
   end
 end

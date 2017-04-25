@@ -2,10 +2,9 @@ module Components.Logo exposing (logo)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Model exposing (..)
 
 
-logo : Html Msg
+logo : Html msg
 logo =
     div [ class "w5 center" ]
         [ img
