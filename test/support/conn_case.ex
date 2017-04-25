@@ -19,6 +19,7 @@ defmodule What3things.ConnCase do
     quote do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
+      import Plug.Test
 
       alias What3things.Repo
       import Ecto
