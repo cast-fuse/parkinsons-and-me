@@ -18,13 +18,26 @@ handlePostAnswers model =
 
 postAnswers : Model -> Cmd Msg
 postAnswers model =
-    case model.userId of
-        Just uId ->
-            Http.post ("/api/users/" ++ (toString uId) ++ "/answers") (Http.jsonBody <| makeAnswersJson model) (answerResponseDecoder)
-                |> Http.send PostUserAnswers
+    model.userId
+        |> Maybe.map (sendAnswers model)
+        |> Maybe.withDefault Cmd.none
 
-        Nothing ->
-            Cmd.none
+
+sendAnswers : Model -> Int -> Cmd Msg
+sendAnswers model uId =
+    Http.post (answersUrl uId) (makeAnswersJson model) answerResponseDecoder
+        |> Http.send PostUserAnswers
+
+
+answersUrl : Int -> String
+answersUrl uId =
+    "/api/users/" ++ (toString uId) ++ "/answers"
+
+
+makeAnswersJson : Model -> Body
+makeAnswersJson model =
+    Encode.object [ ( "answer", makeAnswersObj model ) ]
+        |> Http.jsonBody
 
 
 answerResponseDecoder : Decoder String
@@ -32,19 +45,23 @@ answerResponseDecoder =
     at [ "data", "uuid" ] string
 
 
-makeAnswersJson : Model -> Value
-makeAnswersJson model =
-    Encode.object [ ( "answer", makeAnswersObj model ) ]
-
-
 makeAnswersObj : Model -> Value
 makeAnswersObj model =
-    Encode.object [ ( "answers", Encode.object <| encodeAnswers model ) ]
+    Encode.object [ ( "answers", encodeAnswers model ) ]
 
 
-encodeAnswers : Model -> List ( String, Value )
+encodeAnswers : Model -> Value
 encodeAnswers model =
-    List.map (\( qId, answer ) -> ( toString qId, Encode.bool <| answerToBool answer )) model.userAnswers
+    List.map encodeAnswer model.userAnswers
+        |> Encode.list
+
+
+encodeAnswer : ( QuoteId, Answer ) -> Value
+encodeAnswer ( qId, answer ) =
+    Encode.object
+        [ ( "answer", Encode.bool <| answerToBool answer )
+        , ( "quote_id", Encode.int qId )
+        ]
 
 
 answerToBool : Answer -> Bool

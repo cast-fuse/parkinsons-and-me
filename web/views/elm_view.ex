@@ -15,7 +15,7 @@ defmodule What3things.ElmView do
 
   def user_answers(user_data) do
     %{user: render_one(user_data.user, UserView, "user.json"),
-      answers: render_one(user_data.answers, AnswerView, "answer.json")}
+      answers: render_many(user_data.answers, AnswerView, "answer.json")}
   end
 
   def quotes_services_weightings(data) do

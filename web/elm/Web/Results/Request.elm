@@ -1,13 +1,12 @@
 module Web.Results.Request exposing (..)
 
 import Http exposing (..)
-import Json.Decode as Json exposing (..)
+import Json.Decode as Decode exposing (..)
 import Json.Decode.Pipeline exposing (..)
 import Web.Answers exposing (..)
 import Web.QuoteServiceWeightings exposing (..)
 import Web.User exposing (rawUserDecoder)
 import Model exposing (..)
-import Dict exposing (..)
 
 
 getResults : String -> Cmd Msg
@@ -28,13 +27,17 @@ previousResultsDecoder =
 
 answersDecoder : Decoder (List ( QuoteId, Answer ))
 answersDecoder =
-    field "answers" (dict bool)
-        |> Json.map transformRawAnswers
+    Decode.map (\{ quoteId, answer } -> ( quoteId, answer )) rawAnswerDecoder
+        |> Decode.list
 
 
-transformRawAnswers : Dict String Bool -> List ( QuoteId, Answer )
-transformRawAnswers answers =
-    answers
-        |> Dict.toList
-        |> List.map (\( qId, answerBool ) -> ( String.toInt qId, boolToAnswer answerBool ))
-        |> List.map (\( x, y ) -> ( Result.withDefault 0 x, y ))
+rawAnswerDecoder : Decoder RawAnswer
+rawAnswerDecoder =
+    decode RawAnswer
+        |> required "quote_id" int
+        |> required "answer" booltoAnswerDecoder
+
+
+booltoAnswerDecoder : Decoder Answer
+booltoAnswerDecoder =
+    bool |> Decode.map boolToAnswer

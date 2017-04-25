@@ -108,6 +108,12 @@ type alias RawUser =
     }
 
 
+type alias RawAnswer =
+    { quoteId : QuoteId
+    , answer : Answer
+    }
+
+
 type alias QuoteId =
     Int
 
