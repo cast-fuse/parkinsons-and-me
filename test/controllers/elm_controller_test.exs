@@ -16,9 +16,9 @@ defmodule What3things.ElmControllerTest do
   end
 
   def submit_answers_for_user(username) do
-    user = Repo.get_by!(User, name: username)
+    user = Repo.get_by(User, name: username)
     quotes = Repo.all(Quote)
-    {:ok, answer_set} = Repo.insert!(%AnswerSet{user_id: user.id, uuid: "12345678"})
+    {:ok, answer_set} = Repo.insert(%AnswerSet{user_id: user.id, uuid: "12345678"})
     answers = quotes |> Enum.map(fn(x) -> %{quote_id: x.id, answer_set_id: answer_set.id, answer: true} end)
     Repo.insert_all(Answer, answers)
     :ok
