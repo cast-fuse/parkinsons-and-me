@@ -43,8 +43,8 @@ defmodule What3things.Router do
     get "/quotes-services-weightings", ElmController, :quotes_services_weightings
     get "/my-results/:answer_uuid", ElmController, :results
 
-    resources "/users", UserController, except: [:new, :edit, :delete] do
-      resources "/answers", AnswerController, except: [:new, :edit, :delete]
+    resources "/users", UserController, only: [:create, :update] do
+      resources "/answers", AnswerController, only: [:create]
     end
   end
 end
