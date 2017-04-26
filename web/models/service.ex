@@ -21,6 +21,17 @@ defmodule What3things.Service do
   end
 
   def services_by_id(ids) do
+    ids = format_ids(ids)
     from s in Service, where: s.id in ^ids
+  end
+
+  defp format_ids(ids) do
+    if is_list(ids) do ids else ids_to_list(ids)  end
+  end
+
+  defp ids_to_list(ids) do
+    ids
+    |> String.split(",")
+    |> Enum.map(&String.to_integer/1)
   end
 end
