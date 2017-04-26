@@ -13,7 +13,6 @@ setQuoteServiceWeightings data model =
         , services = data.services
         , weightings = data.weightings
         , userWeightings = makeEmptyWeightingsDict data.services
-        , earlyOnsetWeightings = handleEarlyOnsetWeightings data
     }
 
 
