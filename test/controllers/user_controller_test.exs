@@ -21,14 +21,16 @@ defmodule What3things.UserControllerTest do
     test "If user is already in database, does not create a new one" do
       user = %{name: "Ivan", age_range: "under_forty", postcode: "sw99ng", email: "ivan@email.com"}
       changeset = User.changeset(%User{}, user)
-      Repo.insert!(changeset)
+      existing_user = Repo.insert!(changeset)
 
       response = build_conn()
       |> post(user_path(build_conn(), :create), %{user: user})
       |> json_response(200)
 
-      expected = %
+      expected = %{"data" =>
+      %{"age_range" => "under_forty", "email" => "ivan@email.com", "id" => existing_user.id, "name" => "Ivan", "postcode" => "sw99ng"}}
 
+      assert response == expected
     end
   end
 end

@@ -49,7 +49,7 @@ defmodule What3things.ConnCase do
 
   def test_login(conn, admin) do
     conn
-    |> Plug.Test.init_test_session(admin_id: admin.id)
+    |> Plug.Test.init_test_session(%{})
     |> What3things.Auth.login(admin)
   end
 end
