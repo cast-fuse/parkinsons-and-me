@@ -46,7 +46,6 @@ servicesDict =
     serviceIds
         |> List.indexedMap (\i x -> ( x, insertDummyServiceData i ))
         |> Dict.fromList
-        |> Debug.log "services"
 
 
 zerosWeightingDict : WeightingsDict
@@ -84,7 +83,12 @@ dummyWeightingsDictEarlyOnset =
 
 serviceIds : List Int
 serviceIds =
-    [ 1, 2, 3, 4, 5 ]
+    [ 1, 2, 3, 4, 5, 6 ]
+
+
+serviceWeightings : List Float
+serviceWeightings =
+    [ 0.1, 0.5, 0.3, 0.2, 0.8, 0.0 ]
 
 
 earlyOnsetIds : List Int
@@ -100,8 +104,3 @@ quoteIds =
 doubleServiceWeightings : List Float
 doubleServiceWeightings =
     List.map (\x -> x * 2) serviceWeightings
-
-
-serviceWeightings : List Float
-serviceWeightings =
-    [ 0.8, 0.9, 0.3, 0.1, 0.0 ]
