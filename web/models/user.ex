@@ -17,6 +17,13 @@ defmodule What3things.User do
     |> validate_required([:name, :age_range, :postcode])
   end
 
+  def get_existing({ name, postcode, age_range }) do
+    from u in What3things.User,
+    where: u.name == ^name and
+           u.postcode == ^postcode and
+           u.age_range == ^age_range
+  end
+
   def get_by_answer_uuid(uuid) do
     from u in User,
     join: a in AnswerSet,
