@@ -2,8 +2,7 @@ module ServicesSpec exposing (..)
 
 import Test exposing (..)
 import Expect
-import Update exposing (..)
-import Model exposing (..)
+import WeightingsSpec exposing (earlyOnsetModel, lateOnsetModel)
 import TestHelpers exposing (..)
 import Data.Services exposing (..)
 
@@ -24,24 +23,6 @@ top3IdsSpec =
         , test "takes a weightingsDict and returns the top3 serviceIds" <|
             \() -> Expect.equal (top3Ids dummyWeightingsDictEarlyOnset) [ 2, 5, 4 ]
         ]
-
-
-earlyOnsetModel : Model
-earlyOnsetModel =
-    { initialModel
-        | userWeightings = dummyWeightingsDict
-        , ageRange = Just Forties
-        , services = servicesDict
-    }
-
-
-lateOnsetModel : Model
-lateOnsetModel =
-    { initialModel
-        | userWeightings = dummyWeightingsDict
-        , ageRange = Just Seventies
-        , services = servicesDict
-    }
 
 
 
