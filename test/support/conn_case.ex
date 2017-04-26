@@ -42,4 +42,14 @@ defmodule What3things.ConnCase do
 
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
+
+  def get_service(title) do
+    What3things.Repo.get_by!(What3things.Service, title: title)
+  end
+
+  def test_login(conn, admin) do
+    conn
+    |> Plug.Test.init_test_session(admin_id: admin.id)
+    |> What3things.Auth.login(admin)
+  end
 end
