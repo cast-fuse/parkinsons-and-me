@@ -24,12 +24,8 @@ dummyServiceData =
 
 dummyServiceDataEarlyOnset : ServiceData
 dummyServiceDataEarlyOnset =
-    { title = ""
-    , body = ""
-    , cta = ""
-    , url = ""
-    , earlyOnset = True
-    , shortcode = ""
+    { dummyServiceData
+        | earlyOnset = True
     }
 
 
