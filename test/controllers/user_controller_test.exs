@@ -31,7 +31,7 @@ defmodule What3things.UserControllerTest do
       |> json_response(200)
 
       expected = %{"data" =>
-        Map.put(@dummy_user_stringified, "id", existing_use.id)
+        Map.put(@dummy_user_stringified, "id", existing_user.id)
       }
 
       assert response == expected
