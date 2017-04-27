@@ -19,9 +19,9 @@ top3IdsSpec : Test
 top3IdsSpec =
     describe "top3IdsSpec"
         [ test "takes a weightingsDict and returns the top3 serviceIds" <|
-            \() -> Expect.equal (top3Ids dummyWeightingsDict) [ 5, 2, 3 ]
+            \() -> Expect.equal (top3Ids dummyWeightingsDict) top3ServiceIds
         , test "takes a weightingsDict and returns the top3 serviceIds" <|
-            \() -> Expect.equal (top3Ids dummyWeightingsDictEarlyOnset) [ 2, 5, 4 ]
+            \() -> Expect.equal (top3Ids dummyWeightingsDictEarlyOnset) top3EarlyOnsetIds
         ]
 
 
