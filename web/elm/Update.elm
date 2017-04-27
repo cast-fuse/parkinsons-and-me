@@ -115,8 +115,8 @@ update msg model =
             in
                 newModel ! [ setResultsUrl newModel ]
 
-        UrlChange location ->
-            setEntryPoint location model ! []
+        UrlChange _ ->
+            model ! []
 
         ReceiveResults (Err err) ->
             model ! []
