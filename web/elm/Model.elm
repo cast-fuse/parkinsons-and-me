@@ -35,6 +35,7 @@ type View
     | Age
     | Quotes
     | Services
+    | Loading
 
 
 type AgeRange
