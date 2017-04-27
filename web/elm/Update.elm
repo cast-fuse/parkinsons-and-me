@@ -6,7 +6,7 @@ import Model.Email as Email
 import Data.UserInfo exposing (validatePostcode, validateEmail, emailToString)
 import Data.Answers exposing (handleAnswer)
 import Data.QuoteServiceWeightings exposing (setQuoteServiceWeightings)
-import Web.Answers exposing (handlePostAnswers)
+import Web.Answers exposing (handlePostAnswers, handlePostAnswersLoading)
 import Web.Results.Url exposing (..)
 import Web.Results.EntryPoint exposing (..)
 import Web.User exposing (..)
@@ -22,7 +22,7 @@ init : Navigation.Location -> ( Model, Cmd Msg )
 init location =
     let
         model =
-            { initialModel | entryPoint = setEntryPoint location }
+            setEntryPoint location initialModel
     in
         model ! handleGetUserData model
 
@@ -81,6 +81,7 @@ update msg model =
                 newModel =
                     model
                         |> handleAnswer answer
+                        |> handlePostAnswersLoading
             in
                 newModel ! [ handlePostAnswers newModel ]
 
@@ -115,7 +116,7 @@ update msg model =
                 newModel ! [ setResultsUrl newModel ]
 
         UrlChange location ->
-            { model | entryPoint = setEntryPoint location } ! []
+            setEntryPoint location model ! []
 
         ReceiveResults (Err err) ->
             model ! []

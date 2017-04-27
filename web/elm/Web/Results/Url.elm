@@ -17,15 +17,15 @@ resultsUrl uuid =
     modifyUrl <| "/#my-results/" ++ uuid
 
 
-setEntryPoint : Navigation.Location -> EntryPoint
-setEntryPoint location =
+setEntryPoint : Navigation.Location -> Model -> Model
+setEntryPoint location model =
     let
         parsedHash =
             parseHash (s "my-results" </> string) location
     in
         case parsedHash of
             Just answerUUID ->
-                Finish answerUUID
+                { model | entryPoint = Finish answerUUID, view = Loading }
 
             Nothing ->
-                Start
+                { model | entryPoint = Start }

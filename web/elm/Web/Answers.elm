@@ -16,6 +16,16 @@ handlePostAnswers model =
             Cmd.none
 
 
+handlePostAnswersLoading : Model -> Model
+handlePostAnswersLoading model =
+    case model.currentQuote of
+        Nothing ->
+            { model | view = Loading }
+
+        _ ->
+            model
+
+
 postAnswers : Model -> Cmd Msg
 postAnswers model =
     model.userId
