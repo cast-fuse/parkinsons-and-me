@@ -20,4 +20,4 @@ renderWidget widget =
             forum
 
         _ ->
-            forum
+            earlyOnset
