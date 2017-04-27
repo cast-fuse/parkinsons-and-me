@@ -8,14 +8,14 @@ defmodule What3things.UserController do
       "age_range" => age_range} = user_params
 
     user_query = User.get_existing({ name, postcode, age_range })
-    existing_user = Repo.all(user_query)
+    existing_user = Repo.one(user_query)
     changeset = User.changeset(%User{}, user_params)
 
     case existing_user do
-      [] ->
+      nil ->
         conn
         |> create_user(changeset)
-      [user | _] ->
+      user ->
         conn
         |> render("show.json", user: user)
     end
@@ -26,7 +26,6 @@ defmodule What3things.UserController do
       {:ok, user} ->
         conn
         |> put_status(:created)
-        |> put_resp_header("location", user_path(conn, :show, user))
         |> render("show.json", user: user)
       {:error, changeset} ->
         conn

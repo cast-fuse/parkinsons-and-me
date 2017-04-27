@@ -39,7 +39,6 @@ initialModel =
     , services = Dict.empty
     , top3things = []
     , weightings = Dict.empty
-    , earlyOnsetWeightings = Dict.empty
     , fetchErrorMessage = ""
     , currentQuote = Nothing
     , remainingQuotes = Nothing

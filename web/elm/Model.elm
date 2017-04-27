@@ -18,7 +18,6 @@ type alias Model =
     , services : Services
     , top3things : List ServiceData
     , weightings : Weightings
-    , earlyOnsetWeightings : Weightings
     , fetchErrorMessage : String
     , currentQuote : Maybe QuoteId
     , remainingQuotes : Maybe (List QuoteId)

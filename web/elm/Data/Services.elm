@@ -1,6 +1,7 @@
 module Data.Services exposing (..)
 
 import Model exposing (..)
+import Data.Weightings exposing (..)
 import Dict
 
 
@@ -8,18 +9,22 @@ handleTop3Things : Model -> Model
 handleTop3Things model =
     case model.view of
         Services ->
-            { model | top3things = top3things model.userWeightings model.services }
+            { model | top3things = top3things model }
 
         _ ->
             model
 
 
-top3things : WeightingsDict -> Services -> List ServiceData
-top3things userWeightings services =
-    userWeightings
-        |> top3Ids
-        |> List.map (\sId -> Dict.get sId services)
-        |> List.map (Maybe.withDefault nullServiceData)
+top3things : Model -> List ServiceData
+top3things model =
+    let
+        userWeightings =
+            relevantWeightings model
+    in
+        userWeightings
+            |> top3Ids
+            |> List.map (\sId -> Dict.get sId model.services)
+            |> List.map (Maybe.withDefault nullServiceData)
 
 
 top3Ids : WeightingsDict -> List ServiceId
