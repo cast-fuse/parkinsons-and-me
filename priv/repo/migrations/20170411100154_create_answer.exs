@@ -4,7 +4,7 @@ defmodule What3things.Repo.Migrations.CreateAnswer do
   def change do
     create table(:answers) do
       add :answers, {:map, :boolean}
-      add :user_id, references(:users, on_delete: :nothing)
+      add :user_id, references(:users, on_delete: :delete_all)
 
       timestamps()
     end

@@ -28,6 +28,7 @@ nameField model =
         , input
             [ class Styles.inputField
             , onInput SetName
+            , autocomplete False
             , value <| Maybe.withDefault "" model.name
             ]
             []

@@ -1,4 +1,4 @@
-module Data.Web.Normalise exposing (..)
+module Web.Normalise exposing (..)
 
 import Model exposing (..)
 

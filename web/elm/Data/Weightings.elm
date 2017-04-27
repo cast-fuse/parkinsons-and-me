@@ -4,17 +4,8 @@ import Model exposing (..)
 import Dict exposing (..)
 
 
-handleEarlyOnsetWeightings : QuoteServiceWeightings -> Weightings
-handleEarlyOnsetWeightings quoteServiceWeightings =
-    let
-        serviceIds =
-            getEarlyOnsetIds quoteServiceWeightings.services
-    in
-        alterWeightings serviceIds quoteServiceWeightings.weightings
-
-
-alterWeightings : List ServiceId -> Weightings -> Weightings
-alterWeightings serviceIds weightings =
+alterWeightings : List ServiceId -> WeightingsDict -> WeightingsDict
+alterWeightings serviceIds weightingsDict =
     let
         alterWeight sId weight =
             if List.member sId serviceIds then
@@ -22,8 +13,7 @@ alterWeightings serviceIds weightings =
             else
                 weight
     in
-        weightings
-            |> Dict.map (\_ weightingsDict -> Dict.map alterWeight weightingsDict)
+        Dict.map alterWeight weightingsDict
 
 
 getEarlyOnsetIds : Services -> List ServiceId
@@ -38,7 +28,7 @@ updateWeightings : Answer -> Model -> Model
 updateWeightings answer model =
     let
         newWeightings =
-            addWeightings model.userWeightings (getWeightingsById model.currentQuote <| relevantWeightings model)
+            addWeightings model.userWeightings (getWeightingsById model.currentQuote model.weightings)
     in
         case answer of
             Yes ->
@@ -46,6 +36,21 @@ updateWeightings answer model =
 
             No ->
                 model
+
+
+relevantWeightings : Model -> WeightingsDict
+relevantWeightings model =
+    let
+        earlyOnSetIds =
+            getEarlyOnsetIds model.services
+
+        earlyOnsetUserWeightings =
+            alterWeightings earlyOnSetIds model.userWeightings
+    in
+        if shouldReceiveEarlyOnsetWeightings model then
+            earlyOnsetUserWeightings
+        else
+            model.userWeightings
 
 
 getWeightingsById : Maybe QuoteId -> Weightings -> WeightingsDict
@@ -58,14 +63,6 @@ getWeightingsById qId weightings =
 
         Nothing ->
             Dict.empty
-
-
-relevantWeightings : Model -> Weightings
-relevantWeightings model =
-    if shouldReceiveEarlyOnsetWeightings model then
-        model.earlyOnsetWeightings
-    else
-        model.weightings
 
 
 shouldReceiveEarlyOnsetWeightings : Model -> Bool

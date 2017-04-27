@@ -30,3 +30,6 @@ router model =
 
         Services ->
             services model
+
+        Loading ->
+            div [] [ text "loading" ]

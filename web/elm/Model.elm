@@ -1,5 +1,7 @@
 module Model exposing (..)
 
+import Model.Email exposing (Email)
+import Model.Postcode exposing (Postcode)
 import Dict exposing (..)
 import Http
 import Navigation
@@ -10,19 +12,19 @@ type alias Model =
     , name : Maybe String
     , postcode : Postcode
     , ageRange : Maybe AgeRange
-    , email : Maybe String
+    , email : Email
     , userId : Maybe Int
     , quotes : Quotes
     , services : Services
     , top3things : List ServiceData
     , weightings : Weightings
-    , earlyOnsetWeightings : Weightings
     , fetchErrorMessage : String
     , currentQuote : Maybe QuoteId
     , remainingQuotes : Maybe (List QuoteId)
     , userWeightings : WeightingsDict
     , userAnswers : List ( QuoteId, Answer )
     , entryPoint : EntryPoint
+    , uuid : Maybe String
     }
 
 
@@ -33,6 +35,7 @@ type View
     | Age
     | Quotes
     | Services
+    | Loading
 
 
 type AgeRange
@@ -44,15 +47,23 @@ type AgeRange
     | OverEighty
 
 
-type Postcode
-    = NotEntered
-    | Valid String
-    | Invalid String
-
-
 type Answer
     = Yes
     | No
+
+
+type ServiceWidget
+    = PeerSupport
+    | Forum
+    | Groups
+    | ParkinsonsNurse
+    | SelfManagement
+    | LocalAdvisor
+    | HelpLine
+    | Facebook
+    | NewlyDiagnosed
+    | EarlyOnset
+    | Publications
 
 
 type alias Quotes =
@@ -69,6 +80,7 @@ type alias ServiceData =
     , cta : String
     , url : String
     , earlyOnset : Bool
+    , shortcode : String
     }
 
 
@@ -93,6 +105,12 @@ type alias RawUser =
     , ageRange : AgeRange
     , email : String
     , postcode : String
+    }
+
+
+type alias RawAnswer =
+    { quoteId : QuoteId
+    , answer : Answer
     }
 
 
@@ -135,9 +153,9 @@ type Msg
     | ShuffleQuoteIds (List QuoteId) (List Int)
     | SubmitAnswer Answer
     | HandleGoToQuotes
-    | ReceiveUserId (Result Http.Error Int)
+    | ReceiveUser (Result Http.Error RawUser)
     | PutUserEmail (Result Http.Error ())
     | SubmitEmail
-    | PostUserAnswers (Result Http.Error ())
+    | PostUserAnswers (Result Http.Error String)
     | UrlChange Navigation.Location
     | ReceiveResults (Result Http.Error Results)

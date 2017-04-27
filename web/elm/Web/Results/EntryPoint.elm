@@ -1,8 +1,10 @@
-module Data.Web.Results.EntryPoint exposing (..)
+module Web.Results.EntryPoint exposing (..)
 
 import Model exposing (..)
-import Data.Web.QuoteServiceWeightings exposing (..)
-import Data.Web.Results.Request exposing (..)
+import Model.Email as Email exposing (Email)
+import Model.Postcode as Postcode
+import Web.QuoteServiceWeightings exposing (..)
+import Web.Results.Request exposing (..)
 import Data.QuoteServiceWeightings exposing (..)
 import Data.Services exposing (..)
 import Data.Quotes exposing (..)
@@ -15,8 +17,8 @@ handleGetUserData model =
         Start ->
             [ getQuoteServiceWeightings ]
 
-        Finish aId ->
-            [ getResults aId ]
+        Finish answerUUID ->
+            [ getResults answerUUID ]
 
 
 loadResults : Results -> Model -> Model
@@ -47,10 +49,23 @@ repopulateUserData user model =
     { model
         | userId = Just user.id
         , name = Just user.name
-        , postcode = Valid user.postcode
-        , email = Just user.email
+        , postcode = Postcode.Valid user.postcode
+        , email = populateEmail user.email model
         , ageRange = Just user.ageRange
     }
+
+
+populateEmail : String -> Model -> Email
+populateEmail email model =
+    if email == "" then
+        Email.NotEntered
+    else
+        case model.entryPoint of
+            Start ->
+                Email.Valid email
+
+            Finish _ ->
+                Email.Retrieved email
 
 
 foldAnswers : List ( QuoteId, Answer ) -> Model -> Model

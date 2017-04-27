@@ -7,7 +7,8 @@ defmodule What3things.ServiceView do
       body: service.body,
       cta: service.cta,
       url: service.url,
-      early_onset: service.early_onset}
+      early_onset: service.early_onset,
+      shortcode: service.shortcode}
   end
 
   def order_services(services) do

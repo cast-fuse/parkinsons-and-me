@@ -2,15 +2,21 @@ defmodule What3things.Answer do
   use What3things.Web, :model
 
   schema "answers" do
-    field :answers, {:map, :boolean}
-    belongs_to :user, What3things.User
-
-    timestamps()
+    field :answer, :boolean
+    belongs_to :quote, What3things.Quote
+    belongs_to :answer_set, What3things.AnswerSet
   end
 
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:answers, :user_id])
-    |> validate_required([:answers, :user_id])
+    |> cast(params, [:answer, :quote_id, :answer_set_id])
+    |> validate_required([:answer, :quote_id, :answer_set_id])
+  end
+
+  def get_by_uuid(uuid) do
+    from a in What3things.Answer,
+    join: s in What3things.AnswerSet,
+    on: a.answer_set_id == s.id,
+    where: s.uuid == ^uuid
   end
 end

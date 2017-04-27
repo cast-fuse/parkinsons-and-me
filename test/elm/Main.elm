@@ -4,6 +4,7 @@ import Test exposing (..)
 import UserInfoSpec
 import QuotesSpec
 import WeightingsSpec
+import ServicesSpec
 import Test.Runner.Node exposing (run, TestProgram)
 import Json.Encode exposing (Value)
 
@@ -19,6 +20,7 @@ allTests =
         [ UserInfoSpec.all
         , QuotesSpec.all
         , WeightingsSpec.all
+        , ServicesSpec.all
         ]
 
 

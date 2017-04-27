@@ -1,6 +1,7 @@
 defmodule What3things.ServiceController do
   use What3things.Web, :controller
   alias What3things.Service
+  plug :authenticate_admin
 
   def index(conn, _params) do
     services = Repo.all(Service)

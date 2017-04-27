@@ -1,6 +1,7 @@
 defmodule What3things.WeightController do
   use What3things.Web, :controller
   alias What3things.Weight
+  plug :authenticate_admin
 
   def index(conn, _params) do
     weights =

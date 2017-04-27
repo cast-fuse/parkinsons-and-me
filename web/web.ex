@@ -36,6 +36,7 @@ defmodule What3things.Web do
 
       import What3things.Router.Helpers
       import What3things.Gettext
+      import What3things.Auth
     end
   end
 
@@ -58,6 +59,7 @@ defmodule What3things.Web do
   def router do
     quote do
       use Phoenix.Router
+      import What3things.Auth
     end
   end
 
