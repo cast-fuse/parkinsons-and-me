@@ -1,35 +1,41 @@
 module Views.Router exposing (router)
 
+import Views.Loading exposing (..)
 import Views.Home exposing (home)
 import Views.UserInfo.Name exposing (name)
 import Views.UserInfo.Postcode exposing (postcode)
 import Views.UserInfo.Age exposing (age)
 import Views.Quotes exposing (quotes)
 import Views.Services exposing (..)
+import Components.Utils exposing (emptyDiv)
 import Model exposing (..)
 import Html exposing (..)
 
 
 router : Model -> Html Msg
 router model =
-    case model.view of
-        Home ->
-            home model
+    let
+        handleLoading view =
+            loadingBackground model <| view model
+    in
+        case model.view of
+            Home ->
+                handleLoading home
 
-        Name ->
-            name model
+            Name ->
+                handleLoading name
 
-        Postcode ->
-            postcode model
+            Postcode ->
+                handleLoading postcode
 
-        Age ->
-            age model
+            Age ->
+                handleLoading age
 
-        Quotes ->
-            quotes model
+            Quotes ->
+                handleLoading quotes
 
-        Services ->
-            services model
+            Services ->
+                handleLoading services
 
-        Loading ->
-            div [] [ text "loading" ]
+            Loading ->
+                loadingBackground model <| emptyDiv
