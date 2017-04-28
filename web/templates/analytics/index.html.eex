@@ -1,0 +1,22 @@
+<%= render What3things.AdminView, "back.html", conn: @conn %>
+
+<h1 class="tc">Analytics</h1>
+<h1 class="dark-blue">Users</h1>
+<h3 class="blue mb0">total users: <%= length(@users) %></h3>
+<table>
+  <tr class="tl">
+    <th class="pv3 pr4 green">username</th>
+    <th class="pv3 pr4 green">age range</th>
+    <th class="pv3 pr4 green">postcode</th>
+    <th class="pv3 pr4 green">email</th>
+  </tr>
+  <%= for u <- @users do %>
+    <% user_email = u.email || "-----" %>
+    <tr>
+      <td><%= u.name %></td>
+      <td><%= u.age_range %></td>
+      <td><%= u.postcode %></td>
+      <td><%= user_email %></td>
+    </tr>
+  <% end %>
+</table>
