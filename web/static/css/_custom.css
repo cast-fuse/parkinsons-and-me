@@ -15,3 +15,23 @@ body {
   border-style: solid;
   border-width: 0.6rem;
 }
+
+.t3 {
+  transition-duration: 0.8s;
+}
+
+.ease {
+  transition-timing-function: ease;
+}
+
+.all {
+  transition-property: all;
+}
+
+.disabled {
+  pointer-events: none;
+}
+
+.delay-2 {
+  transition-delay: 2s;
+}

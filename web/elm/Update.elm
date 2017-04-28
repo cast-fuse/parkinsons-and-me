@@ -17,6 +17,7 @@ import Data.Shuffle exposing (..)
 import Data.Ports exposing (trackLink)
 import Dict
 import Navigation
+import Helpers.Delay exposing (..)
 
 
 init : Navigation.Location -> ( Model, Cmd Msg )
@@ -110,11 +111,9 @@ update msg model =
         PostUserAnswers (Ok uuid) ->
             let
                 newModel =
-                    { model | uuid = Just uuid }
-                        |> handleGoToServices
-                        |> handleTop3Things
+                    { model | uuid = Just uuid } |> handleTop3Things
             in
-                newModel ! [ setResultsUrl newModel ]
+                newModel ! [ setResultsUrl newModel, waitThenShowServices ]
 
         UrlChange _ ->
             model ! []
