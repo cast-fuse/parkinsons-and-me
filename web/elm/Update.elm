@@ -14,6 +14,7 @@ import Web.UserEmail exposing (..)
 import Data.Quotes exposing (..)
 import Data.Services exposing (..)
 import Data.Shuffle exposing (..)
+import Data.Ports exposing (trackOutboundLink)
 import Dict
 import Navigation
 import Helpers.Delay exposing (..)
@@ -122,3 +123,6 @@ update msg model =
 
         ReceiveResults (Ok res) ->
             (model |> loadResults res) ! []
+
+        TrackOutboundLink url ->
+            model ! [ trackOutboundLink url ]
