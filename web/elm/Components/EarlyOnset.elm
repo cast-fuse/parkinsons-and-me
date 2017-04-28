@@ -16,5 +16,5 @@ earlyOnset =
     div [ class "bg-light-gray" ]
         [ p [] [ text "your rights and legal options" ]
         , p [] [ text "money grants and benefits" ]
-        , a [ href url, onClick <| TrackLink url ] [ text "Find out more" ]
+        , a [ href url, onClick <| TrackOutboundLink url ] [ text "Find out more" ]
         ]

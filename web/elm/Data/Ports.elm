@@ -1,4 +1,4 @@
 port module Data.Ports exposing (..)
 
 
-port trackLink : String -> Cmd msg
+port trackOutboundLink : String -> Cmd msg
