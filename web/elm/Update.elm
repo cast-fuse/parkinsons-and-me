@@ -14,6 +14,7 @@ import Web.UserEmail exposing (..)
 import Data.Quotes exposing (..)
 import Data.Services exposing (..)
 import Data.Shuffle exposing (..)
+import Data.Ports exposing (trackLink)
 import Dict
 import Navigation
 
@@ -123,3 +124,6 @@ update msg model =
 
         ReceiveResults (Ok res) ->
             (model |> loadResults res) ! []
+
+        TrackLink url ->
+            model ! [ trackLink url ]

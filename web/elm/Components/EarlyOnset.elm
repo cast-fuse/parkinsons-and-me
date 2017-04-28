@@ -3,6 +3,7 @@ module Components.EarlyOnset exposing (..)
 import Model exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Html.Events exposing (..)
 
 
 url : String
@@ -15,5 +16,5 @@ earlyOnset =
     div [ class "bg-light-gray" ]
         [ p [] [ text "your rights and legal options" ]
         , p [] [ text "money grants and benefits" ]
-        , a [ attribute "href" url, attribute "onclick" ("trackOutboundLink('" ++ url ++ "'); return true;"), attribute "target" "_blank" ] [ text "Find out more" ]
+        , a [ href url, onClick <| TrackLink url ] [ text "Find out more" ]
         ]

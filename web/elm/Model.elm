@@ -159,3 +159,4 @@ type Msg
     | PostUserAnswers (Result Http.Error String)
     | UrlChange Navigation.Location
     | ReceiveResults (Result Http.Error Results)
+    | TrackLink String
