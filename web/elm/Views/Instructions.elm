@@ -12,5 +12,5 @@ instructions model =
         [ p [] [ text "We're now going to share some quotes from real people with you - they've all been recently diagnosed too. If the quote sounds like you, there's an option to let us know." ]
         , p [] [ text "This will help us get a better picture of what information and support is right for you." ]
         , p [] [ text "Ready?" ]
-        , button [ onClick HandleGoToQuotes ] [ text "Let's go" ]
+        , button [ onClick <| SetView Quotes ] [ text "Let's go" ]
         ]

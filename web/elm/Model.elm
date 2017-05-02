@@ -154,7 +154,6 @@ type Msg
     | ShuffleQuoteIds (List QuoteId) (List Int)
     | SubmitAnswer Answer
     | HandleGoToInstructions
-    | HandleGoToQuotes
     | ReceiveUser (Result Http.Error RawUser)
     | PutUserEmail (Result Http.Error ())
     | SubmitEmail
