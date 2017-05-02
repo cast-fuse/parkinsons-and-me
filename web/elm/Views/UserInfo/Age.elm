@@ -4,16 +4,15 @@ import Model exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Data.UserInfo exposing (isValidAgeRange, ageRangeToString, ageRanges)
+import Components.SpeechHeader exposing (speechHeader)
+import Data.UserInfo exposing (ageRangeToString, ageRanges, isValidAgeRange)
 import Helpers.Styles as Styles
-import Components.Logo exposing (logo)
 
 
 age : Model -> Html Msg
 age model =
     div []
-        [ logo
-        , h2 [ class "blue" ] [ text "Do you mind us asking how old you are?" ]
+        [ speechHeader "Do you mind us asking how old you are?"
         , p [] [ text "We know Parkinson's affects people of all ages - so no matter how old you are, we can help." ]
         , div [] [ ageOptions model ]
         , handleNext model
@@ -27,15 +26,18 @@ ageOptions model =
 
 ageOption : Model -> AgeRange -> Html Msg
 ageOption model ageRange =
-    div
-        [ class "ba b--green-blue w-40 ph3 pv2 mr3 mb3 b pointer"
-        , classList
+    let
+        handleSelectedClasses =
             [ ( "bg-green-blue white", model.ageRange == Just ageRange )
             , ( "green-blue", model.ageRange /= Just ageRange )
             ]
-        , onClick <| SetAgeRange ageRange
-        ]
-        [ text <| ageRangeToString ageRange ]
+    in
+        div
+            [ class "ba b--green-blue w-40 ph3 pv2 mr3 mb3 b pointer"
+            , classList handleSelectedClasses
+            , onClick <| SetAgeRange ageRange
+            ]
+            [ text <| ageRangeToString ageRange ]
 
 
 handleNext : Model -> Html Msg

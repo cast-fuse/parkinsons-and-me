@@ -1,29 +1,28 @@
 module Views.Services exposing (..)
 
+import Components.QuoteBubble exposing (quoteBubble)
+import Components.Utils exposing (emptyDiv)
+import Data.Services exposing (..)
+import Data.UserInfo exposing (isValidEmail)
+import Helpers.Styles as Styles
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Helpers.Styles as Styles
-import Components.Utils exposing (emptyDiv)
-import Components.Logo exposing (..)
-import Views.Widget exposing (..)
-import Data.Services exposing (..)
 import Model exposing (..)
 import Model.Email exposing (..)
-import Data.UserInfo exposing (isValidEmail)
+import Views.Widget exposing (..)
 
 
 services : Model -> Html Msg
 services model =
     div []
-        [ logo
-        , h2 [ class "blue mb4" ] [ text "Here you are, your tailored list of Parkinson's services" ]
+        [ div [ class "mw6 center mv3" ] [ quoteBubble "Here you are, your tailored list of Parkinson's services" ]
         , p [] [ text "Based on what you've told us, here's the information and support that we think's right for you." ]
         , renderResultsLink model
         , div [ class "bg-blue pb6" ] (List.map renderService model.top3things)
         , div [ class "mw7 center mv4" ]
-            [ (renderEmailForm model)
-            , (emailSubmitted model)
+            [ renderEmailForm model
+            , emailSubmitted model
             ]
         ]
 

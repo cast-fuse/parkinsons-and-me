@@ -1,6 +1,11 @@
 module Helpers.Styles exposing (..)
 
 
+classes : List String -> String
+classes =
+    String.join " "
+
+
 button : String
 button =
     "ph3 pv2 f3 outline-0 pointer sans-serif"
@@ -18,4 +23,4 @@ buttonDisabled =
 
 inputField : String
 inputField =
-    "w-100 f6 blue b--green-blue ba h2 outline-0 ph3 pv1"
+    "w-100 f6 b--green-blue ba h2 outline-0 ph3 pv1"
