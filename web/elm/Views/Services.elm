@@ -33,7 +33,7 @@ renderService s =
         [ h3 [ class "blue ma0" ] [ text s.title ]
         , p [] [ text s.body ]
         , renderWidget <| shortcodeToWidget s
-        , button [ class Styles.buttonBlue ] [ text s.cta ]
+        , button [ class Styles.buttonClear ] [ text s.cta ]
         ]
 
 
@@ -95,7 +95,7 @@ handleSubmitEmail model =
         button
             [ onClick SubmitEmail
             , autocomplete False
-            , class (Styles.buttonBlue ++ " mt3")
+            , class (Styles.buttonClear ++ " mt3")
             ]
             [ text "Submit" ]
     else
