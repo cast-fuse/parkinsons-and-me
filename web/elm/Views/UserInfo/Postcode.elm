@@ -4,16 +4,15 @@ import Model exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import Components.SpeechHeader exposing (speechHeader)
 import Data.UserInfo exposing (isValidPostcode, postCodeToString)
 import Helpers.Styles as Styles
-import Components.Logo exposing (logo)
 
 
 postcode : Model -> Html Msg
 postcode model =
     div []
-        [ logo
-        , h2 [ class "blue" ] [ text "What's your postcode?" ]
+        [ speechHeader "What's your postcode?"
         , p [] [ text "Don't worry, we won't use your information for anything except for finding the right support near you." ]
         , div [ class "w-100 mw6 center" ] [ postcodeField model ]
         , handleNext model
