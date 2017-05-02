@@ -49,7 +49,7 @@ body {
   transition-property: all;
 }
 
-.disabled {
+.touch-disabled {
   pointer-events: none;
 }
 
