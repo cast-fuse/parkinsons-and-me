@@ -18,4 +18,4 @@ buttonDisabled =
 
 inputField : String
 inputField =
-    "w-100 f6 blue b--green-blue bw1 ba h2 outline-0 ph3 pv1"
+    "w-100 f6 blue b--green-blue ba h2 outline-0 ph3 pv1"
