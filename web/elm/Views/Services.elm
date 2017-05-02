@@ -18,10 +18,11 @@ services model =
     div []
         [ logo
         , h2 [ class "blue mb4" ] [ text "Here you are, your tailored list of Parkinson's services" ]
+        , p [] [ text "Based on what you've told us, here's the information and support that we think's right for you." ]
+        , renderResultsLink model
         , div [ class "bg-blue pb6" ] (List.map renderService model.top3things)
         , div [ class "mw7 center mv4" ]
-            [ (renderResultsLink model)
-            , (renderEmailForm model)
+            [ (renderEmailForm model)
             , (emailSubmitted model)
             ]
         ]
@@ -41,9 +42,9 @@ renderResultsLink : Model -> Html Msg
 renderResultsLink model =
     case model.uuid of
         Just uuid ->
-            div []
-                [ h3 [ class "blue" ] [ text "Your results will be accessible at the following URL" ]
-                , a [ class "blue", href <| resultsUrl uuid ] [ text <| resultsUrl uuid ]
+            div [ class "pb4" ]
+                [ p [] [ text "Come back and visit your page any time:" ]
+                , a [ class "blue no-underline", href <| resultsUrl uuid ] [ text <| resultsUrl uuid ]
                 ]
 
         Nothing ->
@@ -59,8 +60,8 @@ renderEmailForm : Model -> Html Msg
 renderEmailForm model =
     let
         prompts =
-            { x = "If you'd like a copy of these results for futute reference, please enter your email"
-            , y = "If you'd like to have these resent to your email, click the button"
+            { x = "Want a copy? Let us know your email address"
+            , y = "If you'd like to have these resent to your email, click Submit"
             }
     in
         case model.email of
@@ -82,10 +83,10 @@ renderEmailForm model =
 
 emailForm : Model -> String -> String -> Html Msg
 emailForm model prompt email =
-    div []
+    div [ class "flex flex-column items-center" ]
         [ h3 [ class "blue" ] [ text prompt ]
-        , input [ onInput SetEmail, class (Styles.inputField ++ " mw5 center"), placeholder "put your email", value email ] []
-        , (handleSubmitEmail model)
+        , input [ onInput SetEmail, class (Styles.inputField ++ " mw5"), value email ] []
+        , div [] [ handleSubmitEmail model ]
         ]
 
 
@@ -95,11 +96,11 @@ handleSubmitEmail model =
         button
             [ onClick SubmitEmail
             , autocomplete False
-            , class (Styles.buttonClear ++ " mt3")
+            , class <| Styles.buttonClear ++ " mt3"
             ]
             [ text "Submit" ]
     else
-        button [ class Styles.buttonDisabled ] [ text "Submit" ]
+        button [ class <| Styles.buttonDisabled ++ " mt3" ] [ text "Submit" ]
 
 
 emailSubmitted : Model -> Html Msg
