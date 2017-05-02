@@ -12,9 +12,7 @@ home : Model -> Html Msg
 home model =
     div []
         [ logo
-        , h1 [ class "blue" ] [ text <| String.toUpper <| "Hello and welcome to" ]
-        , h2 [ class "blue" ] [ text "What3Things" ]
-        , p [] [ text "Parkinson's UK offers a variety of support and information types for everyone." ]
+        , p [] [ text "We know that being diagnosed with Parkinson's can feel confusing and overwhelming. But there's lots of information and support out there, and we're here to help fin what's right for you, right" ]
         , p [] [ text "What3Things will ensure you get the best match for your needs right now." ]
-        , button [ class Styles.buttonBlue, onClick <| SetView Name ] [ text "Get Started" ]
+        , button [ class Styles.buttonClear, onClick <| SetView Name ] [ text "Let's get started" ]
         ]

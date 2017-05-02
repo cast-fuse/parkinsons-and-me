@@ -13,20 +13,16 @@ age : Model -> Html Msg
 age model =
     div []
         [ logo
-        , h2 [ class "blue" ] [ text <| String.toUpper <| "A bit about you" ]
-        , div [ class "flex flex-column justify-center items-center" ]
-            [ div [] [ ageField model ]
-            ]
+        , h2 [ class "blue" ] [ text "Do you mind us asking how old you are?" ]
+        , p [] [ text "Parkinson's affects people of all ages. No matter your age, we can help." ]
+        , div [] [ ageOptions model ]
         , handleNext model
         ]
 
 
-ageField : Model -> Html Msg
-ageField model =
-    div [ class "flex ma4" ]
-        [ p [ class "tl mw6 ma0 mt2" ] [ text "What's your age?" ]
-        , div [ class "flex flex-wrap justify-center" ] (List.map (ageOption model) ageRanges)
-        ]
+ageOptions : Model -> Html Msg
+ageOptions model =
+    div [ class "flex flex-wrap justify-center" ] (List.map (ageOption model) ageRanges)
 
 
 ageOption : Model -> AgeRange -> Html Msg

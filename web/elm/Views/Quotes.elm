@@ -20,7 +20,7 @@ quotes model =
                 ]
                 []
             ]
-        , button [ class (Styles.buttonBlue ++ " ma3 relative z-3"), onClick <| SubmitAnswer Yes ] [ text "Yes, I feel like this" ]
+        , button [ class (Styles.buttonClear ++ " ma3 relative z-3"), onClick <| SubmitAnswer Yes ] [ text "Yes, I feel like this" ]
         , button [ class (Styles.buttonClear ++ " relative z-3"), onClick <| SubmitAnswer No ] [ text "No, not how I feel" ]
         ]
 

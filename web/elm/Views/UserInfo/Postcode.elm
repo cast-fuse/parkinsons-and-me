@@ -13,10 +13,9 @@ postcode : Model -> Html Msg
 postcode model =
     div []
         [ logo
-        , h2 [ class "blue" ] [ text <| String.toUpper <| "A bit about you" ]
-        , div [ class "flex flex-column justify-center items-center" ]
-            [ div [ class "w-100 mw6" ] [ postcodeField model ]
-            ]
+        , h2 [ class "blue" ] [ text "What's your postcode?" ]
+        , p [] [ text "Don't worry, we won't use your information for anything except for finding the right support near you." ]
+        , div [ class "w-100 mw6 center" ] [ postcodeField model ]
         , handleNext model
         ]
 
@@ -24,9 +23,8 @@ postcode model =
 postcodeField : Model -> Html Msg
 postcodeField model =
     div [ class "flex items-center pa4" ]
-        [ p [ class "tl w-75 mr3" ] [ text "What's your postcode?" ]
-        , input
-            [ class Styles.inputField
+        [ input
+            [ class <| Styles.inputField ++ " ttu"
             , onInput SetPostcode
             , autocomplete False
             , value <| postCodeToString model.postcode
@@ -38,6 +36,6 @@ postcodeField model =
 handleNext : Model -> Html Msg
 handleNext model =
     if isValidPostcode model.postcode then
-        button [ class Styles.buttonBlue, onClick <| SetView Age ] [ text "Next" ]
+        button [ class Styles.buttonClear, onClick <| SetView Age ] [ text "Next" ]
     else
         button [ class Styles.buttonDisabled ] [ text "Next" ]

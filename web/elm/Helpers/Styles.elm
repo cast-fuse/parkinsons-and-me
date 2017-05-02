@@ -3,17 +3,12 @@ module Helpers.Styles exposing (..)
 
 button : String
 button =
-    "ph4 pv3 f5 outline-0 pointer"
-
-
-buttonBlue : String
-buttonBlue =
-    "bg-dark-blue white bn " ++ button
+    "ph3 pv2 f4 outline-0 pointer sans-serif"
 
 
 buttonClear : String
 buttonClear =
-    "bg-white b--dark-blue dark-blue ba " ++ button
+    "bg-white b--green-blue green-blue ba " ++ button
 
 
 buttonDisabled : String
@@ -23,7 +18,7 @@ buttonDisabled =
 
 inputField : String
 inputField =
-    "w-100 f6 blue b--blue ba h2 ttu outline-0 ph3 pv1"
+    "w-100 f6 blue b--green-blue ba h2 outline-0 ph3 pv1"
 
 
 spikesBackground : List ( String, String )
