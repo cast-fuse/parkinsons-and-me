@@ -23,6 +23,6 @@ loadingBackground model view =
 
         _ ->
             div []
-                [ div [ class "t3 all ease delay-2 z-999 fixed w-100 vh-100 bg-blue o-0 disabled flex items-center justify-center" ] [ loading ]
+                [ div [ class "t3 all ease delay-2 z-999 fixed w-100 vh-100 bg-blue o-0 touch-disabled flex items-center justify-center" ] [ loading ]
                 , view
                 ]

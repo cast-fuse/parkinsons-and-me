@@ -28,10 +28,10 @@ ageOptions model =
 ageOption : Model -> AgeRange -> Html Msg
 ageOption model ageRange =
     div
-        [ class "ba b--blue w-40 ph3 pv2 mr3 mb3 b pointer"
+        [ class "ba b--green-blue w-40 ph3 pv2 mr3 mb3 b pointer"
         , classList
-            [ ( "bg-blue white", model.ageRange == Just ageRange )
-            , ( "blue", model.ageRange /= Just ageRange )
+            [ ( "bg-green-blue white", model.ageRange == Just ageRange )
+            , ( "green-blue", model.ageRange /= Just ageRange )
             ]
         , onClick <| SetAgeRange ageRange
         ]
