@@ -3,8 +3,10 @@
 @custom-media --breakpoint-large screen and (min-width: 60em);
 
 :root {
-  --sans-serif: Open Sans, Helvetica, Arial;
+  --sans-serif: Assistant, Helvetica, Arial;
   --serif: georgia, serif;
+  --handwriting: Loved By The King;
+  --title: Just Another Hand;
   --code: consolas, monaco, monospace;
 
   --font-size-headline: 6rem;
@@ -51,7 +53,7 @@
   --max-width-2: 2rem;
   --max-width-3: 4rem;
   --max-width-4: 8rem;
-  --max-width-5: 16rem;
+  --max-width-5: 26rem;
   --max-width-6: 35rem;
   --max-width-7: 48rem;
   --max-width-8: 64rem;
@@ -134,12 +136,13 @@
   --dark-green:  #007459;
   --green:  #19a974;
   --light-green:  #C7FFDF;
+  --green-blue:  #89C4C5;
   --navy:  #001b44;
   --dark-blue:  #006990;
   --blue:  #0192C8;
   --light-blue:  #96ccff;
   --lightest-blue:  #cdecff;
-  --washed-blue:  #f6fffe;
+  --washed-blue: #96d4e2;
   --washed-green:  #E1F8EA;
   --washed-yellow:  #fffceb;
   --washed-red:  #ffdfdf;
