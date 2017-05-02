@@ -5,6 +5,7 @@ import Views.Home exposing (home)
 import Views.UserInfo.Name exposing (name)
 import Views.UserInfo.Postcode exposing (postcode)
 import Views.UserInfo.Age exposing (age)
+import Views.Instructions exposing (instructions)
 import Views.Quotes exposing (quotes)
 import Views.Services exposing (..)
 import Components.Utils exposing (emptyDiv)
@@ -30,6 +31,9 @@ router model =
 
             Age ->
                 handleLoading age
+
+            Instructions ->
+                handleLoading instructions
 
             Quotes ->
                 handleLoading quotes

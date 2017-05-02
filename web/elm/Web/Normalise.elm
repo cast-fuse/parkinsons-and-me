@@ -5,12 +5,12 @@ import Model exposing (..)
 
 normaliseName : String -> String
 normaliseName =
-    String.toLower
+    String.toLower >> String.trim
 
 
 normaliseEmail : String -> String
 normaliseEmail =
-    String.toLower
+    String.toLower >> String.trim
 
 
 normalisePostcode : String -> String

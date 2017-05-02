@@ -87,8 +87,8 @@ update msg model =
             in
                 newModel ! [ handlePostAnswers newModel ]
 
-        HandleGoToQuotes ->
-            (handleGoToQuotes model) ! [ postUserDetails model ]
+        HandleGoToInstructions ->
+            handleGoToInstructions model ! [ postUserDetails model ]
 
         ReceiveUser (Err _) ->
             model ! []
