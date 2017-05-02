@@ -8,12 +8,12 @@ button =
 
 buttonBlue : String
 buttonBlue =
-    "bg-dark-blue white bn " ++ button
+    "bg-green-blue white bn " ++ button
 
 
 buttonClear : String
 buttonClear =
-    "bg-white b--dark-blue dark-blue ba " ++ button
+    "bg-white b--green-blue black ba " ++ button
 
 
 buttonDisabled : String
@@ -23,28 +23,4 @@ buttonDisabled =
 
 inputField : String
 inputField =
-    "w-100 f6 blue b--blue ba h2 ttu outline-0 ph3 pv1"
-
-
-spikesBackground : List ( String, String )
-spikesBackground =
-    [ ( "background-image", "url(/images/spikes.png)" )
-    , ( "height", "115%" )
-    , ( "top", "-2rem" )
-    ]
-
-
-bubblesBackground : List ( String, String )
-bubblesBackground =
-    [ ( "background-image", "url(/images/bubbles.png)" )
-    , ( "height", "115%" )
-    , ( "top", "-2rem" )
-    ]
-
-
-fuzzBackground : List ( String, String )
-fuzzBackground =
-    [ ( "background-image", "url(/images/fuzz.png)" )
-    , ( "height", "135%" )
-    , ( "top", "-3rem" )
-    ]
+    "w-100 f6 black b--green-blue ba2 h2 ttu outline-0 ph3 pv1"
