@@ -19,6 +19,11 @@ handleGoToServices model =
             model
 
 
+handleGoToInstructions : Model -> Model
+handleGoToInstructions model =
+    { model | view = Instructions }
+
+
 handleNextQuote : Model -> Model
 handleNextQuote model =
     { model

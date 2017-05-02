@@ -33,6 +33,7 @@ type View
     | Name
     | Postcode
     | Age
+    | Instructions
     | Quotes
     | Services
     | Loading
@@ -152,6 +153,7 @@ type Msg
     | ReceiveQuoteServiceWeightings (Result Http.Error QuoteServiceWeightings)
     | ShuffleQuoteIds (List QuoteId) (List Int)
     | SubmitAnswer Answer
+    | HandleGoToInstructions
     | HandleGoToQuotes
     | ReceiveUser (Result Http.Error RawUser)
     | PutUserEmail (Result Http.Error ())
