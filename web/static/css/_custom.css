@@ -3,6 +3,27 @@ body {
   font-family: var(--sans-serif);
 }
 
+.bg-green-blue {
+  background-color: var(--green-blue);
+}
+
+.b--green-blue {
+  border-color: var(--green-blue);
+}
+
+.ba2 {
+  border-style: solid;
+  border-width: 2px;
+}
+
+.handwriting {
+  font-family: var(--handwriting);
+}
+
+.handwriting-title {
+  font-family: var(--title);
+}
+
 .w6 {
   width: var(--width-6);
 }
