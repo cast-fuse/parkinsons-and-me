@@ -1,20 +1,11 @@
 body {
   margin: 0;
   font-family: var(--sans-serif);
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
-.bg-green-blue {
-  background-color: var(--green-blue);
-}
-
-.b--green-blue {
-  border-color: var(--green-blue);
-}
-
-.ba2 {
-  border-style: solid;
-  border-width: 2px;
-}
+/* fonts */
 
 .handwriting {
   font-family: var(--handwriting);
@@ -24,6 +15,33 @@ body {
   font-family: var(--title);
 }
 
+
+/* colors */
+
+.bg-green-blue {
+  background-color: var(--green-blue);
+}
+
+.b--green-blue {
+  border-color: var(--green-blue);
+}
+
+
+/* borders */
+
+.ba2 {
+  border-style: solid;
+  border-width: 2px;
+}
+
+.ba-thick {
+  border-style: solid;
+  border-width: 0.6rem;
+}
+
+
+/* widths */
+
 .w6 {
   width: var(--width-6);
 }
@@ -32,10 +50,21 @@ body {
   width: var(--width-7);
 }
 
-.ba-thick {
-  border-style: solid;
-  border-width: 0.6rem;
+/* heights */
+
+.mh-v100 {
+  min-height: 100vh;
 }
+
+
+/* flex */
+
+.flex-1 {
+  flex: 1;
+}
+
+
+/* transitions */
 
 .t3 {
   transition-duration: 0.8s;

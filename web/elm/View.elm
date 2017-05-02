@@ -9,7 +9,7 @@ import Views.Router exposing (router)
 
 view : Model -> Html Msg
 view model =
-    div [ class "tc" ]
-        [ router model
+    div [ class "tc flex flex-column mh-v100" ]
+        [ div [ class "flex-1" ] [ router model ]
         , logoFooter
         ]
