@@ -9,6 +9,7 @@ body {
 
 .handwriting {
   font-family: var(--handwriting);
+  font-weight: 400;
 }
 
 .handwriting-title {

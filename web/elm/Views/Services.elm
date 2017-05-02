@@ -1,27 +1,27 @@
 module Views.Services exposing (..)
 
-import Model exposing (..)
-import Model.Email exposing (..)
-import Html exposing (..)
-import Html.Attributes exposing (..)
-import Html.Events exposing (..)
-import Components.SpeechHeader exposing (speechHeader)
+import Components.QuoteBubble exposing (quoteBubble)
 import Components.Utils exposing (emptyDiv)
 import Data.Services exposing (..)
 import Data.UserInfo exposing (isValidEmail)
 import Helpers.Styles as Styles
+import Html exposing (..)
+import Html.Attributes exposing (..)
+import Html.Events exposing (..)
+import Model exposing (..)
+import Model.Email exposing (..)
 import Views.Widget exposing (..)
 
 
 services : Model -> Html Msg
 services model =
     div []
-        [ speechHeader "Here you are, your tailored list of Parkinson's services"
+        [ div [ class "mw6 center mv3" ] [ quoteBubble "Here you are, your tailored list of Parkinson's services" ]
         , div [ class "bg-blue pb6" ] (List.map renderService model.top3things)
         , div [ class "mw7 center mv4" ]
-            [ (renderResultsLink model)
-            , (renderEmailForm model)
-            , (emailSubmitted model)
+            [ renderResultsLink model
+            , renderEmailForm model
+            , emailSubmitted model
             ]
         ]
 

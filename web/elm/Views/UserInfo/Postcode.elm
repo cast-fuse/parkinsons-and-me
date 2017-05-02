@@ -1,12 +1,12 @@
 module Views.UserInfo.Postcode exposing (postcode)
 
-import Model exposing (..)
+import Components.SpeechHeader exposing (speechHeader)
+import Data.UserInfo exposing (isValidPostcode, postCodeToString)
+import Helpers.Styles as Styles exposing (classes)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Components.SpeechHeader exposing (speechHeader)
-import Data.UserInfo exposing (isValidPostcode, postCodeToString)
-import Helpers.Styles as Styles
+import Model exposing (..)
 
 
 postcode : Model -> Html Msg
@@ -23,7 +23,7 @@ postcodeField : Model -> Html Msg
 postcodeField model =
     div [ class "flex items-center pa4" ]
         [ input
-            [ class <| Styles.inputField ++ " ttu"
+            [ class <| classes [ Styles.inputField, "ttu" ]
             , onInput SetPostcode
             , autocomplete False
             , value <| postCodeToString model.postcode
