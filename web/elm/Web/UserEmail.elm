@@ -27,7 +27,9 @@ makeUserJson model =
 makeEmailJson : Model -> Encode.Value
 makeEmailJson model =
     Encode.object
-        [ ( "email", Encode.string <| encodeEmail model ) ]
+        [ ( "email", Encode.string <| encodeEmail model )
+        , ( "email_consent", Encode.bool model.emailConsent )
+        ]
 
 
 encodeEmail : Model -> String

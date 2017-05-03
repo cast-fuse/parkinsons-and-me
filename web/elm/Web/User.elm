@@ -14,10 +14,18 @@ handleRetrievedUserData : RawUser -> Model -> Model
 handleRetrievedUserData rawUser model =
     case rawUser.email of
         "" ->
-            { model | email = NotEntered, userId = Just rawUser.id }
+            { model
+                | email = NotEntered
+                , emailConsent = rawUser.emailConsent
+                , userId = Just rawUser.id
+            }
 
         _ ->
-            { model | email = Valid rawUser.email, userId = Just rawUser.id }
+            { model
+                | email = Valid rawUser.email
+                , emailConsent = rawUser.emailConsent
+                , userId = Just rawUser.id
+            }
 
 
 postUserDetails : Model -> Cmd Msg
@@ -69,6 +77,7 @@ rawUserDecoder =
         |> required "name" string
         |> required "age_range" ageRangeDecoder
         |> optional "email" string ""
+        |> required "email_consent" bool
         |> required "postcode" string
 
 

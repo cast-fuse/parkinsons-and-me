@@ -34,9 +34,9 @@ defmodule What3things.UserController do
     end
   end
 
-  def update(conn, %{"id" => id, "user" => %{"email" => email}, "service_ids" => service_ids, "uuid" => uuid}) do
+  def update(conn, %{"id" => id, "user" => %{"email" => email, "email_consent" => email_consent}, "service_ids" => service_ids, "uuid" => uuid}) do
     user = Repo.get!(User, id)
-    changeset = User.changeset(user, %{email: email})
+    changeset = User.changeset(user, %{email: email, email_consent: email_consent})
 
     case Repo.update(changeset) do
       {:ok, user} ->

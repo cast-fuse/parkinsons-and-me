@@ -37,6 +37,7 @@ initialModel =
     , postcode = Postcode.NotEntered
     , ageRange = Nothing
     , email = Email.NotEntered
+    , emailConsent = False
     , userId = Nothing
     , quotes = Dict.empty
     , services = Dict.empty
@@ -70,6 +71,9 @@ update msg model =
 
         SetEmail email ->
             { model | email = validateEmail email } ! []
+
+        SetEmailConsent bool ->
+            { model | emailConsent = bool } ! []
 
         ReceiveQuoteServiceWeightings (Err _) ->
             { model | fetchErrorMessage = quotesServiceWeightingsError } ! []

@@ -13,6 +13,7 @@ type alias Model =
     , postcode : Postcode
     , ageRange : Maybe AgeRange
     , email : Email
+    , emailConsent : Bool
     , userId : Maybe Int
     , quotes : Quotes
     , services : Services
@@ -112,6 +113,7 @@ type alias RawUser =
     , name : String
     , ageRange : AgeRange
     , email : String
+    , emailConsent : Bool
     , postcode : String
     }
 
@@ -157,6 +159,7 @@ type Msg
     | SetPostcode String
     | SetAgeRange AgeRange
     | SetEmail String
+    | SetEmailConsent Bool
     | ReceiveQuoteServiceWeightings (Result Http.Error QuoteServiceWeightings)
     | ShuffleQuoteIds (List QuoteId) (List Int)
     | SubmitAnswer Answer
