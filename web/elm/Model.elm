@@ -67,6 +67,12 @@ type ServiceWidget
     | Publications
 
 
+type QuoteBubbleBackground
+    = Blue
+    | Green
+    | Orange
+
+
 type alias Quotes =
     Dict QuoteId String
 

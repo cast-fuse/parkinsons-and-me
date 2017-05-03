@@ -13,7 +13,7 @@ quotes : Model -> Html Msg
 quotes model =
     div [ class "center mw6 mt4" ]
         [ p [ class "grey" ] [ text <| renderQuoteNumber model ]
-        , quoteBubble <| getQuote model
+        , quoteBubble (getQuote model) Blue
         , button
             [ class <| classes [ Styles.buttonClear, "ma3 relative z-3" ]
             , onClick <| SubmitAnswer Yes

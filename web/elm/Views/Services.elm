@@ -4,7 +4,7 @@ import Components.QuoteBubble exposing (quoteBubble)
 import Components.Utils exposing (emptyDiv)
 import Data.Services exposing (..)
 import Data.UserInfo exposing (isValidEmail)
-import Helpers.Styles as Styles
+import Helpers.Styles as Styles exposing (classes)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -16,25 +16,47 @@ import Views.Widget exposing (..)
 services : Model -> Html Msg
 services model =
     div []
-        [ div [ class "mw6 center mv3" ] [ quoteBubble "Here you are, your tailored list of Parkinson's services" ]
-        , p [] [ text "Based on what you've told us, here's the information and support that we think's right for you." ]
+        [ div [ class "mw6 center mv3" ] [ quoteBubble "Here it is, your personalised list of Parkinson's services" Blue ]
+        , h3 [] [ text "Based on what you've told us, here's the information and support that we think's right for you." ]
         , renderResultsLink model
-        , div [ class "bg-blue pb6" ] (List.map renderService model.top3things)
+        , div [ class "pb6" ] (List.indexedMap renderService model.top3things)
         , div [ class "mw7 center mv4" ]
             [ renderEmailForm model
             , emailSubmitted model
             ]
+        , div [ class "mw6 center mv3" ] [ quoteBubble "Psst...one more thing.." Green ]
+        , div [ class "mw7 center mv4" ]
+            [ h3 [] [ text "Thank you for testing [product name]. You’ve caught it hot off the press – it’s not quite live yet and we’re still making improvements. We’d love to know what you thought and if you have any suggestions on how we could make it better. " ]
+            , h3 [] [ text "Can you spare ten minutes to share your feedback?" ]
+            , div [ class "flex justify-between mw6 center" ]
+                [ button [ class Styles.buttonClear ] [ text "Fill out this quick survey" ]
+                , button [ class Styles.buttonClear ] [ text "Drop us an email" ]
+                ]
+            ]
         ]
 
 
-renderService : ServiceData -> Html Msg
-renderService s =
-    div [ class "mw7 pa4 bg-light-gray center" ]
-        [ h3 [ class "blue ma0" ] [ text s.title ]
+renderService : Int -> ServiceData -> Html Msg
+renderService i s =
+    div [ class "mw7 pa4 center" ]
+        [ div [ class "mw5 center" ] [ quoteBubble s.title (handleBackground i) ]
         , p [] [ text s.body ]
         , renderWidget <| shortcodeToWidget s
         , button [ class Styles.buttonClear ] [ text s.cta ]
         ]
+
+
+handleBackground : Int -> QuoteBubbleBackground
+handleBackground i =
+    case i of
+        0 ->
+            Orange
+
+        1 ->
+            Green
+
+        _ ->
+            Blue
 
 
 renderResultsLink : Model -> Html Msg
@@ -59,22 +81,22 @@ renderEmailForm : Model -> Html Msg
 renderEmailForm model =
     let
         prompts =
-            { x = "Want a copy? Let us know your email address"
-            , y = "If you'd like to have these resent to your email, click Submit"
+            { new = "Want a copy? Let us know your email address"
+            , returning = "If you'd like to have these resent to your email, click Submit"
             }
     in
         case model.email of
             Valid email ->
-                emailForm model prompts.x email
+                emailForm model prompts.new email
 
             NotEntered ->
-                emailForm model prompts.x ""
+                emailForm model prompts.new ""
 
             Invalid email ->
-                emailForm model prompts.x email
+                emailForm model prompts.new email
 
             Retrieved email ->
-                emailForm model prompts.y email
+                emailForm model prompts.returning email
 
             _ ->
                 span [] []
@@ -84,7 +106,7 @@ emailForm : Model -> String -> String -> Html Msg
 emailForm model prompt email =
     div [ class "flex flex-column items-center" ]
         [ h3 [ class "blue" ] [ text prompt ]
-        , input [ onInput SetEmail, class (Styles.inputField ++ " mw5"), value email ] []
+        , input [ onInput SetEmail, class <| classes [ Styles.inputField, "mw5" ], value email ] []
         , div [] [ handleSubmitEmail model ]
         ]
 
@@ -95,11 +117,11 @@ handleSubmitEmail model =
         button
             [ onClick SubmitEmail
             , autocomplete False
-            , class <| Styles.buttonClear ++ " mt3"
+            , class <| classes [ Styles.buttonClear, "mt3" ]
             ]
             [ text "Submit" ]
     else
-        button [ class <| Styles.buttonDisabled ++ " mt3" ] [ text "Submit" ]
+        button [ class <| classes [ Styles.buttonDisabled, "mt3" ] ] [ text "Submit" ]
 
 
 emailSubmitted : Model -> Html Msg

@@ -8,7 +8,7 @@ classes =
 
 button : String
 button =
-    "ph3 pv2 f3 outline-0 pointer sans-serif"
+    "ph3 pv2 f3 outline-0 pointer no-select sans-serif"
 
 
 buttonClear : String

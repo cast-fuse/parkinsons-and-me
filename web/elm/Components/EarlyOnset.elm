@@ -13,7 +13,7 @@ url =
 
 earlyOnset : Html Msg
 earlyOnset =
-    div [ class "bg-light-gray" ]
+    div []
         [ p [] [ text "your rights and legal options" ]
         , p [] [ text "money grants and benefits" ]
         , a [ href url, onClick <| TrackOutboundLink url ] [ text "Find out more" ]
