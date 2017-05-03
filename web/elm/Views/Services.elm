@@ -58,7 +58,7 @@ renderResultsLink model =
         Just _ ->
             div [ class "pb4" ]
                 [ h3 [] [ text "Come back and visit your page any time:" ]
-                , a [ class "blue no-underline", href <| resultsUrl model ] [ text <| resultsUrl model ]
+                , a [ class "blue no-underline", href <| resultsUrl model, target "_blank" ] [ text <| resultsUrl model ]
                 ]
 
         Nothing ->
@@ -85,7 +85,7 @@ renderEmailForm : Model -> Html Msg
 renderEmailForm model =
     let
         prompts =
-            { new = "Want a copy? Let us know your email address"
+            { new = "Want a copy? we can send it to you via email"
             , returning = "If you'd like to have these resent to your email, click Submit"
             }
     in
