@@ -49,16 +49,34 @@ defmodule What3things.UserController do
     end
   end
 
-  defp get_top3things(top3_ids) do
-    top3_ids
-    |> Service.services_by_id
-    |> Repo.all
-  end
-
   def handle_email(%{email: email, service_ids: service_ids, uuid: uuid}) do
     params = %{to: email, top3things: get_top3things(service_ids), uuid: uuid}
     params
     |> Email.welcome_email()
     |> Mailer.deliver_later()
+  end
+
+  def get_top3things(top3_ids) do
+    top3_ids = format_ids top3_ids
+
+    top3_ids
+    |> Service.services_by_id
+    |> Repo.all
+    |> Enum.into(%{})
+    |> sort_top3things(top3_ids)
+  end
+
+  defp format_ids(ids) do
+    if is_list(ids) do ids else ids_to_list(ids)  end
+  end
+
+  defp ids_to_list(ids) do
+    ids
+    |> String.split(",")
+    |> Enum.map(&String.to_integer/1)
+  end
+
+  defp sort_top3things(top3_services, top3_ids) do
+    Enum.map(top3_ids, fn x -> top3_services[x] end)
   end
 end
