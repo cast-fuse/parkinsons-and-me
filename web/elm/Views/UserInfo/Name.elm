@@ -4,16 +4,15 @@ import Model exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import Components.SpeechHeader exposing (speechHeader)
 import Data.UserInfo exposing (isValidName)
 import Helpers.Styles as Styles
-import Components.Logo exposing (logo)
 
 
 name : Model -> Html Msg
 name model =
     div []
-        [ logo
-        , h2 [ class "blue" ] [ text "What shall we call you?" ]
+        [ speechHeader "What shall we call you?"
         , div [ class "w-100 mw6 center" ] [ nameField model ]
         , handleNext model
         ]

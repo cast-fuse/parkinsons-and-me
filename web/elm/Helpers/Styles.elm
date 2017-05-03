@@ -1,6 +1,11 @@
 module Helpers.Styles exposing (..)
 
 
+classes : List String -> String
+classes =
+    String.join " "
+
+
 button : String
 button =
     "ph3 pv2 f3 outline-0 pointer sans-serif"
