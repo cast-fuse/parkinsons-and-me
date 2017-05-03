@@ -5,8 +5,8 @@
 :root {
   --sans-serif: Assistant, Helvetica, Arial;
   --serif: georgia, serif;
-  --handwriting: Loved By The King;
-  --title: Just Another Hand;
+  --handwriting: Loved By The King, Helvetica, Arial;
+  --title: Just Another Hand, Helvetica, Arial;
   --code: consolas, monaco, monospace;
 
   --font-size-headline: 6rem;

@@ -1,6 +1,6 @@
 module Views.Quotes exposing (..)
 
-import Components.QuoteBubble exposing (quoteBubble)
+import Components.QuoteBubble exposing (cycleQuoteBackground, quoteBubble)
 import Dict
 import Helpers.Styles as Styles exposing (classes)
 import Html exposing (..)
@@ -13,7 +13,7 @@ quotes : Model -> Html Msg
 quotes model =
     div [ class "center mw6 mt4" ]
         [ p [ class "grey" ] [ text <| renderQuoteNumber model ]
-        , quoteBubble (getQuote model) Blue
+        , quoteBubble (getQuote model) (cycleQuoteBackground (quoteNumber model))
         , button
             [ class <| classes [ Styles.buttonClear, "ma3 relative z-3" ]
             , onClick <| SubmitAnswer Yes
