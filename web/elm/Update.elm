@@ -1,23 +1,24 @@
 module Update exposing (..)
 
-import Model exposing (..)
-import Model.Postcode as Postcode
-import Model.Email as Email
-import Data.UserInfo exposing (validatePostcode, handleName, validateEmail, emailToString)
 import Data.Answers exposing (handleAnswer)
+import Data.Ports exposing (trackOutboundLink)
 import Data.QuoteServiceWeightings exposing (setQuoteServiceWeightings)
-import Web.Answers exposing (handlePostAnswers, handlePostAnswersLoading)
-import Web.Results.Url exposing (..)
-import Web.Results.EntryPoint exposing (..)
-import Web.User exposing (..)
-import Web.UserEmail exposing (..)
 import Data.Quotes exposing (..)
 import Data.Services exposing (..)
 import Data.Shuffle exposing (..)
-import Data.Ports exposing (trackOutboundLink)
+import Data.UserInfo exposing (emailToString, handleName, storeSubmittedEmail, validateEmail, validatePostcode)
 import Dict
-import Navigation
 import Helpers.Delay exposing (..)
+import Helpers.Errors exposing (..)
+import Model exposing (..)
+import Model.Email as Email
+import Model.Postcode as Postcode
+import Navigation
+import Web.Answers exposing (handlePostAnswers, handlePostAnswersLoading)
+import Web.Results.EntryPoint exposing (..)
+import Web.Results.Url exposing (..)
+import Web.User exposing (..)
+import Web.UserEmail exposing (..)
 
 
 init : Navigation.Location -> ( Model, Cmd Msg )
@@ -42,6 +43,7 @@ initialModel =
     , top3things = []
     , weightings = Dict.empty
     , fetchErrorMessage = ""
+    , submitErrorMessage = ""
     , currentQuote = Nothing
     , remainingQuotes = Nothing
     , userWeightings = Dict.empty
@@ -70,10 +72,14 @@ update msg model =
             { model | email = validateEmail email } ! []
 
         ReceiveQuoteServiceWeightings (Err _) ->
-            { model | fetchErrorMessage = "Something went wrong fetching the data." } ! []
+            { model | fetchErrorMessage = quotesServiceWeightingsError } ! []
 
         ReceiveQuoteServiceWeightings (Ok data) ->
-            (model |> setQuoteServiceWeightings data) ! [ shuffleQuoteIds <| getQuoteIds data.quotes ]
+            (model
+                |> removeFetchError
+                |> setQuoteServiceWeightings data
+            )
+                ! [ shuffleQuoteIds <| getQuoteIds data.quotes ]
 
         ShuffleQuoteIds qIds randomList ->
             (model |> handleShuffleQuotes qIds randomList) ! []
@@ -91,27 +97,37 @@ update msg model =
             handleGoToInstructions model ! [ postUserDetails model ]
 
         ReceiveUser (Err _) ->
-            model ! []
+            { model | fetchErrorMessage = receiveUserError } ! []
 
         ReceiveUser (Ok rawUser) ->
-            (model |> handleRetrievedUserData rawUser) ! []
-
-        PutUserEmail (Ok _) ->
-            { model | email = Email.Submitted <| emailToString model.email } ! []
+            (model
+                |> removeFetchError
+                |> handleRetrievedUserData rawUser
+            )
+                ! []
 
         PutUserEmail (Err _) ->
-            model ! []
+            { model | submitErrorMessage = putUserEmailError } ! []
+
+        PutUserEmail (Ok _) ->
+            (model
+                |> removeSubmitError
+                |> storeSubmittedEmail
+            )
+                ! []
 
         SubmitEmail ->
             model ! [ sendUserEmail model ]
 
         PostUserAnswers (Err _) ->
-            model ! []
+            { model | submitErrorMessage = postUserAnswersError } ! []
 
         PostUserAnswers (Ok uuid) ->
             let
                 newModel =
-                    { model | uuid = Just uuid } |> handleTop3Things
+                    { model | uuid = Just uuid }
+                        |> removeSubmitError
+                        |> handleTop3Things
             in
                 newModel ! [ setResultsUrl newModel, waitThenShowServices ]
 
@@ -119,10 +135,14 @@ update msg model =
             model ! []
 
         ReceiveResults (Err err) ->
-            model ! []
+            { model | fetchErrorMessage = receiveResultsError } ! []
 
         ReceiveResults (Ok res) ->
-            (model |> loadResults res) ! []
+            (model
+                |> removeFetchError
+                |> loadResults res
+            )
+                ! []
 
         TrackOutboundLink url ->
             model ! [ trackOutboundLink url ]

@@ -109,6 +109,11 @@ isValidAgeRange model =
             True
 
 
+storeSubmittedEmail : Model -> Model
+storeSubmittedEmail model =
+    { model | email = Email.Submitted <| emailToString model.email }
+
+
 emailRegex : Regex
 emailRegex =
     regex
