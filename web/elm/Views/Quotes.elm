@@ -13,7 +13,7 @@ quotes : Model -> Html Msg
 quotes model =
     div [ class "center mw6 mt4" ]
         [ p [ class "grey" ] [ text <| renderQuoteNumber model ]
-        , quoteBubble (getQuote model) (cycleQuoteBackground (quoteNumber model))
+        , renderQuoteBubble model
         , button
             [ class <| classes [ Styles.buttonClear, "ma3 relative z-3" ]
             , onClick <| SubmitAnswer Yes
@@ -25,6 +25,13 @@ quotes model =
             ]
             [ text "No, not how I feel" ]
         ]
+
+
+renderQuoteBubble : Model -> Html Msg
+renderQuoteBubble model =
+    quoteBubble
+        (getQuoteBody model)
+        (model |> quoteNumber |> cycleQuoteBackground)
 
 
 renderQuoteNumber : Model -> String
@@ -48,8 +55,8 @@ quoteNumber model =
         total - (model.remainingQuotes |> Maybe.withDefault [] |> List.length)
 
 
-getQuote : Model -> String
-getQuote model =
+getQuoteBody : Model -> String
+getQuoteBody model =
     model.currentQuote
         |> Maybe.andThen (\x -> Dict.get x model.quotes)
         |> Maybe.withDefault ""
