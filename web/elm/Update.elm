@@ -75,11 +75,7 @@ update msg model =
             { model | fetchErrorMessage = quotesServiceWeightingsError } ! []
 
         ReceiveQuoteServiceWeightings (Ok data) ->
-            (model
-                |> removeFetchError
-                |> setQuoteServiceWeightings data
-            )
-                ! [ shuffleQuoteIds <| getQuoteIds data.quotes ]
+            (model |> setQuoteServiceWeightings data |> removeFetchError) ! [ shuffleQuoteIds <| getQuoteIds data.quotes ]
 
         ShuffleQuoteIds qIds randomList ->
             (model |> handleShuffleQuotes qIds randomList) ! []
@@ -100,21 +96,13 @@ update msg model =
             { model | fetchErrorMessage = receiveUserError } ! []
 
         ReceiveUser (Ok rawUser) ->
-            (model
-                |> removeFetchError
-                |> handleRetrievedUserData rawUser
-            )
-                ! []
+            (model |> handleRetrievedUserData rawUser |> removeFetchError) ! []
 
         PutUserEmail (Err _) ->
             { model | submitErrorMessage = putUserEmailError } ! []
 
         PutUserEmail (Ok _) ->
-            (model
-                |> removeSubmitError
-                |> storeSubmittedEmail
-            )
-                ! []
+            (model |> storeSubmittedEmail |> removeSubmitError) ! []
 
         SubmitEmail ->
             model ! [ sendUserEmail model ]
@@ -138,11 +126,7 @@ update msg model =
             { model | fetchErrorMessage = receiveResultsError } ! []
 
         ReceiveResults (Ok res) ->
-            (model
-                |> removeFetchError
-                |> loadResults res
-            )
-                ! []
+            (model |> loadResults res |> removeFetchError) ! []
 
         TrackOutboundLink url ->
             model ! [ trackOutboundLink url ]
