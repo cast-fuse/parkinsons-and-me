@@ -13,7 +13,7 @@ age : Model -> Html Msg
 age model =
     div []
         [ speechHeader "Do you mind us asking how old you are?"
-        , p [] [ text "Parkinson's affects people of all ages. No matter your age, we can help." ]
+        , p [] [ text "We know Parkinson's affects people of all ages - so no matter how old you are, we can help." ]
         , div [] [ ageOptions model ]
         , handleNext model
         ]

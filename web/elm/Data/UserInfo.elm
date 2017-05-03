@@ -91,6 +91,14 @@ isValidName model =
             True
 
 
+handleName : Model -> String -> Model
+handleName model name =
+    if name == "" then
+        { model | name = Nothing }
+    else
+        { model | name = Just name }
+
+
 isValidAgeRange : Model -> Bool
 isValidAgeRange model =
     case model.ageRange of

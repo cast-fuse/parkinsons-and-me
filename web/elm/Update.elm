@@ -3,7 +3,7 @@ module Update exposing (..)
 import Model exposing (..)
 import Model.Postcode as Postcode
 import Model.Email as Email
-import Data.UserInfo exposing (validatePostcode, validateEmail, emailToString)
+import Data.UserInfo exposing (validatePostcode, handleName, validateEmail, emailToString)
 import Data.Answers exposing (handleAnswer)
 import Data.QuoteServiceWeightings exposing (setQuoteServiceWeightings)
 import Web.Answers exposing (handlePostAnswers, handlePostAnswersLoading)
@@ -58,7 +58,7 @@ update msg model =
             { model | view = view } ! []
 
         SetName name ->
-            { model | name = Just name } ! []
+            handleName model name ! []
 
         SetPostcode postcode ->
             { model | postcode = validatePostcode postcode } ! []
