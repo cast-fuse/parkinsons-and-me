@@ -8,27 +8,58 @@ import Data.UserInfo exposing (emailToString)
 import Data.Services exposing (top3Ids)
 
 
-sendUserEmail : Model -> Cmd Msg
-sendUserEmail model =
+sendEmailConsent : Model -> Cmd Msg
+sendEmailConsent model =
     case model.userId of
         Just uId ->
-            put (makeEmailUrl uId model) (Http.jsonBody <| makeUserJson model)
-                |> Http.send PutUserEmail
+            putUser (makeEmailConsentUrl uId) (userEmailConsentJson model) PutUserEmailConsent
 
         Nothing ->
             Cmd.none
 
 
-makeUserJson : Model -> Encode.Value
-makeUserJson model =
-    Encode.object [ ( "user", makeEmailJson model ) ]
+sendUserEmail : Model -> Cmd Msg
+sendUserEmail model =
+    case model.userId of
+        Just uId ->
+            putUser (makeEmailUrl uId model) (userEmailJson model) PutUserEmail
+
+        Nothing ->
+            Cmd.none
+
+
+putUser : String -> Encode.Value -> (Result Error () -> Msg) -> Cmd Msg
+putUser url body msg =
+    put url (Http.jsonBody body)
+        |> Http.send msg
+
+
+userEmailConsentJson : Model -> Encode.Value
+userEmailConsentJson model =
+    userJson <| makeEmailConsentJson model
+
+
+userEmailJson : Model -> Encode.Value
+userEmailJson model =
+    userJson <| makeEmailJson model
+
+
+userJson : Encode.Value -> Encode.Value
+userJson value =
+    Encode.object
+        [ ( "user", value ) ]
+
+
+makeEmailConsentJson : Model -> Encode.Value
+makeEmailConsentJson model =
+    Encode.object
+        [ ( "email_consent", Encode.bool model.emailConsent ) ]
 
 
 makeEmailJson : Model -> Encode.Value
 makeEmailJson model =
     Encode.object
         [ ( "email", Encode.string <| encodeEmail model )
-        , ( "email_consent", Encode.bool model.emailConsent )
         ]
 
 
@@ -49,6 +80,11 @@ put url body =
         , timeout = Nothing
         , withCredentials = False
         }
+
+
+makeEmailConsentUrl : Int -> String
+makeEmailConsentUrl uId =
+    "/api/users/" |> prepend (toString uId)
 
 
 makeEmailUrl : Int -> Model -> String

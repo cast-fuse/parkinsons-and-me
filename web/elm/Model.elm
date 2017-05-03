@@ -166,6 +166,7 @@ type Msg
     | HandleGoToInstructions
     | ReceiveUser (Result Http.Error RawUser)
     | PutUserEmail (Result Http.Error ())
+    | PutUserEmailConsent (Result Http.Error ())
     | SubmitEmail
     | PostUserAnswers (Result Http.Error String)
     | UrlChange Navigation.Location

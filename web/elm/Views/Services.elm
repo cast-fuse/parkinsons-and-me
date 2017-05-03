@@ -1,6 +1,6 @@
 module Views.Services exposing (..)
 
-import Components.QuoteBubble exposing (quoteBubble)
+import Components.QuoteBubble exposing (cycleQuoteBackground, quoteBubble)
 import Components.Utils exposing (emptyDiv)
 import Data.Services exposing (..)
 import Data.UserInfo exposing (isValidEmail)
@@ -15,66 +15,70 @@ import Views.Widget exposing (..)
 
 services : Model -> Html Msg
 services model =
-    div []
-        [ div [ class "mw6 center mv3" ] [ quoteBubble "Here it is, your personalised list of Parkinson's services" Blue ]
-        , h3 [] [ text "Based on what you've told us, here's the information and support that we think's right for you." ]
-        , renderResultsLink model
-        , div [ class "pb6" ] (List.indexedMap renderService model.top3things)
-        , div [ class "mw7 center mv4" ]
-            [ renderEmailForm model
-            , emailSubmitted model
-            ]
-        , div [ class "mw6 center mv3" ] [ quoteBubble "Psst...one more thing.." Green ]
-        , div [ class "mw7 center mv4" ]
-            [ h3 [] [ text "Thank you for testing [product name]. You’ve caught it hot off the press – it’s not quite live yet and we’re still making improvements. We’d love to know what you thought and if you have any suggestions on how we could make it better. " ]
-            , h3 [] [ text "Can you spare ten minutes to share your feedback?" ]
-            , div [ class "flex justify-between mw6 center" ]
-                [ button [ class Styles.buttonClear ] [ text "Fill out this quick survey" ]
-                , button [ class Styles.buttonClear ] [ text "Drop us an email" ]
+    let
+        emailAnchor =
+            resultsLink model
+    in
+        div []
+            [ div [ class "mw6 center mv3" ] [ quoteBubble "Here it is, your personalised list of Parkinson's services" Blue ]
+            , h3 [] [ text "Based on what you've told us, here's the information and support that we think's right for you." ]
+            , renderResultsLink model
+            , h3 [] [ text "Shall we email you a copy?" ]
+            , a [ href <| "#" ++ emailAnchor ] [ button [ class Styles.buttonClear ] [ text "Yes Please" ] ]
+            , div [ class "pb3" ] (List.indexedMap renderService model.top3things)
+            , div [ class "mw7 center mv4", id emailAnchor ]
+                [ renderEmailForm model
+                , emailSubmitted model
+                ]
+            , div [ class "mw6 center mv3" ] [ quoteBubble "Psst...one more thing.." Green ]
+            , div [ class "mw7 center mv4" ]
+                [ h3 [] [ text "Thank you for testing [product name]. You’ve caught it hot off the press – it’s not quite live yet and we’re still making improvements. We’d love to know what you thought and if you have any suggestions on how we could make it better. " ]
+                , h3 [] [ text "Can you spare ten minutes to share your feedback?" ]
+                , div [ class "flex justify-between mw6 center" ]
+                    [ button [ class Styles.buttonClear ] [ text "Fill out this quick survey" ]
+                    , button [ class Styles.buttonClear ] [ text "Drop us an email" ]
+                    ]
                 ]
             ]
-        ]
 
 
 renderService : Int -> ServiceData -> Html Msg
 renderService i s =
     div [ class "mw7 pa4 center" ]
-        [ div [ class "mw5 center" ] [ quoteBubble s.title (handleBackground i) ]
+        [ div [ class "mw5 center" ] [ quoteBubble s.title (cycleQuoteBackground i) ]
         , p [] [ text s.body ]
         , renderWidget <| shortcodeToWidget s
         , button [ class Styles.buttonClear ] [ text s.cta ]
         ]
 
 
-handleBackground : Int -> QuoteBubbleBackground
-handleBackground i =
-    case i of
-        0 ->
-            Orange
-
-        1 ->
-            Green
-
-        _ ->
-            Blue
-
-
 renderResultsLink : Model -> Html Msg
 renderResultsLink model =
     case model.uuid of
-        Just uuid ->
+        Just _ ->
             div [ class "pb4" ]
-                [ p [] [ text "Come back and visit your page any time:" ]
-                , a [ class "blue no-underline", href <| resultsUrl uuid ] [ text <| resultsUrl uuid ]
+                [ h3 [] [ text "Come back and visit your page any time:" ]
+                , a [ class "blue no-underline", href <| resultsUrl model ] [ text <| resultsUrl model ]
                 ]
 
         Nothing ->
             emptyDiv
 
 
-resultsUrl : String -> String
-resultsUrl uuid =
-    "https://what3things-staging.herokuapp.com/#my-results/" ++ uuid
+resultsUrl : Model -> String
+resultsUrl model =
+    String.concat
+        [ "https://what3things-staging.herokuapp.com/"
+        , "#"
+        , resultsLink model
+        ]
+
+
+resultsLink : Model -> String
+resultsLink model =
+    model.uuid
+        |> Maybe.map ((++) "my-results/")
+        |> Maybe.withDefault ""
 
 
 renderEmailForm : Model -> Html Msg
@@ -108,7 +112,27 @@ emailForm model prompt email =
         [ h3 [ class "blue" ] [ text prompt ]
         , input [ onInput SetEmail, class <| classes [ Styles.inputField, "mw5" ], value email ] []
         , div [] [ handleSubmitEmail model ]
+        , privacyStatement model
         ]
+
+
+privacyStatement : Model -> Html Msg
+privacyStatement model =
+    case model.emailConsent of
+        False ->
+            h3 []
+                [ input
+                    [ type_ "checkbox"
+                    , onCheck SetEmailConsent
+                    , checked model.emailConsent
+                    ]
+                    []
+                , text "We’d love to hear your feedback! If you’re happy to be contacted by Parkinson’s UK about [name of product] please tick this box. Don’t worry, your details won’t be used for anything else. To find out more, read our "
+                , a [ href "https://www.parkinsons.org.uk/content/parkinsons-uk-website-terms-and-conditions" ] [ text "privacy statement" ]
+                ]
+
+        True ->
+            h3 [] [ text "Thanks for taking part, we'll get in touch later to ask you what you think of the app" ]
 
 
 handleSubmitEmail : Model -> Html Msg

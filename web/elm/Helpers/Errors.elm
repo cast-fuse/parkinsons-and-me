@@ -18,6 +18,11 @@ putUserEmailError =
     "Something went wrong when submitting email"
 
 
+putUserEmailConsentError : String
+putUserEmailConsentError =
+    "Something went wrong when submitting email consent"
+
+
 postUserAnswersError : String
 postUserAnswersError =
     "Something went wrong when sending answers"

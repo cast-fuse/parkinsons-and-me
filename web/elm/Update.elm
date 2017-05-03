@@ -73,7 +73,11 @@ update msg model =
             { model | email = validateEmail email } ! []
 
         SetEmailConsent bool ->
-            { model | emailConsent = bool } ! []
+            let
+                newModel =
+                    { model | emailConsent = bool }
+            in
+                newModel ! [ sendEmailConsent newModel ]
 
         ReceiveQuoteServiceWeightings (Err _) ->
             { model | fetchErrorMessage = quotesServiceWeightingsError } ! []
@@ -108,6 +112,12 @@ update msg model =
         PutUserEmail (Ok _) ->
             (model |> storeSubmittedEmail |> removeSubmitError) ! []
 
+        PutUserEmailConsent (Err _) ->
+            { model | submitErrorMessage = putUserEmailConsentError } ! []
+
+        PutUserEmailConsent (Ok _) ->
+            (model |> removeSubmitError) ! []
+
         SubmitEmail ->
             model ! [ sendUserEmail model ]
 
@@ -118,8 +128,8 @@ update msg model =
             let
                 newModel =
                     { model | uuid = Just uuid }
-                        |> removeSubmitError
                         |> handleTop3Things
+                        |> removeSubmitError
             in
                 newModel ! [ setResultsUrl newModel, waitThenShowServices ]
 

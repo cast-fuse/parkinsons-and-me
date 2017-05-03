@@ -34,14 +34,29 @@ defmodule What3things.UserController do
     end
   end
 
-  def update(conn, %{"id" => id, "user" => %{"email" => email, "email_consent" => email_consent}, "service_ids" => service_ids, "uuid" => uuid}) do
+  def update(conn, %{"id" => id, "user" => %{"email" => email}, "service_ids" => service_ids, "uuid" => uuid}) do
     user = Repo.get!(User, id)
-    changeset = User.changeset(user, %{email: email, email_consent: email_consent})
+    changeset = User.changeset(user, %{email: email})
 
     case Repo.update(changeset) do
       {:ok, user} ->
         handle_email(%{email: email, service_ids: service_ids, uuid: uuid})
         render(conn, "show.json", user: user)
+      {:error, changeset} ->
+        conn
+        |> put_status(:unprocessable_entity)
+        |> render(What3things.ChangesetView, "error.json", changeset: changeset)
+    end
+  end
+
+  def update(conn, %{"id" => id, "user" => %{"email_consent" => email_consent}}) do
+    user = Repo.get!(User, id)
+    changeset = User.changeset(user, %{email_consent: email_consent})
+
+    case Repo.update(changeset) do
+      {:ok, user} ->
+        conn
+        |> render("show.json", user: user)
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
