@@ -4,11 +4,6 @@ import Model exposing (..)
 import Dict exposing (..)
 
 
-handleGoToQuotes : Model -> Model
-handleGoToQuotes model =
-    { model | view = Quotes }
-
-
 handleGoToServices : Model -> Model
 handleGoToServices model =
     case model.currentQuote of
@@ -17,6 +12,11 @@ handleGoToServices model =
 
         _ ->
             model
+
+
+handleGoToInstructions : Model -> Model
+handleGoToInstructions model =
+    { model | view = Instructions }
 
 
 handleNextQuote : Model -> Model

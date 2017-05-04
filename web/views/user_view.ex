@@ -10,6 +10,7 @@ defmodule What3things.UserView do
       name: user.name,
       age_range: user.age_range,
       postcode: user.postcode,
-      email: user.email}
+      email: user.email,
+      email_consent: user.email_consent}
   end
 end

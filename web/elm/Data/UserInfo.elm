@@ -91,6 +91,14 @@ isValidName model =
             True
 
 
+handleName : Model -> String -> Model
+handleName model name =
+    if name == "" then
+        { model | name = Nothing }
+    else
+        { model | name = Just name }
+
+
 isValidAgeRange : Model -> Bool
 isValidAgeRange model =
     case model.ageRange of
@@ -99,6 +107,11 @@ isValidAgeRange model =
 
         Just _ ->
             True
+
+
+storeSubmittedEmail : Model -> Model
+storeSubmittedEmail model =
+    { model | email = Email.Submitted <| emailToString model.email }
 
 
 emailRegex : Regex

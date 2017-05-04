@@ -1,0 +1,11 @@
+<%= render What3things.AdminView, "back.html", conn: @conn %>
+
+<h1 class="tc">Analytics</h1>
+<div class="tc mt5">
+  <%= link to: analytics_path(@conn, :index, users: true), class: "no-underline" do %>
+    <h2 class="dark-blue">Users</h2>
+  <% end %>
+  <%= link to: analytics_path(@conn, :index, answers: true), class: "no-underline" do %>
+    <h2 class="dark-blue">Answers</h2>
+  <% end %>
+</div>

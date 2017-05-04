@@ -1,9 +1,430 @@
 <html>
   <head>
     <style type="text/css">
-      .blue {
-        color: #0192C8;
+
+      .flex {
+        display: flex;
       }
+
+      .inline-flex {
+        display: inline-flex;
+      }
+
+      .flex-auto {
+        flex: 1 1 auto;
+        min-width: 0;
+        min-height: 0;
+      }
+
+      .flex-none {
+        flex: none;
+      }
+
+      .flex-column {
+        flex-direction: column;
+      }
+
+      .flex-row {
+        flex-direction: row;
+      }
+
+      .flex-wrap {
+        flex-wrap: wrap;
+      }
+
+      .items-start {
+        align-items: flex-start;
+      }
+
+      .items-end {
+        align-items: flex-end;
+      }
+
+      .items-center {
+        align-items: center;
+      }
+
+      .items-baseline {
+        align-items: baseline;
+      }
+
+      .items-stretch {
+        align-items: stretch;
+      }
+
+      .self-start {
+        align-self: flex-start;
+      }
+
+      .self-end {
+        align-self: flex-end;
+      }
+
+      .self-center {
+        align-self: center;
+      }
+
+      .self-baseline {
+        align-self: baseline;
+      }
+
+      .self-stretch {
+        align-self: stretch;
+      }
+
+      .justify-start {
+        justify-content: flex-start;
+      }
+
+      .justify-end {
+        justify-content: flex-end;
+      }
+
+      .justify-center {
+        justify-content: center;
+      }
+
+      .justify-between {
+        justify-content: space-between;
+      }
+
+      .justify-around {
+        justify-content: space-around;
+      }
+
+      .content-start {
+        align-content: flex-start;
+      }
+
+      .content-end {
+        align-content: flex-end;
+      }
+
+      .content-center {
+        align-content: center;
+      }
+
+      .content-between {
+        align-content: space-between;
+      }
+
+      .content-around {
+        align-content: space-around;
+      }
+
+      .content-stretch {
+        align-content: stretch;
+      }
+
+      .word-wrap {
+        word-wrap: break-word;
+      }
+
+      .mw1 {
+        max-width: 1rem;
+      }
+
+      .mw2 {
+        max-width: 2rem;
+      }
+
+      .mw3 {
+        max-width: 4rem;
+      }
+
+      .mw4 {
+        max-width: 8rem;
+      }
+
+      .mw5 {
+        max-width: 26rem;
+      }
+
+      .mw6 {
+        max-width: 35rem;
+      }
+
+      .mw7 {
+        max-width: 48rem;
+      }
+
+      .mw8 {
+        max-width: 64rem;
+      }
+
+      .mw9 {
+        max-width: 96rem;
+      }
+
+      .center {
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .tc {
+        text-align: center;
+      }
+
+      .no-underline {
+        text-decoration: none;
+      }
+
+      .black {
+        color: #000;
+      }
+
+      .bw1 {
+        border-width: .125rem;
+      }
+
+      .ba {
+        border-style: solid;
+        border-width: 1px;
+      }
+
+      .bg-green-blue {
+        background-color: #a4d3df;
+      }
+      
+      .b--green-blue {
+        border-color: #a4d3df;
+      }
+
+      .green-blue {
+        color: #a4d3df;
+      }
+
+      .bg-white {
+        background-color: #fff;
+      }
+
+      .pointer:hover {
+        cursor: pointer;
+      }
+
+      .outline-0 {
+        outline: 0;
+      }
+
+      .pa0 {
+        padding: 0;
+      }
+
+      .pa1 {
+        padding: .25rem;
+      }
+
+      .pa2 {
+        padding: .5rem;
+      }
+
+      .pa3 {
+        padding: 1rem;
+      }
+
+      .pa4 {
+        padding: 2rem;
+      }
+
+      .pa5 {
+        padding: 4rem;
+      }
+
+      .pa6 {
+        padding: 8rem;
+      }
+
+      .pa7 {
+        padding: 16rem;
+      }
+
+      .pv1 {
+        padding-top: .25rem;
+        padding-bottom: .25rem;
+      }
+
+      .pv2 {
+        padding-top: .5rem;
+        padding-bottom: .5rem;
+      }
+
+      .pv3 {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+      }
+
+      .pv4 {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+      }
+
+      .pv5 {
+        padding-top: 4rem;
+        padding-bottom: 4rem;
+      }
+
+      .pv6 {
+        padding-top: 8rem;
+        padding-bottom: 8rem;
+      }
+
+      .pv7 {
+        padding-top: 16rem;
+        padding-bottom: 16rem;
+      }
+
+      .ph0 {
+        padding-left: 0;
+        padding-right: 0;
+      }
+
+      .ph1 {
+        padding-left: .25rem;
+        padding-right: .25rem;
+      }
+
+      .ph2 {
+        padding-left: .5rem;
+        padding-right: .5rem;
+      }
+
+      .ph3 {
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+
+      .ph4 {
+        padding-left: 2rem;
+        padding-right: 2rem;
+      }
+
+      .ph5 {
+        padding-left: 4rem;
+        padding-right: 4rem;
+      }
+
+      .ph6 {
+        padding-left: 8rem;
+        padding-right: 8rem;
+      }
+
+      .ph7 {
+        padding-left: 16rem;
+        padding-right: 16rem;
+      }
+
+      .ma0 {
+        margin: 0;
+      }
+
+      .ma1 {
+        margin: .25rem;
+      }
+
+      .ma2 {
+        margin: .5rem;
+      }
+
+      .ma3 {
+        margin: 1rem;
+      }
+
+      .ma4 {
+        margin: 2rem;
+      }
+
+      .ma5 {
+        margin: 4rem;
+      }
+
+      .ma6 {
+        margin: 8rem;
+      }
+
+      .ma7 {
+        margin: 16rem;
+      }
+
+      .mv0 {
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+
+      .mv1 {
+        margin-top: .25rem;
+        margin-bottom: .25rem;
+      }
+
+      .mv2 {
+        margin-top: .5rem;
+        margin-bottom: .5rem;
+      }
+
+      .mv3 {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .mv4 {
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .mv5 {
+        margin-top: 4rem;
+        margin-bottom: 4rem;
+      }
+
+      .mv6 {
+        margin-top: 8rem;
+        margin-bottom: 8rem;
+      }
+
+      .mv7 {
+        margin-top: 16rem;
+        margin-bottom: 16rem;
+      }
+
+      .mh0 {
+        margin-left: 0;
+        margin-right: 0;
+      }
+
+      .mh1 {
+        margin-left: .25rem;
+        margin-right: .25rem;
+      }
+
+      .mh2 {
+        margin-left: .5rem;
+        margin-right: .5rem;
+      }
+
+      .mh3 {
+        margin-left: 1rem;
+        margin-right: 1rem;
+      }
+
+      .mh4 {
+        margin-left: 2rem;
+        margin-right: 2rem;
+      }
+
+      .mh5 {
+        margin-left: 4rem;
+        margin-right: 4rem;
+      }
+
+      .mh6 {
+        margin-left: 8rem;
+        margin-right: 8rem;
+      }
+
+      .mh7 {
+        margin-left: 16rem;
+        margin-right: 16rem;
+      }
+
     </style>
   </head>
   <body>

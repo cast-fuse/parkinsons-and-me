@@ -19,4 +19,15 @@ defmodule What3things.Answer do
     on: a.answer_set_id == s.id,
     where: s.uuid == ^uuid
   end
+
+  def answer_aggregates do
+    from a in What3things.Answer,
+      join: q in What3things.Quote,
+      on: a.quote_id == q.id,
+      where: a.answer == true,
+      group_by: [q.body],
+      order_by: [desc: count(a.answer)],
+      select: %{quote: max(q.body),
+                yes_count: count(a.answer)}
+  end
 end

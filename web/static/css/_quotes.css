@@ -1,0 +1,28 @@
+.quote-header {
+  padding: 2.5rem 0 12rem;
+}
+
+.quote-header-background {
+  top: -19rem;
+  left: -10rem;
+  transform: rotateZ(12deg);
+  width: 550px;
+  height: 750px;
+}
+
+@media (--breakpoint-not-small) {
+  .quote-header {
+    padding: 4rem 0 14rem;
+  }
+
+  .quote-header-background {
+    top: -18rem;
+    left: 0rem;
+  }
+}
+
+@media (--breakpoint-large) {
+  .quote-header-background {
+    left: 0;
+  }
+}

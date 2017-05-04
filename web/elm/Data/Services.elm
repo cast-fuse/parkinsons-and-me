@@ -7,12 +7,7 @@ import Dict
 
 handleTop3Things : Model -> Model
 handleTop3Things model =
-    case model.view of
-        Services ->
-            { model | top3things = top3things model }
-
-        _ ->
-            model
+    { model | top3things = top3things model }
 
 
 top3things : Model -> List ServiceData
