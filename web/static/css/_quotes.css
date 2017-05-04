@@ -1,5 +1,5 @@
 .quote-header {
-  margin: 3rem auto 12rem;
+  padding: 2.5rem 0 12rem;
 }
 
 .quote-header-background {
@@ -12,12 +12,12 @@
 
 @media (--breakpoint-not-small) {
   .quote-header {
-    margin: 4rem auto 14rem;
+    padding: 4rem 0 14rem;
   }
 
   .quote-header-background {
-    top: -19rem;
-    left: -3rem;
+    top: -18rem;
+    left: 0rem;
   }
 }
 
