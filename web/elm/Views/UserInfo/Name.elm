@@ -1,19 +1,19 @@
 module Views.UserInfo.Name exposing (name)
 
-import Model exposing (..)
+import Components.SpeechHeader exposing (speechHeader)
+import Data.UserInfo exposing (isValidName)
+import Helpers.Styles as Styles exposing (classes)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Components.SpeechHeader exposing (speechHeader)
-import Data.UserInfo exposing (isValidName)
-import Helpers.Styles as Styles
+import Model exposing (..)
 
 
 name : Model -> Html Msg
 name model =
     div []
         [ speechHeader "What shall we call you?"
-        , div [ class "w-100 mw6 center" ] [ nameField model ]
+        , div [ class "w-100 mw5 center" ] [ nameField model ]
         , handleNext model
         ]
 
@@ -22,7 +22,7 @@ nameField : Model -> Html Msg
 nameField model =
     div [ class "flex items-center pa4" ]
         [ input
-            [ class Styles.inputField
+            [ class <| classes [ Styles.inputField, "tc" ]
             , onInput SetName
             , autocomplete False
             , value <| Maybe.withDefault "" model.name
