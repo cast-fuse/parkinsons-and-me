@@ -22,7 +22,6 @@ services model =
         div []
             [ div [ class "mw6 center mv3" ] [ quoteBubble "Here it is, your personalised list of Parkinson's services" "pa5-ns" Blue ]
             , h3 [] [ text "Based on what you've told us, here's the information and support that we think's right for you." ]
-            , renderResultsLink model
             , h3 [] [ text "Shall we email you a copy?" ]
             , a [ href <| "#" ++ emailAnchor ] [ button [ class Styles.buttonClear ] [ text "Yes Please" ] ]
             , div [ class "pb3" ] (List.indexedMap renderService model.top3things)
@@ -30,6 +29,7 @@ services model =
                 [ renderEmailForm model
                 , emailSubmitted model
                 ]
+            , renderResultsLink model
             , div [ class "mw6 center mv3" ] [ quoteBubble "Psst...one more thing.." "" Green ]
             , div [ class "mw7 center mv4" ]
                 [ h3 [] [ text "Thank you for testing [product name]. You’ve caught it hot off the press – it’s not quite live yet and we’re still making improvements. We’d love to know what you thought and if you have any suggestions on how we could make it better. " ]
@@ -58,7 +58,7 @@ renderResultsLink model =
         Just _ ->
             div [ class "pb4" ]
                 [ h3 [] [ text "Come back and visit your page any time:" ]
-                , a [ class "blue no-underline", href <| resultsUrl model, target "_blank" ] [ text <| resultsUrl model ]
+                , a [ class "no-underline green f3", href <| resultsUrl model, target "_blank" ] [ text <| resultsUrl model ]
                 ]
 
         Nothing ->
@@ -109,7 +109,7 @@ renderEmailForm model =
 emailForm : Model -> String -> String -> Html Msg
 emailForm model prompt email =
     div [ class "flex flex-column items-center" ]
-        [ h3 [ class "blue" ] [ text prompt ]
+        [ h3 [] [ text prompt ]
         , input [ onInput SetEmail, class <| classes [ Styles.inputField, "mw5" ], value email ] []
         , div [] [ handleSubmitEmail model ]
         , privacyStatement model
@@ -152,7 +152,7 @@ emailSubmitted : Model -> Html Msg
 emailSubmitted model =
     case model.email of
         Submitted email ->
-            h3 [ class "blue" ] [ text <| "Your results have been sent to " ++ email ]
+            h3 [] [ text <| "Your results have been sent to " ++ email ]
 
         _ ->
             emptyDiv
