@@ -30,6 +30,8 @@ defmodule What3things.Router do
     pipe_through :admin
 
     get "/", AdminController, :index
+    get "/analytics", AnalyticsController, :index
+
     resources "/login", SessionController, only: [:new, :create, :delete]
     resources "/quotes", QuoteController, only: [:index, :edit, :update]
     resources "/services", ServiceController, only: [:index, :edit, :update]
