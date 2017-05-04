@@ -42,7 +42,7 @@ defmodule What3things.UserController do
 
     case Repo.update(changeset) do
       {:ok, user} ->
-        handle_email(%{email: email, service_ids: service_ids, uuid: uuid})
+        handle_email(%{email: email, service_ids: service_ids, uuid: uuid, name: user.name})
         render(conn, "show.json", user: user)
       {:error, changeset} ->
         conn
@@ -66,8 +66,8 @@ defmodule What3things.UserController do
     end
   end
 
-  def handle_email(%{email: email, service_ids: service_ids, uuid: uuid}) do
-    params = %{to: email, top3things: get_top3things(service_ids), uuid: uuid}
+  def handle_email(%{email: email, service_ids: service_ids, uuid: uuid, name: name}) do
+    params = %{to: email, top3things: get_top3things(service_ids), uuid: uuid, name: name}
     params
     |> Email.welcome_email()
     |> Mailer.deliver_later()

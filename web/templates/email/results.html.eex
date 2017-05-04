@@ -3,7 +3,7 @@
 
 <div class="center tc mw7 pa1">
   <div class="pv2">
-    <h1 class="ma0">Hi [Name] - here's your personalised list of Parkinson's services</h1>
+    <h1 class="ma0">Hi <%= String.capitalize @name %> - here's your personalised list of Parkinson's services</h1>
     <p>Remember you can revisit your recommended page of information and support at any time. Or share the link with your family and friends.</p>
     <h2 class="ma0 word-wrap">
       <a href="<%= results_url %>" class="green-blue no-underline"><%= results_url %></a>
