@@ -7,7 +7,7 @@ defmodule What3things.Email do
     |> assign(:top3things, top3things)
     |> assign(:uuid, uuid)
     |> assign(:name, name)
-    |> subject("here are your top 3 things")
+    |> subject("Your recommended Parkinson's information and support")
     |> render(:results)
   end
 
