@@ -1,9 +1,50 @@
-<h1 class="blue">hello results</h1>
-<%= for x <- @top3things do %>
-  <p>
-    <%= x.title %>
-  </p>
-<% end %>
-<p class="blue">Revisit your results at any time by clicking this link:</p>
 <% results_url = "https://what3things.herokuapp.com/#my-results/#{@uuid}" %>
-<a href="<%= results_url %>"><%= results_url %></a>
+<% button_style = "ph3 pv2 f3 outline-0 pointer bg-white b--green-blue ba bw1 black no-underline mh2" %>
+
+<div class="center tc mw7 pa1">
+  <div class="pv2">
+    <h1 class="ma0">Hi <%= String.capitalize @name %> - here's your personalised list of Parkinson's services</h1>
+    <p>Remember you can revisit your recommended page of information and support at any time. Or share the link with your family and friends.</p>
+    <h2 class="ma0 word-wrap">
+      <a href="<%= results_url %>" class="green-blue no-underline"><%= results_url %></a>
+    </h2>
+  </div>
+
+  <div class="pv2">
+    <%= for x <- @top3things do %>
+      <div class="ma2 pa2">
+        <h2 class="ma0"> <%= x.title %> </h2>
+        <p> <%= x.body %> </p>
+        <a
+        href="<%= x.cta %>",
+        class="<%= button_style %>"
+        >
+          <%= x.cta %>
+        </a>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="pv2">
+    <h2 class="ma0">Psst... one more thing...</h2>
+    <p>Thank you for testing [product name]. You've caught it hot off the press - it's not quite live yet and we're still making improvements. We'd love to know what you thought and if you have any suggestions on how we could make it better.</p>
+    <p>Can you spare ten minutes to share your feedback?</p>
+    <div class="flex justify-center">
+      <a href="#", class="<%= button_style %>">Fill out this quick survey</a>
+      <a href="mailto:someone@example.com?Subject=Hello%20again", class="<%= button_style %>">Drop us an email</a>
+    </div>
+  </div>
+
+  <div class="pv2">
+    <p>We're the Parkinson's charity that drives better care, treatments and quality of life. Together we can bring forward the day when no one fears Parkinson's. Parksinson's UK is the operating name of the Parkinson's Disease Society of the Uniteed Kingdom, a registered charity in England, Wales (258197) and in Scotalnd (SC037544).</p>
+    <p><em>Copyright © 2017 Parkinson's UK, All rights reserved.</em></p>
+    <div>
+      <p><b>Our mailing address is :</b></p>
+      <p>Parkinson's UK</p>
+      <p>215 Vauxhall Bridge Road</p>
+      <p>London, England SW1V 1EJ</p>
+      <p>United Kingdom</p>
+    </div>
+  </div>
+
+</div>

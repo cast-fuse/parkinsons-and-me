@@ -93,3 +93,9 @@ body {
 .no-select {
   user-select: none;
 }
+
+/* text */
+
+.word-wrap {
+  word-wrap: break-word;
+}
