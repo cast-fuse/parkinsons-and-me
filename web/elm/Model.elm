@@ -13,12 +13,14 @@ type alias Model =
     , postcode : Postcode
     , ageRange : Maybe AgeRange
     , email : Email
+    , emailConsent : Bool
     , userId : Maybe Int
     , quotes : Quotes
     , services : Services
     , top3things : List ServiceData
     , weightings : Weightings
     , fetchErrorMessage : String
+    , submitErrorMessage : String
     , currentQuote : Maybe QuoteId
     , remainingQuotes : Maybe (List QuoteId)
     , userWeightings : WeightingsDict
@@ -33,6 +35,7 @@ type View
     | Name
     | Postcode
     | Age
+    | Instructions
     | Quotes
     | Services
     | Loading
@@ -64,6 +67,12 @@ type ServiceWidget
     | NewlyDiagnosed
     | EarlyOnset
     | Publications
+
+
+type QuoteBackground
+    = Blue
+    | Green
+    | Orange
 
 
 type alias Quotes =
@@ -104,6 +113,7 @@ type alias RawUser =
     , name : String
     , ageRange : AgeRange
     , email : String
+    , emailConsent : Bool
     , postcode : String
     }
 
@@ -149,12 +159,14 @@ type Msg
     | SetPostcode String
     | SetAgeRange AgeRange
     | SetEmail String
+    | SetEmailConsent Bool
     | ReceiveQuoteServiceWeightings (Result Http.Error QuoteServiceWeightings)
     | ShuffleQuoteIds (List QuoteId) (List Int)
     | SubmitAnswer Answer
-    | HandleGoToQuotes
+    | HandleGoToInstructions
     | ReceiveUser (Result Http.Error RawUser)
     | PutUserEmail (Result Http.Error ())
+    | PutUserEmailConsent (Result Http.Error ())
     | SubmitEmail
     | PostUserAnswers (Result Http.Error String)
     | UrlChange Navigation.Location

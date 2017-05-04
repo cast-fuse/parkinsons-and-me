@@ -1,23 +1,24 @@
 module Update exposing (..)
 
-import Model exposing (..)
-import Model.Postcode as Postcode
-import Model.Email as Email
-import Data.UserInfo exposing (validatePostcode, validateEmail, emailToString)
 import Data.Answers exposing (handleAnswer)
+import Data.Ports exposing (trackOutboundLink)
 import Data.QuoteServiceWeightings exposing (setQuoteServiceWeightings)
-import Web.Answers exposing (handlePostAnswers, handlePostAnswersLoading)
-import Web.Results.Url exposing (..)
-import Web.Results.EntryPoint exposing (..)
-import Web.User exposing (..)
-import Web.UserEmail exposing (..)
 import Data.Quotes exposing (..)
 import Data.Services exposing (..)
 import Data.Shuffle exposing (..)
-import Data.Ports exposing (trackOutboundLink)
+import Data.UserInfo exposing (emailToString, handleName, storeSubmittedEmail, validateEmail, validatePostcode)
 import Dict
-import Navigation
 import Helpers.Delay exposing (..)
+import Helpers.Errors exposing (..)
+import Model exposing (..)
+import Model.Email as Email
+import Model.Postcode as Postcode
+import Navigation
+import Web.Answers exposing (handlePostAnswers, handlePostAnswersLoading)
+import Web.Results.EntryPoint exposing (..)
+import Web.Results.Url exposing (..)
+import Web.User exposing (..)
+import Web.UserEmail exposing (..)
 
 
 init : Navigation.Location -> ( Model, Cmd Msg )
@@ -36,12 +37,14 @@ initialModel =
     , postcode = Postcode.NotEntered
     , ageRange = Nothing
     , email = Email.NotEntered
+    , emailConsent = False
     , userId = Nothing
     , quotes = Dict.empty
     , services = Dict.empty
     , top3things = []
     , weightings = Dict.empty
     , fetchErrorMessage = ""
+    , submitErrorMessage = ""
     , currentQuote = Nothing
     , remainingQuotes = Nothing
     , userWeightings = Dict.empty
@@ -58,7 +61,7 @@ update msg model =
             { model | view = view } ! []
 
         SetName name ->
-            { model | name = Just name } ! []
+            handleName model name ! []
 
         SetPostcode postcode ->
             { model | postcode = validatePostcode postcode } ! []
@@ -69,11 +72,18 @@ update msg model =
         SetEmail email ->
             { model | email = validateEmail email } ! []
 
+        SetEmailConsent bool ->
+            let
+                newModel =
+                    { model | emailConsent = bool }
+            in
+                newModel ! [ sendEmailConsent newModel ]
+
         ReceiveQuoteServiceWeightings (Err _) ->
-            { model | fetchErrorMessage = "Something went wrong fetching the data." } ! []
+            { model | fetchErrorMessage = quotesServiceWeightingsError } ! []
 
         ReceiveQuoteServiceWeightings (Ok data) ->
-            (model |> setQuoteServiceWeightings data) ! [ shuffleQuoteIds <| getQuoteIds data.quotes ]
+            (model |> setQuoteServiceWeightings data |> removeFetchError) ! [ shuffleQuoteIds <| getQuoteIds data.quotes ]
 
         ShuffleQuoteIds qIds randomList ->
             (model |> handleShuffleQuotes qIds randomList) ! []
@@ -87,31 +97,39 @@ update msg model =
             in
                 newModel ! [ handlePostAnswers newModel ]
 
-        HandleGoToQuotes ->
-            (handleGoToQuotes model) ! [ postUserDetails model ]
+        HandleGoToInstructions ->
+            handleGoToInstructions model ! [ postUserDetails model ]
 
         ReceiveUser (Err _) ->
-            model ! []
+            { model | fetchErrorMessage = receiveUserError } ! []
 
         ReceiveUser (Ok rawUser) ->
-            (model |> handleRetrievedUserData rawUser) ! []
-
-        PutUserEmail (Ok _) ->
-            { model | email = Email.Submitted <| emailToString model.email } ! []
+            (model |> handleRetrievedUserData rawUser |> removeFetchError) ! []
 
         PutUserEmail (Err _) ->
-            model ! []
+            { model | submitErrorMessage = putUserEmailError } ! []
+
+        PutUserEmail (Ok _) ->
+            (model |> storeSubmittedEmail |> removeSubmitError) ! []
+
+        PutUserEmailConsent (Err _) ->
+            { model | submitErrorMessage = putUserEmailConsentError } ! []
+
+        PutUserEmailConsent (Ok _) ->
+            (model |> removeSubmitError) ! []
 
         SubmitEmail ->
             model ! [ sendUserEmail model ]
 
         PostUserAnswers (Err _) ->
-            model ! []
+            { model | submitErrorMessage = postUserAnswersError } ! []
 
         PostUserAnswers (Ok uuid) ->
             let
                 newModel =
-                    { model | uuid = Just uuid } |> handleTop3Things
+                    { model | uuid = Just uuid }
+                        |> handleTop3Things
+                        |> removeSubmitError
             in
                 newModel ! [ setResultsUrl newModel, waitThenShowServices ]
 
@@ -119,10 +137,10 @@ update msg model =
             model ! []
 
         ReceiveResults (Err err) ->
-            model ! []
+            { model | fetchErrorMessage = receiveResultsError } ! []
 
         ReceiveResults (Ok res) ->
-            (model |> loadResults res) ! []
+            (model |> loadResults res |> removeFetchError) ! []
 
         TrackOutboundLink url ->
             model ! [ trackOutboundLink url ]

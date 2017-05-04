@@ -2,8 +2,20 @@ defmodule What3things.UserControllerTest do
   use What3things.ConnCase, async: true
   alias What3things.{Repo, User}
 
-  @dummy_user %{name: "Ivan", age_range: "under_forty", postcode: "sw99ng", email: "ivan@email.com"}
-  @dummy_user_stringified %{"name" => "Ivan", "age_range" => "under_forty", "postcode" => "sw99ng", "email" => "ivan@email.com"}
+  @dummy_user %{
+    name: "Ivan",
+    age_range: "under_forty",
+    postcode: "sw99ng",
+    email: "ivan@email.com"
+  }
+
+  @dummy_user_stringified %{
+    "name" => "Ivan",
+    "age_range" => "under_forty",
+    "postcode" => "sw99ng",
+    "email" => "ivan@email.com",
+    "email_consent" => false
+  }
 
   describe "create/2" do
     test "Create and responds with a newly created user if attributes are valid" do

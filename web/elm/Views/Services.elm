@@ -1,80 +1,106 @@
 module Views.Services exposing (..)
 
+import Components.QuoteBubble exposing (cycleQuoteBackground, quoteBubble)
+import Components.Utils exposing (emptyDiv)
+import Data.Services exposing (..)
+import Data.UserInfo exposing (isValidEmail)
+import Helpers.Styles as Styles exposing (classes)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Helpers.Styles as Styles
-import Components.Utils exposing (emptyDiv)
-import Components.Logo exposing (..)
-import Views.Widget exposing (..)
-import Data.Services exposing (..)
 import Model exposing (..)
 import Model.Email exposing (..)
-import Data.UserInfo exposing (isValidEmail)
+import Views.Widget exposing (..)
 
 
 services : Model -> Html Msg
 services model =
-    div []
-        [ logo
-        , h2 [ class "blue mb4" ] [ text "Here you are, your tailored list of Parkinson's services" ]
-        , div [ class "bg-blue pb6" ] (List.map renderService model.top3things)
-        , div [ class "mw7 center mv4" ]
-            [ (renderResultsLink model)
-            , (renderEmailForm model)
-            , (emailSubmitted model)
+    let
+        emailAnchor =
+            resultsLink model
+    in
+        div []
+            [ div [ class "mw6 center mv3" ] [ quoteBubble "Here it is, your personalised list of Parkinson's services" "pa5-ns" Blue ]
+            , h3 [] [ text "Based on what you've told us, here's the information and support that we think's right for you." ]
+            , renderResultsLink model
+            , h3 [] [ text "Shall we email you a copy?" ]
+            , a [ href <| "#" ++ emailAnchor ] [ button [ class Styles.buttonClear ] [ text "Yes Please" ] ]
+            , div [ class "pb3" ] (List.indexedMap renderService model.top3things)
+            , div [ class "mw7 center mv4", id emailAnchor ]
+                [ renderEmailForm model
+                , emailSubmitted model
+                ]
+            , div [ class "mw6 center mv3" ] [ quoteBubble "Psst...one more thing.." "" Green ]
+            , div [ class "mw7 center mv4" ]
+                [ h3 [] [ text "Thank you for testing [product name]. You’ve caught it hot off the press – it’s not quite live yet and we’re still making improvements. We’d love to know what you thought and if you have any suggestions on how we could make it better. " ]
+                , h3 [] [ text "Can you spare ten minutes to share your feedback?" ]
+                , div [ class "flex justify-between mw6 center" ]
+                    [ button [ class Styles.buttonClear ] [ text "Fill out this quick survey" ]
+                    , button [ class Styles.buttonClear ] [ text "Drop us an email" ]
+                    ]
+                ]
             ]
-        ]
 
 
-renderService : ServiceData -> Html Msg
-renderService s =
-    div [ class "mw7 pa4 bg-light-gray center" ]
-        [ h3 [ class "blue ma0" ] [ text s.title ]
+renderService : Int -> ServiceData -> Html Msg
+renderService i s =
+    div [ class "mw7 pa4 center" ]
+        [ div [ class "mw5 center" ] [ quoteBubble s.title "ph5-ns" (cycleQuoteBackground i) ]
         , p [] [ text s.body ]
         , renderWidget <| shortcodeToWidget s
-        , button [ class Styles.buttonBlue ] [ text s.cta ]
+        , button [ class Styles.buttonClear ] [ text s.cta ]
         ]
 
 
 renderResultsLink : Model -> Html Msg
 renderResultsLink model =
     case model.uuid of
-        Just uuid ->
-            div []
-                [ h3 [ class "blue" ] [ text "Your results will be accessible at the following URL" ]
-                , a [ class "blue", href <| resultsUrl uuid ] [ text <| resultsUrl uuid ]
+        Just _ ->
+            div [ class "pb4" ]
+                [ h3 [] [ text "Come back and visit your page any time:" ]
+                , a [ class "blue no-underline", href <| resultsUrl model, target "_blank" ] [ text <| resultsUrl model ]
                 ]
 
         Nothing ->
             emptyDiv
 
 
-resultsUrl : String -> String
-resultsUrl uuid =
-    "https://what3things-staging.herokuapp.com/#my-results/" ++ uuid
+resultsUrl : Model -> String
+resultsUrl model =
+    String.concat
+        [ "https://what3things-staging.herokuapp.com/"
+        , "#"
+        , resultsLink model
+        ]
+
+
+resultsLink : Model -> String
+resultsLink model =
+    model.uuid
+        |> Maybe.map ((++) "my-results/")
+        |> Maybe.withDefault ""
 
 
 renderEmailForm : Model -> Html Msg
 renderEmailForm model =
     let
         prompts =
-            { x = "If you'd like a copy of these results for futute reference, please enter your email"
-            , y = "If you'd like to have these resent to your email, click the button"
+            { new = "Want a copy? we can send it to you via email"
+            , returning = "If you'd like to have these resent to your email, click Submit"
             }
     in
         case model.email of
             Valid email ->
-                emailForm model prompts.x email
+                emailForm model prompts.new email
 
             NotEntered ->
-                emailForm model prompts.x ""
+                emailForm model prompts.new ""
 
             Invalid email ->
-                emailForm model prompts.x email
+                emailForm model prompts.new email
 
             Retrieved email ->
-                emailForm model prompts.y email
+                emailForm model prompts.returning email
 
             _ ->
                 span [] []
@@ -82,11 +108,31 @@ renderEmailForm model =
 
 emailForm : Model -> String -> String -> Html Msg
 emailForm model prompt email =
-    div []
+    div [ class "flex flex-column items-center" ]
         [ h3 [ class "blue" ] [ text prompt ]
-        , input [ onInput SetEmail, class (Styles.inputField ++ " mw5 center"), placeholder "put your email", value email ] []
-        , (handleSubmitEmail model)
+        , input [ onInput SetEmail, class <| classes [ Styles.inputField, "mw5" ], value email ] []
+        , div [] [ handleSubmitEmail model ]
+        , privacyStatement model
         ]
+
+
+privacyStatement : Model -> Html Msg
+privacyStatement model =
+    case model.emailConsent of
+        False ->
+            h3 []
+                [ input
+                    [ type_ "checkbox"
+                    , onCheck SetEmailConsent
+                    , checked model.emailConsent
+                    ]
+                    []
+                , text "We’d love to hear your feedback! If you’re happy to be contacted by Parkinson’s UK about [name of product] please tick this box. Don’t worry, your details won’t be used for anything else. To find out more, read our "
+                , a [ href "https://www.parkinsons.org.uk/content/parkinsons-uk-website-terms-and-conditions" ] [ text "privacy statement" ]
+                ]
+
+        True ->
+            h3 [] [ text "Thanks for taking part, we'll get in touch later to ask you what you think of the app" ]
 
 
 handleSubmitEmail : Model -> Html Msg
@@ -95,11 +141,11 @@ handleSubmitEmail model =
         button
             [ onClick SubmitEmail
             , autocomplete False
-            , class (Styles.buttonBlue ++ " mt3")
+            , class <| classes [ Styles.buttonClear, "mt3" ]
             ]
             [ text "Submit" ]
     else
-        button [ class Styles.buttonDisabled ] [ text "Submit" ]
+        button [ class <| classes [ Styles.buttonDisabled, "mt3" ] ] [ text "Submit" ]
 
 
 emailSubmitted : Model -> Html Msg

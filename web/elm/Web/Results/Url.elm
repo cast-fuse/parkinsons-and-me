@@ -25,7 +25,11 @@ setEntryPoint location model =
     in
         case parsedHash of
             Just answerUUID ->
-                { model | entryPoint = Finish answerUUID, view = Loading }
+                { model
+                    | entryPoint = Finish answerUUID
+                    , view = Loading
+                    , uuid = Just answerUUID
+                }
 
             Nothing ->
                 { model | entryPoint = Start }

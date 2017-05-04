@@ -1,22 +1,20 @@
 module Views.UserInfo.Postcode exposing (postcode)
 
-import Model exposing (..)
+import Components.SpeechHeader exposing (speechHeader)
+import Data.UserInfo exposing (isValidPostcode, postCodeToString)
+import Helpers.Styles as Styles exposing (classes)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Data.UserInfo exposing (isValidPostcode, postCodeToString)
-import Helpers.Styles as Styles
-import Components.Logo exposing (logo)
+import Model exposing (..)
 
 
 postcode : Model -> Html Msg
 postcode model =
     div []
-        [ logo
-        , h2 [ class "blue" ] [ text <| String.toUpper <| "A bit about you" ]
-        , div [ class "flex flex-column justify-center items-center" ]
-            [ div [ class "w-100 mw6" ] [ postcodeField model ]
-            ]
+        [ speechHeader "What's your postcode?"
+        , h3 [] [ text "Don't worry, we won't use your information for anything except for finding the right support near you." ]
+        , div [ class "w-100 mw4 center" ] [ postcodeField model ]
         , handleNext model
         ]
 
@@ -24,9 +22,8 @@ postcode model =
 postcodeField : Model -> Html Msg
 postcodeField model =
     div [ class "flex items-center pa4" ]
-        [ p [ class "tl w-75 mr3" ] [ text "What's your postcode?" ]
-        , input
-            [ class Styles.inputField
+        [ input
+            [ class <| classes [ Styles.inputField, "ttu tc" ]
             , onInput SetPostcode
             , autocomplete False
             , value <| postCodeToString model.postcode
@@ -38,6 +35,6 @@ postcodeField model =
 handleNext : Model -> Html Msg
 handleNext model =
     if isValidPostcode model.postcode then
-        button [ class Styles.buttonBlue, onClick <| SetView Age ] [ text "Next" ]
+        button [ class Styles.buttonClear, onClick <| SetView Age ] [ text "Next" ]
     else
         button [ class Styles.buttonDisabled ] [ text "Next" ]
