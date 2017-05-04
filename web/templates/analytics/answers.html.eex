@@ -1,0 +1,19 @@
+<%= link "back", to: analytics_path(@conn, :index), class: "absolute mt3 ml3" %>
+
+<h1 class="tc">Analytics</h1>
+
+<div class="mh3">
+  <h1 class="dark-blue">Quote Answers</h1>
+  <table>
+    <tr class="tl">
+      <th class="pb3 green">Quote</th>
+      <th class="pb3 green">Total yes count</th>
+    </tr>
+    <%= for qa <- @quote_answers do %>
+    <tr>
+      <td class="blue pa2"><%= qa.quote %></td>
+      <td><%= qa.yes_count %></td>
+    </tr>
+    <% end %>
+  </table>
+</div>

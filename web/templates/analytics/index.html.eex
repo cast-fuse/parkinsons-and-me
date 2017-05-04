@@ -1,32 +1,11 @@
 <%= render What3things.AdminView, "back.html", conn: @conn %>
 
 <h1 class="tc">Analytics</h1>
-<h1 class="dark-blue">Users</h1>
-<h3 class="blue mb0">total users: <%= length(@users) %></h3>
-<table>
-  <tr class="tl">
-    <th class="pv3 pr4 green">username</th>
-    <th class="pv3 pr4 green">age range</th>
-    <th class="pv3 pr4 green">postcode</th>
-    <th class="pv3 pr4 green">email</th>
-    <th class="pv3 pr4 green">Can send follow up email?</th>
-  </tr>
-  <%= for u <- @users do %>
-    <tr>
-      <td class="pr4"><%= u.name %></td>
-      <td class="pr4"><%= u.age_range %></td>
-      <td class="pr4"><%= u.postcode %></td>
-      <td class="pr4">
-        <%= cond do %>
-          <% u.email && u.email_consent -> %>
-            <a href="mailto:<%= u.email %>"><%= u.email %></a>
-          <% u.email -> %>
-            <%= u.email %>
-          <% true -> %>
-            -----
-        <% end %>
-      </td>
-      <td class="pr4"><%= render_consent(u.email_consent) %></td>
-    </tr>
+<div class="tc mt5">
+  <%= link to: analytics_path(@conn, :index, users: true), class: "no-underline" do %>
+    <h2 class="dark-blue">Users</h2>
   <% end %>
-</table>
+  <%= link to: analytics_path(@conn, :index, answers: true), class: "no-underline" do %>
+    <h2 class="dark-blue">Answers</h2>
+  <% end %>
+</div>
