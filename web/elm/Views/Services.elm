@@ -30,7 +30,7 @@ services model =
                 [ renderEmailForm model
                 , emailSubmitted model
                 ]
-            , div [ class "mw6 center mv3" ] [ quoteBubble "Psst...one more thing.." "pa5-ns" Green ]
+            , div [ class "mw6 center mv3" ] [ quoteBubble "Psst...one more thing.." "" Green ]
             , div [ class "mw7 center mv4" ]
                 [ h3 [] [ text "Thank you for testing [product name]. You’ve caught it hot off the press – it’s not quite live yet and we’re still making improvements. We’d love to know what you thought and if you have any suggestions on how we could make it better. " ]
                 , h3 [] [ text "Can you spare ten minutes to share your feedback?" ]
