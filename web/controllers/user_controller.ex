@@ -9,6 +9,8 @@ defmodule What3things.UserController do
 
     user_query = User.get_existing({ name, postcode, age_range })
     existing_user = Repo.one(user_query)
+
+    user_params = Map.merge(user_params, %{"email_consent" => false})
     changeset = User.changeset(%User{}, user_params)
 
     case existing_user do
