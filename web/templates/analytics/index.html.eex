@@ -9,14 +9,24 @@
     <th class="pv3 pr4 green">age range</th>
     <th class="pv3 pr4 green">postcode</th>
     <th class="pv3 pr4 green">email</th>
+    <th class="pv3 pr4 green">Can send follow up email?</th>
   </tr>
   <%= for u <- @users do %>
-    <% user_email = u.email || "-----" %>
     <tr>
-      <td><%= u.name %></td>
-      <td><%= u.age_range %></td>
-      <td><%= u.postcode %></td>
-      <td><%= user_email %></td>
+      <td class="pr4"><%= u.name %></td>
+      <td class="pr4"><%= u.age_range %></td>
+      <td class="pr4"><%= u.postcode %></td>
+      <td class="pr4">
+        <%= cond do %>
+          <% u.email && u.email_consent -> %>
+            <a href="mailto:<%= u.email %>"><%= u.email %></a>
+          <% u.email -> %>
+            <%= u.email %>
+          <% true -> %>
+            -----
+        <% end %>
+      </td>
+      <td class="pr4"><%= render_consent(u.email_consent) %></td>
     </tr>
   <% end %>
 </table>
