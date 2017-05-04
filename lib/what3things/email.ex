@@ -1,12 +1,13 @@
 defmodule What3things.Email do
   use Bamboo.Phoenix, view: What3things.EmailView
 
-  def welcome_email(%{to: to, top3things: top3things, uuid: uuid}) do
+  def welcome_email(%{to: to, top3things: top3things, uuid: uuid, name: name}) do
     base_email()
     |> to(to)
     |> assign(:top3things, top3things)
     |> assign(:uuid, uuid)
-    |> subject("here are your top 3 things")
+    |> assign(:name, name)
+    |> subject("Your recommended Parkinson's information and support")
     |> render(:results)
   end
 
