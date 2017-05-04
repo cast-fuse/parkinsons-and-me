@@ -1,8 +1,18 @@
+html {
+  overflow-x: hidden;
+}
+
 body {
   margin: 0;
   font-family: var(--sans-serif);
   max-width: 100%;
   overflow-x: hidden;
+  position: relative;
+}
+
+h1 {
+  font-weight: 400;
+  letter-spacing: 0.4px;
 }
 
 /* fonts */
