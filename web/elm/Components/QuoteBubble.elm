@@ -1,19 +1,20 @@
 module Components.QuoteBubble exposing (..)
 
+import Helpers.Styles exposing (classes)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Model exposing (..)
 
 
-quoteBubble : String -> QuoteBubbleBackground -> Html msg
-quoteBubble body quoteBackground =
-    div [ class "relative pa3 pa5-ns" ]
-        [ h2 [ class "black relative z-3 handwriting f2" ] [ text body ]
+quoteBubble : String -> String -> QuoteBackground -> Html msg
+quoteBubble body extraClasses quoteBackground =
+    div [ class <| classes [ "relative pa3", extraClasses ] ]
+        [ h2 [ class "black relative z-3 handwriting f2 ma2" ] [ text body ]
         , img [ class "absolute top-0 left-0 z-1 h-100 w-100", src <| quoteBackgroundImageMap quoteBackground ] []
         ]
 
 
-cycleQuoteBackground : Int -> QuoteBubbleBackground
+cycleQuoteBackground : Int -> QuoteBackground
 cycleQuoteBackground i =
     case i % 3 of
         1 ->
@@ -26,7 +27,7 @@ cycleQuoteBackground i =
             Orange
 
 
-quoteBackgroundImageMap : QuoteBubbleBackground -> String
+quoteBackgroundImageMap : QuoteBackground -> String
 quoteBackgroundImageMap bg =
     let
         url color =

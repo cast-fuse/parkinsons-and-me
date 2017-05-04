@@ -69,7 +69,7 @@ type ServiceWidget
     | Publications
 
 
-type QuoteBubbleBackground
+type QuoteBackground
     = Blue
     | Green
     | Orange

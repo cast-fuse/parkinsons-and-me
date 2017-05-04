@@ -20,7 +20,7 @@ services model =
             resultsLink model
     in
         div []
-            [ div [ class "mw6 center mv3" ] [ quoteBubble "Here it is, your personalised list of Parkinson's services" Blue ]
+            [ div [ class "mw6 center mv3" ] [ quoteBubble "Here it is, your personalised list of Parkinson's services" "pa5-ns" Blue ]
             , h3 [] [ text "Based on what you've told us, here's the information and support that we think's right for you." ]
             , renderResultsLink model
             , h3 [] [ text "Shall we email you a copy?" ]
@@ -30,7 +30,7 @@ services model =
                 [ renderEmailForm model
                 , emailSubmitted model
                 ]
-            , div [ class "mw6 center mv3" ] [ quoteBubble "Psst...one more thing.." Green ]
+            , div [ class "mw6 center mv3" ] [ quoteBubble "Psst...one more thing.." "pa5-ns" Green ]
             , div [ class "mw7 center mv4" ]
                 [ h3 [] [ text "Thank you for testing [product name]. You’ve caught it hot off the press – it’s not quite live yet and we’re still making improvements. We’d love to know what you thought and if you have any suggestions on how we could make it better. " ]
                 , h3 [] [ text "Can you spare ten minutes to share your feedback?" ]
@@ -45,7 +45,7 @@ services model =
 renderService : Int -> ServiceData -> Html Msg
 renderService i s =
     div [ class "mw7 pa4 center" ]
-        [ div [ class "mw5 center" ] [ quoteBubble s.title (cycleQuoteBackground i) ]
+        [ div [ class "mw5 center" ] [ quoteBubble s.title "ph5-ns" (cycleQuoteBackground i) ]
         , p [] [ text s.body ]
         , renderWidget <| shortcodeToWidget s
         , button [ class Styles.buttonClear ] [ text s.cta ]

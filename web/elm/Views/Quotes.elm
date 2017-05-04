@@ -31,6 +31,7 @@ renderQuoteBubble : Model -> Html Msg
 renderQuoteBubble model =
     quoteBubble
         (getQuoteBody model)
+        "pa5-ns"
         (model |> quoteNumber |> cycleQuoteBackground)
 
 
