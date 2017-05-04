@@ -25,7 +25,7 @@ loadResults : Results -> Model -> Model
 loadResults { user, answers, quotes, services, weightings } model =
     let
         qIds =
-            getQuoteIds quotes
+            List.map Tuple.first answers
 
         data =
             { weightings = weightings
