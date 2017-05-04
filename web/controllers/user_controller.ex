@@ -9,6 +9,8 @@ defmodule What3things.UserController do
 
     user_query = User.get_existing({ name, postcode, age_range })
     existing_user = Repo.one(user_query)
+
+    user_params = Map.merge(user_params, %{"email_consent" => false})
     changeset = User.changeset(%User{}, user_params)
 
     case existing_user do
@@ -42,6 +44,21 @@ defmodule What3things.UserController do
       {:ok, user} ->
         handle_email(%{email: email, service_ids: service_ids, uuid: uuid})
         render(conn, "show.json", user: user)
+      {:error, changeset} ->
+        conn
+        |> put_status(:unprocessable_entity)
+        |> render(What3things.ChangesetView, "error.json", changeset: changeset)
+    end
+  end
+
+  def update(conn, %{"id" => id, "user" => %{"email_consent" => email_consent}}) do
+    user = Repo.get!(User, id)
+    changeset = User.changeset(user, %{email_consent: email_consent})
+
+    case Repo.update(changeset) do
+      {:ok, user} ->
+        conn
+        |> render("show.json", user: user)
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)

@@ -51,6 +51,7 @@ repopulateUserData user model =
         , name = Just user.name
         , postcode = Postcode.Valid user.postcode
         , email = populateEmail user.email model
+        , emailConsent = user.emailConsent
         , ageRange = Just user.ageRange
     }
 

@@ -13,8 +13,8 @@ postcode : Model -> Html Msg
 postcode model =
     div []
         [ speechHeader "What's your postcode?"
-        , p [] [ text "Don't worry, we won't use your information for anything except for finding the right support near you." ]
-        , div [ class "w-100 mw6 center" ] [ postcodeField model ]
+        , h3 [] [ text "Don't worry, we won't use your information for anything except for finding the right support near you." ]
+        , div [ class "w-100 mw4 center" ] [ postcodeField model ]
         , handleNext model
         ]
 
@@ -23,7 +23,7 @@ postcodeField : Model -> Html Msg
 postcodeField model =
     div [ class "flex items-center pa4" ]
         [ input
-            [ class <| classes [ Styles.inputField, "ttu" ]
+            [ class <| classes [ Styles.inputField, "ttu tc" ]
             , onInput SetPostcode
             , autocomplete False
             , value <| postCodeToString model.postcode

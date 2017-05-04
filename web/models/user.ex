@@ -7,13 +7,14 @@ defmodule What3things.User do
     field :age_range, :string
     field :postcode, :string
     field :email, :string
+    field :email_consent, :boolean
 
     timestamps()
   end
 
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:name, :age_range, :postcode, :email])
+    |> cast(params, [:name, :age_range, :postcode, :email, :email_consent])
     |> validate_required([:name, :age_range, :postcode])
   end
 
