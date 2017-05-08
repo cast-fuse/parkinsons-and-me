@@ -5,13 +5,13 @@ import Data.Weightings exposing (..)
 import Dict
 
 
-handleTop3Things : Model -> Model
-handleTop3Things model =
-    { model | top3things = top3things model }
+handleTop3Services : Model -> Model
+handleTop3Services model =
+    { model | top3services = top3services model }
 
 
-top3things : Model -> List ServiceData
-top3things model =
+top3services : Model -> List ServiceData
+top3services model =
     let
         userWeightings =
             relevantWeightings model

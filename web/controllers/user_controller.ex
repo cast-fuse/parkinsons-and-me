@@ -67,20 +67,20 @@ defmodule ParkinsonsAndMe.UserController do
   end
 
   def handle_email(%{email: email, service_ids: service_ids, uuid: uuid, name: name}) do
-    params = %{to: email, top3things: get_top3things(service_ids), uuid: uuid, name: name}
+    params = %{to: email, top3services: get_top3services(service_ids), uuid: uuid, name: name}
     params
     |> Email.welcome_email()
     |> Mailer.deliver_later()
   end
 
-  def get_top3things(top3_ids) do
+  def get_top3services(top3_ids) do
     top3_ids = format_ids top3_ids
 
     top3_ids
     |> Service.services_by_id
     |> Repo.all
     |> Enum.into(%{})
-    |> sort_top3things(top3_ids)
+    |> sort_top3services(top3_ids)
   end
 
   defp format_ids(ids) do
@@ -93,7 +93,7 @@ defmodule ParkinsonsAndMe.UserController do
     |> Enum.map(&String.to_integer/1)
   end
 
-  defp sort_top3things(top3_services, top3_ids) do
+  defp sort_top3services(top3_services, top3_ids) do
     Enum.map(top3_ids, fn x -> top3_services[x] end)
   end
 end

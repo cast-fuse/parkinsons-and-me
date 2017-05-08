@@ -11,7 +11,7 @@
   </div>
 
   <div class="pv2">
-    <%= for x <- @top3things do %>
+    <%= for x <- @top3services do %>
       <div class="ma2 pa2">
         <h2 class="ma0"> <%= x.title %> </h2>
         <p> <%= x.body %> </p>

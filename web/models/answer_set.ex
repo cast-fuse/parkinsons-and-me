@@ -15,7 +15,7 @@ defmodule ParkinsonsAndMe.AnswerSet do
     |> validate_required([:user_id, :uuid])
   end
 
-  def top3things(uuid) do
+  def top3services(uuid) do
     from w in Weight,
       join: a in Answer,
       join: as in AnswerSet,
