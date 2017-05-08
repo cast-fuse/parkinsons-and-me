@@ -1,18 +1,18 @@
 .quote-header {
-  padding: 2.5rem 0 12rem;
+  padding: 2.5rem 0 10rem;
 }
 
 .quote-header-background {
   top: -19rem;
-  left: -10rem;
-  transform: rotateZ(12deg);
-  width: 550px;
+  left: -1rem;
+  transform: rotateZ(11deg);
+  width: 400px;
   height: 750px;
 }
 
 @media (--breakpoint-not-small) {
   .quote-header {
-    padding: 4rem 0 14rem;
+    padding: 3rem 0 10rem;
   }
 
   .quote-header-background {
