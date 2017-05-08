@@ -8,11 +8,10 @@ defmodule ParkinsonsAndMe.Service do
     field :cta, :string
     field :url, :string
     field :early_onset, :boolean
-    field :shortcode, :string
   end
 
-  @valid_fields [:title, :body, :cta, :url, :early_onset, :shortcode]
-  @required_fields [:title, :body, :cta, :url, :early_onset, :shortcode]
+  @valid_fields [:title, :body, :cta, :url, :early_onset]
+  @required_fields [:title, :body, :cta, :url, :early_onset]
 
   def changeset(struct, params \\ %{}) do
     struct
