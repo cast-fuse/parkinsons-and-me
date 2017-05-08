@@ -7,8 +7,7 @@ defmodule ParkinsonsAndMe.ServiceView do
       body: service.body,
       cta: service.cta,
       url: service.url,
-      early_onset: service.early_onset,
-      shortcode: service.shortcode}
+      early_onset: service.early_onset}
   end
 
   def order_services(services) do
