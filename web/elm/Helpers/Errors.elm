@@ -13,31 +13,51 @@ removeSubmitError model =
     { model | submitErrorMessage = "" }
 
 
-putUserEmailError : String
-putUserEmailError =
-    "Something went wrong when submitting email"
+putUserEmailError : Model -> Model
+putUserEmailError model =
+    model |> submitError "Something went wrong when submitting email"
 
 
-putUserEmailConsentError : String
-putUserEmailConsentError =
-    "Something went wrong when submitting email consent"
+putUserEmailConsentError : Model -> Model
+putUserEmailConsentError model =
+    model |> submitError "Something went wrong when submitting email consent"
 
 
-postUserAnswersError : String
-postUserAnswersError =
-    "Something went wrong when sending answers"
+postUserAnswersError : Model -> Model
+postUserAnswersError model =
+    model |> submitError "Something went wrong when sending answers"
 
 
-receiveUserError : String
-receiveUserError =
-    "Something went wrong fetching user data"
+receiveUserError : Model -> Model
+receiveUserError model =
+    model |> fetchError "Something went wrong fetching user data"
 
 
-receiveResultsError : String
-receiveResultsError =
-    "Something went wrong fetching results data"
+receiveResultsError : Model -> Model
+receiveResultsError model =
+    model |> fetchError "Something went wrong fetching results data"
 
 
-quotesServiceWeightingsError : String
-quotesServiceWeightingsError =
-    "Something went wrong fetching quote-service-weighting data"
+quotesServiceWeightingsError : Model -> Model
+quotesServiceWeightingsError model =
+    model |> fetchError "Something went wrong fetching quote-service-weighting data"
+
+
+fetchError : String -> Model -> Model
+fetchError message model =
+    { model | fetchErrorMessage = message } |> fetchErrorView
+
+
+submitError : String -> Model -> Model
+submitError message model =
+    { model | submitErrorMessage = message } |> submitErrorView
+
+
+fetchErrorView : Model -> Model
+fetchErrorView model =
+    { model | view = Error FetchError }
+
+
+submitErrorView : Model -> Model
+submitErrorView model =
+    { model | view = Error SubmitError }

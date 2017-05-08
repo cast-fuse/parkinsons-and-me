@@ -1,16 +1,17 @@
 module Views.Router exposing (router)
 
-import Views.Loading exposing (..)
+import Components.Utils exposing (emptyDiv)
+import Html exposing (..)
+import Model exposing (..)
+import Views.Error exposing (error)
 import Views.Home exposing (home)
+import Views.Instructions exposing (instructions)
+import Views.Loading exposing (..)
+import Views.Quotes exposing (quotes)
+import Views.Services exposing (services)
+import Views.UserInfo.Age exposing (age)
 import Views.UserInfo.Name exposing (name)
 import Views.UserInfo.Postcode exposing (postcode)
-import Views.UserInfo.Age exposing (age)
-import Views.Instructions exposing (instructions)
-import Views.Quotes exposing (quotes)
-import Views.Services exposing (..)
-import Components.Utils exposing (emptyDiv)
-import Model exposing (..)
-import Html exposing (..)
 
 
 router : Model -> Html Msg
@@ -40,6 +41,9 @@ router model =
 
             Services ->
                 handleLoading services
+
+            Error errorType ->
+                handleLoading <| error errorType
 
             Loading ->
                 loadingBackground model <| emptyDiv
