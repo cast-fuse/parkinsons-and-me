@@ -3,7 +3,8 @@ defmodule ParkinsonsAndMe.DatabaseSeeder do
   alias Ecto.Multi
   import Ecto.Query
 
-  @quotes_list ["I’d feel most comfortable if support staff came to see me at home.",
+  @quotes_list [
+    "I’d feel most comfortable if support staff came to see me at home.",
     "I’ll just wait and see what information and support I’m offered.",
     "I want to say what I feel without anyone knowing who I am, but know that someone will still be there listening and supporting me.",
     "I want to find somewhere local where I can meet other people with Parkinson’s and share my experiences.",
@@ -11,22 +12,26 @@ defmodule ParkinsonsAndMe.DatabaseSeeder do
     "There’s something specific I want to know about Parkinson’s and how it’s going to affect me.",
     "I want to have a private one-to-one quite soon to talk things through",
     "I’m happy chatting on forums and social media.",
-    "I want to understand my condition so I can plan for the long term."]
+    "I want to understand my condition so I can plan for the long term."
+  ]
 
-  @services_list [{"Peer Support Service", "peer_support"},
-    {"Forum", "forum"},
-    {"Groups", "groups"},
-    {"Parkinson's Nurse", "parkinsons_nurse"},
-    {"Self-management programme", "self_management"},
-    {"Parkinson's Local Advisor", "local_advisor"},
-    {"First Steps", "first_steps"},
-    {"Helpline", "helpline"},
-    {"Facebook", "facebook"},
-    {"Newly diagnosed landing page", "newly_diagnosed"},
-    {"Early onset web page", "early_onset"},
-    {"Publications", "publications"}]
+  @services_list [
+    "Peer Support Service",
+    "Forum",
+    "Groups",
+    "Parkinson's Nurse",
+    "Self-management programme",
+    "Parkinson's Local Advisor",
+    "First Steps",
+    "Helpline",
+    "Facebook",
+    "Newly diagnosed landing page",
+    "Early onset web page",
+    "Publications"
+  ]
 
-  @weights_list [[0,0, 0, 0.5, 0, 1, 0, 0, 0, 0, 0, 0],
+  @weights_list [
+    [0,0, 0, 0.5, 0, 1, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 1, 0.25, 0, 0.5, 0, 0, 0.25, 0, 0],
     [0.5, 1, 0, 0, 0, 0, 0, 0.5, 0.25, 0, 0, 0],
     [0, 0, 1, 0, 0.25, 0, 0.5, 0, 0, 0, 0, 0],
@@ -34,7 +39,8 @@ defmodule ParkinsonsAndMe.DatabaseSeeder do
     [0.5, 0, 0, 0.5, 0, 0.5, 0, 0.5, 0, 0.25, 0, 1],
     [0.25, 0, 0, 0.25, 0, 0.5, 0, 1, 0, 0, 0, 0],
     [0, 0.75, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
-    [0, 0, 0, 0.25, 0.5, 0.5, 0, 0, 0, 0.25, 0.25, 0.5]]
+    [0, 0, 0, 0.25, 0.5, 0.5, 0, 0, 0, 0.25, 0.25, 0.5]
+  ]
 
   defp make_quotes do
     @quotes_list |> Enum.map(&make_quote/1)
@@ -48,12 +54,11 @@ defmodule ParkinsonsAndMe.DatabaseSeeder do
     %{body: q}
   end
 
-  def make_service({title, shortcode}) do
+  def make_service(title) do
     %{title: title,
       body: "lorem ipsum",
       cta: "lorem",
-      url: "www.#{title |> String.replace(" ", "")}.com",
-      shortcode: shortcode}
+      url: "www.#{title |> String.replace(" ", "")}.com"}
   end
 
   def make_weight(q_id, s_id, w) do

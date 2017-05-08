@@ -38,5 +38,4 @@ nullServiceData =
     , cta = ""
     , url = ""
     , earlyOnset = False
-    , shortcode = ""
     }

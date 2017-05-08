@@ -75,7 +75,6 @@ type alias ServiceData =
     , cta : String
     , url : String
     , earlyOnset : Bool
-    , shortcode : String
     }
 
 
