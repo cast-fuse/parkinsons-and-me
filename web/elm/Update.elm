@@ -80,7 +80,7 @@ update msg model =
                 newModel ! [ sendEmailConsent newModel ]
 
         ReceiveQuoteServiceWeightings (Err _) ->
-            { model | fetchErrorMessage = quotesServiceWeightingsError } ! []
+            (model |> quotesServiceWeightingsError) ! []
 
         ReceiveQuoteServiceWeightings (Ok data) ->
             (model |> setQuoteServiceWeightings data |> removeFetchError) ! [ shuffleQuoteIds <| getQuoteIds data.quotes ]
@@ -101,19 +101,19 @@ update msg model =
             handleGoToInstructions model ! [ postUserDetails model ]
 
         ReceiveUser (Err _) ->
-            { model | fetchErrorMessage = receiveUserError } ! []
+            (model |> receiveUserError) ! []
 
         ReceiveUser (Ok rawUser) ->
             (model |> handleRetrievedUserData rawUser |> removeFetchError) ! []
 
         PutUserEmail (Err _) ->
-            { model | submitErrorMessage = putUserEmailError } ! []
+            (model |> putUserEmailError) ! []
 
         PutUserEmail (Ok _) ->
             (model |> storeSubmittedEmail |> removeSubmitError) ! []
 
         PutUserEmailConsent (Err _) ->
-            { model | submitErrorMessage = putUserEmailConsentError } ! []
+            (model |> putUserEmailConsentError) ! []
 
         PutUserEmailConsent (Ok _) ->
             (model |> removeSubmitError) ! []
@@ -122,7 +122,7 @@ update msg model =
             model ! [ sendUserEmail model ]
 
         PostUserAnswers (Err _) ->
-            { model | submitErrorMessage = postUserAnswersError } ! []
+            (model |> postUserAnswersError) ! []
 
         PostUserAnswers (Ok uuid) ->
             let
@@ -137,7 +137,7 @@ update msg model =
             model ! []
 
         ReceiveResults (Err err) ->
-            { model | fetchErrorMessage = receiveResultsError } ! []
+            (model |> receiveResultsError) ! []
 
         ReceiveResults (Ok res) ->
             (model |> loadResults res |> removeFetchError) ! []
