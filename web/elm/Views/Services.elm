@@ -177,9 +177,7 @@ surveyLink =
 parkinsonsEmailLink : Html Msg
 parkinsonsEmailLink =
     a
-        [ href "mailto:cedwards@parkinsons.org.uk"
-        , target "_blank"
-        ]
+        [ href "mailto:cedwards@parkinsons.org.uk?subject=testing parkinsons and me app" ]
         [ button
             [ class Styles.buttonClear ]
             [ text "Drop us an email" ]
