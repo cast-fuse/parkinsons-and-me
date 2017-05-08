@@ -31,46 +31,6 @@ top3Ids userWeightings =
         |> List.map Tuple.first
 
 
-shortcodeToWidget : ServiceData -> ServiceWidget
-shortcodeToWidget service =
-    case service.shortcode of
-        "peer_support" ->
-            PeerSupport
-
-        "forum" ->
-            Forum
-
-        "groups" ->
-            Groups
-
-        "parkinsons_nurse" ->
-            ParkinsonsNurse
-
-        "self_management" ->
-            SelfManagement
-
-        "local_advisor" ->
-            LocalAdvisor
-
-        "helpline" ->
-            HelpLine
-
-        "facebook" ->
-            Facebook
-
-        "newly_diagnosed" ->
-            NewlyDiagnosed
-
-        "early_onset" ->
-            EarlyOnset
-
-        "publications" ->
-            Publications
-
-        _ ->
-            Publications
-
-
 nullServiceData : ServiceData
 nullServiceData =
     { title = ""

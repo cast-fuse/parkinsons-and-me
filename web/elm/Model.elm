@@ -55,20 +55,6 @@ type Answer
     | No
 
 
-type ServiceWidget
-    = PeerSupport
-    | Forum
-    | Groups
-    | ParkinsonsNurse
-    | SelfManagement
-    | LocalAdvisor
-    | HelpLine
-    | Facebook
-    | NewlyDiagnosed
-    | EarlyOnset
-    | Publications
-
-
 type QuoteBackground
     = Blue
     | Green

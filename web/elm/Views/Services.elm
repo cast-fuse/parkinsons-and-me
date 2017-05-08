@@ -2,7 +2,6 @@ module Views.Services exposing (..)
 
 import Components.QuoteBubble exposing (cycleQuoteBackground, quoteBubble)
 import Components.Utils exposing (emptyDiv)
-import Data.Services exposing (..)
 import Data.UserInfo exposing (isValidEmail)
 import Helpers.Styles as Styles exposing (classes)
 import Html exposing (..)
@@ -10,7 +9,6 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Model exposing (..)
 import Model.Email exposing (..)
-import Views.Widget exposing (..)
 
 
 services : Model -> Html Msg
@@ -47,7 +45,6 @@ renderService i s =
     div [ class "mw7 pa4 center" ]
         [ div [ class "mw5 center" ] [ quoteBubble s.title "ph5-ns" (cycleQuoteBackground i) ]
         , p [] [ text s.body ]
-        , renderWidget <| shortcodeToWidget s
         , button [ class Styles.buttonClear ] [ text s.cta ]
         ]
 
