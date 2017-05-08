@@ -27,7 +27,7 @@ defmodule ParkinsonsAndMe.ElmControllerTest do
   test "loads resources for the elm app", %{conn: conn} do
     conn = get conn, "/"
     page = html_response(conn, 200)
-    assert page =~ "<title>Parkinsons and Me</title>"
+    assert page =~ "<title>Parkinson's and Me</title>"
     assert page =~ "src=\"/js/elm.js"
   end
 
