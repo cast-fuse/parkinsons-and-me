@@ -1,7 +1,7 @@
-defmodule What3things.ServiceControllerTest do
-  use What3things.ConnCase
-  import What3things.ConnCase
-  alias What3things.{Admin, DatabaseSeeder}
+defmodule ParkinsonsAndMe.ServiceControllerTest do
+  use ParkinsonsAndMe.ConnCase
+  import ParkinsonsAndMe.ConnCase
+  alias ParkinsonsAndMe.{Admin, DatabaseSeeder}
 
   @admin %Admin{
     id: 123456,

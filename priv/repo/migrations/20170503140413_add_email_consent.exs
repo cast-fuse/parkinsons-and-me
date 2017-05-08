@@ -1,4 +1,4 @@
-defmodule What3things.Repo.Migrations.AddEmailConsent do
+defmodule ParkinsonsAndMe.Repo.Migrations.AddEmailConsent do
   use Ecto.Migration
 
   def up do

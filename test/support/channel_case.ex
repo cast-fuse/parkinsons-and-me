@@ -1,4 +1,4 @@
-defmodule What3things.ChannelCase do
+defmodule ParkinsonsAndMe.ChannelCase do
   @moduledoc """
   This module defines the test case to be used by
   channel tests.
@@ -20,22 +20,22 @@ defmodule What3things.ChannelCase do
       # Import conveniences for testing with channels
       use Phoenix.ChannelTest
 
-      alias What3things.Repo
+      alias ParkinsonsAndMe.Repo
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
 
 
       # The default endpoint for testing
-      @endpoint What3things.Endpoint
+      @endpoint ParkinsonsAndMe.Endpoint
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(What3things.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(ParkinsonsAndMe.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(What3things.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(ParkinsonsAndMe.Repo, {:shared, self()})
     end
 
     :ok

@@ -1,10 +1,10 @@
-defmodule What3things.Answer do
-  use What3things.Web, :model
+defmodule ParkinsonsAndMe.Answer do
+  use ParkinsonsAndMe.Web, :model
 
   schema "answers" do
     field :answer, :boolean
-    belongs_to :quote, What3things.Quote
-    belongs_to :answer_set, What3things.AnswerSet
+    belongs_to :quote, ParkinsonsAndMe.Quote
+    belongs_to :answer_set, ParkinsonsAndMe.AnswerSet
   end
 
   def changeset(struct, params \\ %{}) do
@@ -14,15 +14,15 @@ defmodule What3things.Answer do
   end
 
   def get_by_uuid(uuid) do
-    from a in What3things.Answer,
-    join: s in What3things.AnswerSet,
+    from a in ParkinsonsAndMe.Answer,
+    join: s in ParkinsonsAndMe.AnswerSet,
     on: a.answer_set_id == s.id,
     where: s.uuid == ^uuid
   end
 
   def answer_aggregates do
-    from a in What3things.Answer,
-      join: q in What3things.Quote,
+    from a in ParkinsonsAndMe.Answer,
+      join: q in ParkinsonsAndMe.Quote,
       on: a.quote_id == q.id,
       where: a.answer == true,
       group_by: [q.body],

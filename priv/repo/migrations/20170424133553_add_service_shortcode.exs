@@ -1,4 +1,4 @@
-defmodule What3things.Repo.Migrations.AddServiceShortcode do
+defmodule ParkinsonsAndMe.Repo.Migrations.AddServiceShortcode do
   use Ecto.Migration
 
   def up do

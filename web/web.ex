@@ -1,12 +1,12 @@
-defmodule What3things.Web do
+defmodule ParkinsonsAndMe.Web do
   @moduledoc """
   A module that keeps using definitions for controllers,
   views and so on.
 
   This can be used in your application as:
 
-      use What3things.Web, :controller
-      use What3things.Web, :view
+      use ParkinsonsAndMe.Web, :controller
+      use ParkinsonsAndMe.Web, :view
 
   The definitions below will be executed for every view,
   controller, etc, so keep them short and clean, focused
@@ -30,13 +30,13 @@ defmodule What3things.Web do
     quote do
       use Phoenix.Controller
 
-      alias What3things.Repo
+      alias ParkinsonsAndMe.Repo
       import Ecto
       import Ecto.Query
 
-      import What3things.Router.Helpers
-      import What3things.Gettext
-      import What3things.Auth
+      import ParkinsonsAndMe.Router.Helpers
+      import ParkinsonsAndMe.Gettext
+      import ParkinsonsAndMe.Auth
     end
   end
 
@@ -50,16 +50,16 @@ defmodule What3things.Web do
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
 
-      import What3things.Router.Helpers
-      import What3things.ErrorHelpers
-      import What3things.Gettext
+      import ParkinsonsAndMe.Router.Helpers
+      import ParkinsonsAndMe.ErrorHelpers
+      import ParkinsonsAndMe.Gettext
     end
   end
 
   def router do
     quote do
       use Phoenix.Router
-      import What3things.Auth
+      import ParkinsonsAndMe.Auth
     end
   end
 
@@ -67,10 +67,10 @@ defmodule What3things.Web do
     quote do
       use Phoenix.Channel
 
-      alias What3things.Repo
+      alias ParkinsonsAndMe.Repo
       import Ecto
       import Ecto.Query
-      import What3things.Gettext
+      import ParkinsonsAndMe.Gettext
     end
   end
 

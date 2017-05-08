@@ -1,4 +1,4 @@
-defmodule What3things.Repo.Migrations.DeJsonAnswers do
+defmodule ParkinsonsAndMe.Repo.Migrations.DeJsonAnswers do
   use Ecto.Migration
 
   def up do

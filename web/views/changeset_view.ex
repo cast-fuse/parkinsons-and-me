@@ -1,11 +1,11 @@
-defmodule What3things.ChangesetView do
-  use What3things.Web, :view
+defmodule ParkinsonsAndMe.ChangesetView do
+  use ParkinsonsAndMe.Web, :view
 
   @doc """
   Traverses and translates changeset errors.
 
   See `Ecto.Changeset.traverse_errors/2` and
-  `What3things.ErrorHelpers.translate_error/1` for more details.
+  `ParkinsonsAndMe.ErrorHelpers.translate_error/1` for more details.
   """
   def translate_errors(changeset) do
     Ecto.Changeset.traverse_errors(changeset, &translate_error/1)

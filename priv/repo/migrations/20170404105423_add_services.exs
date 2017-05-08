@@ -1,4 +1,4 @@
-defmodule What3things.Repo.Migrations.AddServices do
+defmodule ParkinsonsAndMe.Repo.Migrations.AddServices do
   use Ecto.Migration
 
   def change do

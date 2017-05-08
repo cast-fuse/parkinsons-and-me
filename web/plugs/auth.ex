@@ -1,8 +1,8 @@
-defmodule What3things.Auth do
+defmodule ParkinsonsAndMe.Auth do
   import Plug.Conn
   import Comeonin.Bcrypt, only: [checkpw: 2, dummy_checkpw: 0]
   import Phoenix.Controller
-  alias What3things.Router.Helpers
+  alias ParkinsonsAndMe.Router.Helpers
 
   def init(opts) do
     Keyword.fetch!(opts, :repo)
@@ -10,7 +10,7 @@ defmodule What3things.Auth do
 
   def call(conn, repo) do
     admin_id = get_session(conn, :admin_id)
-    admin = admin_id && repo.get(What3things.Admin, admin_id)
+    admin = admin_id && repo.get(ParkinsonsAndMe.Admin, admin_id)
     assign(conn, :admin, admin)
   end
 
@@ -38,7 +38,7 @@ defmodule What3things.Auth do
 
   def login_by_username_and_pass(conn, user_name, given_pass, opts) do
     repo = Keyword.fetch!(opts, :repo)
-    admin = repo.get_by(What3things.Admin, user_name: user_name)
+    admin = repo.get_by(ParkinsonsAndMe.Admin, user_name: user_name)
 
     cond do
       admin && checkpw(given_pass, admin.password_hash) ->

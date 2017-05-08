@@ -24,7 +24,7 @@ services model =
             , h3 [] [ text "Based on what you've told us, here's the information and support that we think's right for you." ]
             , h3 [] [ text "Shall we email you a copy?" ]
             , a [ href <| "#" ++ emailAnchor ] [ button [ class Styles.buttonClear ] [ text "Yes Please" ] ]
-            , div [ class "pb3" ] (List.indexedMap renderService model.top3things)
+            , div [ class "pb3" ] (List.indexedMap renderService model.top3services)
             , div [ class "mw7 center mv4", id emailAnchor ]
                 [ renderEmailForm model
                 , emailSubmitted model
@@ -68,7 +68,7 @@ renderResultsLink model =
 resultsUrl : Model -> String
 resultsUrl model =
     String.concat
-        [ "https://what3things-staging.herokuapp.com/"
+        [ "https://wwww.parkinsons-and-me.herokuapp.com/"
         , "#"
         , resultsLink model
         ]

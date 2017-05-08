@@ -41,7 +41,7 @@ initialModel =
     , userId = Nothing
     , quotes = Dict.empty
     , services = Dict.empty
-    , top3things = []
+    , top3services = []
     , weightings = Dict.empty
     , fetchErrorMessage = ""
     , submitErrorMessage = ""
@@ -128,7 +128,7 @@ update msg model =
             let
                 newModel =
                     { model | uuid = Just uuid }
-                        |> handleTop3Things
+                        |> handleTop3Services
                         |> removeSubmitError
             in
                 newModel ! [ setResultsUrl newModel, waitThenShowServices ]

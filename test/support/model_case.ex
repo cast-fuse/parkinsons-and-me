@@ -1,4 +1,4 @@
-defmodule What3things.ModelCase do
+defmodule ParkinsonsAndMe.ModelCase do
   @moduledoc """
   This module defines the test case to be used by
   model tests.
@@ -16,20 +16,20 @@ defmodule What3things.ModelCase do
 
   using do
     quote do
-      alias What3things.Repo
+      alias ParkinsonsAndMe.Repo
 
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
-      import What3things.ModelCase
+      import ParkinsonsAndMe.ModelCase
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(What3things.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(ParkinsonsAndMe.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(What3things.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(ParkinsonsAndMe.Repo, {:shared, self()})
     end
 
     :ok
@@ -59,7 +59,7 @@ defmodule What3things.ModelCase do
   """
   def errors_on(struct, data) do
     struct.__struct__.changeset(struct, data)
-    |> Ecto.Changeset.traverse_errors(&What3things.ErrorHelpers.translate_error/1)
+    |> Ecto.Changeset.traverse_errors(&ParkinsonsAndMe.ErrorHelpers.translate_error/1)
     |> Enum.flat_map(fn {key, errors} -> for msg <- errors, do: {key, msg} end)
   end
 

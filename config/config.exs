@@ -6,15 +6,15 @@
 use Mix.Config
 
 # General application configuration
-config :what3things,
-  ecto_repos: [What3things.Repo]
+config :parkinsons_and_me,
+  ecto_repos: [ParkinsonsAndMe.Repo]
 
 # Configures the endpoint
-config :what3things, What3things.Endpoint,
+config :parkinsons_and_me, ParkinsonsAndMe.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "5N65cDOd77huncT/QV/+pZh6NH2RDJYqujaTTi4IeIHLvLIn6e6wxYFqFgzGAbAR",
-  render_errors: [view: What3things.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: What3things.PubSub,
+  render_errors: [view: ParkinsonsAndMe.ErrorView, accepts: ~w(html json)],
+  pubsub: [name: ParkinsonsAndMe.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger
@@ -23,7 +23,7 @@ config :logger, :console,
   metadata: [:request_id]
 
 # config for email service
-config :what3things, What3things.Mailer,
+config :parkinsons_and_me, ParkinsonsAndMe.Mailer,
   adapter: Bamboo.MailgunAdapter,
   api_key: System.get_env("MAILGUN_KEY"),
   domain: System.get_env("MAILGUN_DOMAIN")

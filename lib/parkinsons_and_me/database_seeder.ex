@@ -1,5 +1,5 @@
-defmodule What3things.DatabaseSeeder do
-  alias What3things.{Service, Quote, Repo, Weight}
+defmodule ParkinsonsAndMe.DatabaseSeeder do
+  alias ParkinsonsAndMe.{Service, Quote, Repo, Weight}
   alias Ecto.Multi
   import Ecto.Query
 

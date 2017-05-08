@@ -2,7 +2,7 @@ use Mix.Config
 
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
-config :what3things, What3things.Endpoint,
+config :parkinsons_and_me, ParkinsonsAndMe.Endpoint,
   http: [port: 4001],
   server: false
 
@@ -10,10 +10,10 @@ config :what3things, What3things.Endpoint,
 config :logger, level: :warn
 
 # Configure your database
-config :what3things, What3things.Repo,
+config :parkinsons_and_me, ParkinsonsAndMe.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "postgres",
   password: "postgres",
-  database: "what3things_test",
+  database: "parkinsons_and_me_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox

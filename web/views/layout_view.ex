@@ -1,3 +1,3 @@
-defmodule What3things.LayoutView do
-  use What3things.Web, :view
+defmodule ParkinsonsAndMe.LayoutView do
+  use ParkinsonsAndMe.Web, :view
 end

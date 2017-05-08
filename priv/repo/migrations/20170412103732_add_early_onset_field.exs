@@ -1,4 +1,4 @@
-defmodule What3things.Repo.Migrations.AddEarlyOnsetField do
+defmodule ParkinsonsAndMe.Repo.Migrations.AddEarlyOnsetField do
   use Ecto.Migration
 
   def up do

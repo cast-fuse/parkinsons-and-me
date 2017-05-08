@@ -1,3 +1,3 @@
-defmodule What3things.SessionView do
-  use What3things.Web, :view
+defmodule ParkinsonsAndMe.SessionView do
+  use ParkinsonsAndMe.Web, :view
 end

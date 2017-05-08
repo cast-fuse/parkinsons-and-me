@@ -41,7 +41,7 @@ loadResults { user, answers, quotes, services, weightings } model =
             |> setQuoteServiceWeightings data
             |> foldAnswers answers
             |> handleGoToServices
-            |> handleTop3Things
+            |> handleTop3Services
 
 
 repopulateUserData : RawUser -> Model -> Model

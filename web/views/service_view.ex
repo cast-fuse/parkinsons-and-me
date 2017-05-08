@@ -1,5 +1,5 @@
-defmodule What3things.ServiceView do
-  use What3things.Web, :view
+defmodule ParkinsonsAndMe.ServiceView do
+  use ParkinsonsAndMe.Web, :view
 
   def render("service.json", %{service: service}) do
     %{id: service.id,

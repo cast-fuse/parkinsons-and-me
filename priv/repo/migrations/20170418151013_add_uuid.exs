@@ -1,4 +1,4 @@
-defmodule What3things.Repo.Migrations.AddUuid do
+defmodule ParkinsonsAndMe.Repo.Migrations.AddUuid do
   use Ecto.Migration
 
   def up do

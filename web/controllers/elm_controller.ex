@@ -1,6 +1,6 @@
-defmodule What3things.ElmController do
-  use What3things.Web, :controller
-  alias What3things.{Quote, Service, Weight, User, Answer}
+defmodule ParkinsonsAndMe.ElmController do
+  use ParkinsonsAndMe.Web, :controller
+  alias ParkinsonsAndMe.{Quote, Service, Weight, User, Answer}
 
   def index(conn, _params) do
     render conn, "index.html"
@@ -20,7 +20,7 @@ defmodule What3things.ElmController do
       nil ->
         conn
         |> put_status(:not_found)
-        |> render(What3things.ErrorView, "404.json")
+        |> render(ParkinsonsAndMe.ErrorView, "404.json")
       answers ->
         quotes = Repo.all(Quote)
         services = Repo.all(Service)
