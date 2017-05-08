@@ -38,7 +38,13 @@ type View
     | Instructions
     | Quotes
     | Services
+    | Error ErrorType
     | Loading
+
+
+type ErrorType
+    = SubmitError
+    | FetchError
 
 
 type AgeRange
