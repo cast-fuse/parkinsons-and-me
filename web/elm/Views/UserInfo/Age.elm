@@ -12,7 +12,7 @@ import Helpers.Styles as Styles
 age : Model -> Html Msg
 age model =
     div []
-        [ speechHeader "Do you mind us asking how old you are?"
+        [ speechHeader "Can we ask your age?"
         , h3 [] [ text "We know Parkinson's affects people of all ages - so no matter how old you are, we can help." ]
         , div [ class "mw6 center" ] [ ageOptions model ]
         , handleNext model

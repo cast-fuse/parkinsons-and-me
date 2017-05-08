@@ -50,7 +50,7 @@ initialModel =
     , userWeightings = Dict.empty
     , userAnswers = []
     , entryPoint = Start
-    , uuid = Nothing
+    , answerUuid = Nothing
     }
 
 
@@ -124,10 +124,10 @@ update msg model =
         PostUserAnswers (Err _) ->
             (model |> postUserAnswersError) ! []
 
-        PostUserAnswers (Ok uuid) ->
+        PostUserAnswers (Ok answerUuid) ->
             let
                 newModel =
-                    { model | uuid = Just uuid }
+                    { model | answerUuid = Just answerUuid }
                         |> handleTop3Services
                         |> removeSubmitError
             in

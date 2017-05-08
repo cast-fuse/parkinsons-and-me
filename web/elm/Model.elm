@@ -26,7 +26,7 @@ type alias Model =
     , userWeightings : WeightingsDict
     , userAnswers : List ( QuoteId, Answer )
     , entryPoint : EntryPoint
-    , uuid : Maybe String
+    , answerUuid : Maybe String
     }
 
 
