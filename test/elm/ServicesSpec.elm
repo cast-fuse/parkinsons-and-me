@@ -36,7 +36,7 @@ top3ServicesSpec : Test
 top3ServicesSpec =
     describe "top3ServicesSpec"
         [ test "takes a earlyOnset model and returns a list of the top 3 ServiceData" <|
-            \() -> Expect.equal (top3services earlyOnsetModel) [ dummyServiceDataEarlyOnset, dummyServiceData, dummyServiceDataEarlyOnset ]
+            \() -> Expect.equal (top3Services earlyOnsetModel) [ dummyServiceDataEarlyOnset, dummyServiceData, dummyServiceDataEarlyOnset ]
         , test "takes a lateOnset model and returns a list of the top 3 ServiceData" <|
-            \() -> Expect.equal (top3services lateOnsetModel) [ dummyServiceData, dummyServiceDataEarlyOnset, dummyServiceData ]
+            \() -> Expect.equal (top3Services lateOnsetModel) [ dummyServiceData, dummyServiceDataEarlyOnset, dummyServiceData ]
         ]

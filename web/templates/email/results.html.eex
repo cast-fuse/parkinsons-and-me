@@ -2,6 +2,7 @@
 <% button_style = "ph3 pv2 f3 outline-0 pointer bg-white b--green-blue ba bw1 black no-underline mh2" %>
 
 <div class="center tc mw7 pa1">
+
   <div class="pv2">
     <h1 class="ma0">Hi <%= String.capitalize @name %> - here's your personalised list of Parkinson's services</h1>
     <p>Remember you can revisit your recommended page of information and support at any time. Or share the link with your family and friends.</p>
@@ -27,11 +28,11 @@
 
   <div class="pv2">
     <h2 class="ma0">Psst... one more thing...</h2>
-    <p>Thank you for testing [product name]. You've caught it hot off the press - it's not quite live yet and we're still making improvements. We'd love to know what you thought and if you have any suggestions on how we could make it better.</p>
+    <p>Thank you for testing <i>Parkinson's and Me</i>. You've caught it hot off the press - it's not quite live yet and we're still making improvements. We'd love to know what you thought and if you have any suggestions on how we could make it better.</p>
     <p>Can you spare ten minutes to share your feedback?</p>
     <div class="flex justify-center">
       <a href="#", class="<%= button_style %>">Fill out this quick survey</a>
-      <a href="mailto:someone@example.com?Subject=Hello%20again", class="<%= button_style %>">Drop us an email</a>
+      <a href="web@parkinsons.org.uk", class="<%= button_style %>">Drop us an email</a>
     </div>
   </div>
 

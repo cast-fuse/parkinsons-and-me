@@ -29,7 +29,7 @@ ageOption model ageRange =
     let
         handleSelectedClasses =
             [ ( "bg-green-blue white", model.ageRange == Just ageRange )
-            , ( "green-blue", model.ageRange /= Just ageRange )
+            , ( "black", model.ageRange /= Just ageRange )
             ]
     in
         div
