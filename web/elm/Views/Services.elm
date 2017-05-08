@@ -68,7 +68,7 @@ renderResultsLink model =
 resultsUrl : Model -> String
 resultsUrl model =
     String.concat
-        [ "https://what3things-staging.herokuapp.com/"
+        [ "https://wwww.parkinsons-and-me.herokuapp.com"
         , "#"
         , resultsLink model
         ]

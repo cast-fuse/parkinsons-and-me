@@ -1,6 +1,6 @@
-defmodule What3things.ServiceController do
-  use What3things.Web, :controller
-  alias What3things.Service
+defmodule ParkinsonsAndMe.ServiceController do
+  use ParkinsonsAndMe.Web, :controller
+  alias ParkinsonsAndMe.Service
   plug :authenticate_admin
 
   def index(conn, _params) do

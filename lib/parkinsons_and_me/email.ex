@@ -1,5 +1,5 @@
-defmodule What3things.Email do
-  use Bamboo.Phoenix, view: What3things.EmailView
+defmodule ParkinsonsAndMe.Email do
+  use Bamboo.Phoenix, view: ParkinsonsAndMe.EmailView
 
   def welcome_email(%{to: to, top3things: top3things, uuid: uuid, name: name}) do
     base_email()
@@ -14,6 +14,6 @@ defmodule What3things.Email do
   def base_email do
     new_email()
     |> from("andrew@wearecast.org.uk")
-    |> put_html_layout({What3things.LayoutView, "email.html"})
+    |> put_html_layout({ParkinsonsAndMe.LayoutView, "email.html"})
   end
 end

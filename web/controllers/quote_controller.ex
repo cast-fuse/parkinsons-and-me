@@ -1,6 +1,6 @@
-defmodule What3things.QuoteController do
-  use What3things.Web, :controller
-  alias What3things.Quote
+defmodule ParkinsonsAndMe.QuoteController do
+  use ParkinsonsAndMe.Web, :controller
+  alias ParkinsonsAndMe.Quote
   plug :authenticate_admin
 
   def index(conn, _params) do

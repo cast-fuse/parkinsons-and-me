@@ -1,6 +1,6 @@
-defmodule What3things.UserController do
-  use What3things.Web, :controller
-  alias What3things.{User, Email, Service, Mailer}
+defmodule ParkinsonsAndMe.UserController do
+  use ParkinsonsAndMe.Web, :controller
+  alias ParkinsonsAndMe.{User, Email, Service, Mailer}
 
   def create(conn, %{"user" => user_params}) do
     %{"name" => name,
@@ -32,7 +32,7 @@ defmodule What3things.UserController do
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
-        |> render(What3things.ChangesetView, "error.json", changeset: changeset)
+        |> render(ParkinsonsAndMe.ChangesetView, "error.json", changeset: changeset)
     end
   end
 
@@ -47,7 +47,7 @@ defmodule What3things.UserController do
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
-        |> render(What3things.ChangesetView, "error.json", changeset: changeset)
+        |> render(ParkinsonsAndMe.ChangesetView, "error.json", changeset: changeset)
     end
   end
 
@@ -62,7 +62,7 @@ defmodule What3things.UserController do
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
-        |> render(What3things.ChangesetView, "error.json", changeset: changeset)
+        |> render(ParkinsonsAndMe.ChangesetView, "error.json", changeset: changeset)
     end
   end
 

@@ -1,3 +1,3 @@
-defmodule What3things.EmailView do
-  use What3things.Web, :view
+defmodule ParkinsonsAndMe.EmailView do
+  use ParkinsonsAndMe.Web, :view
 end

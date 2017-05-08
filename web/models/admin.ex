@@ -1,5 +1,5 @@
-defmodule What3things.Admin do
-  use What3things.Web, :model
+defmodule ParkinsonsAndMe.Admin do
+  use ParkinsonsAndMe.Web, :model
 
   schema "admins" do
     field :user_name, :string

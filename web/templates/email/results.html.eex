@@ -1,4 +1,4 @@
-<% results_url = "https://what3things.herokuapp.com/#my-results/#{@uuid}" %>
+<% results_url = "https://parkinsons-and-me.herokuapp.com/#my-results/#{@uuid}" %>
 <% button_style = "ph3 pv2 f3 outline-0 pointer bg-white b--green-blue ba bw1 black no-underline mh2" %>
 
 <div class="center tc mw7 pa1">

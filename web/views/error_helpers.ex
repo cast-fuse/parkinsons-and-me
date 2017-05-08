@@ -1,4 +1,4 @@
-defmodule What3things.ErrorHelpers do
+defmodule ParkinsonsAndMe.ErrorHelpers do
   @moduledoc """
   Conveniences for translating and building error messages.
   """
@@ -32,9 +32,9 @@ defmodule What3things.ErrorHelpers do
     #     dgettext "errors", "is invalid"
     #
     if count = opts[:count] do
-      Gettext.dngettext(What3things.Gettext, "errors", msg, msg, count, opts)
+      Gettext.dngettext(ParkinsonsAndMe.Gettext, "errors", msg, msg, count, opts)
     else
-      Gettext.dgettext(What3things.Gettext, "errors", msg, opts)
+      Gettext.dgettext(ParkinsonsAndMe.Gettext, "errors", msg, opts)
     end
   end
 end

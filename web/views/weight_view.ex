@@ -1,5 +1,5 @@
-defmodule What3things.WeightView do
-  use What3things.Web, :view
+defmodule ParkinsonsAndMe.WeightView do
+  use ParkinsonsAndMe.Web, :view
 
   def render("weight.json", %{weight: weight}) do
     %{id: weight.id,

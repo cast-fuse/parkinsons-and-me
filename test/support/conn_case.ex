@@ -1,4 +1,4 @@
-defmodule What3things.ConnCase do
+defmodule ParkinsonsAndMe.ConnCase do
   @moduledoc """
   This module defines the test case to be used by
   tests that require setting up a connection.
@@ -21,35 +21,35 @@ defmodule What3things.ConnCase do
       use Phoenix.ConnTest
       import Plug.Test
 
-      alias What3things.Repo
+      alias ParkinsonsAndMe.Repo
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
 
-      import What3things.Router.Helpers
+      import ParkinsonsAndMe.Router.Helpers
 
       # The default endpoint for testing
-      @endpoint What3things.Endpoint
+      @endpoint ParkinsonsAndMe.Endpoint
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(What3things.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(ParkinsonsAndMe.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(What3things.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(ParkinsonsAndMe.Repo, {:shared, self()})
     end
 
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
 
   def get_service(title) do
-    What3things.Repo.get_by!(What3things.Service, title: title)
+    ParkinsonsAndMe.Repo.get_by!(ParkinsonsAndMe.Service, title: title)
   end
 
   def test_login(conn, admin) do
     conn
     |> Plug.Test.init_test_session(%{})
-    |> What3things.Auth.login(admin)
+    |> ParkinsonsAndMe.Auth.login(admin)
   end
 end

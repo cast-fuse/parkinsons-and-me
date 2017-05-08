@@ -1,5 +1,5 @@
-defmodule What3things.AnalyticsView do
-  use What3things.Web, :view
+defmodule ParkinsonsAndMe.AnalyticsView do
+  use ParkinsonsAndMe.Web, :view
 
   def render_consent(consent) do
     case consent do

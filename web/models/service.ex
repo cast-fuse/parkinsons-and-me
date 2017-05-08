@@ -1,6 +1,6 @@
-defmodule What3things.Service do
-  use What3things.Web, :model
-  alias What3things.Service
+defmodule ParkinsonsAndMe.Service do
+  use ParkinsonsAndMe.Web, :model
+  alias ParkinsonsAndMe.Service
 
   schema "services" do
     field :title, :string

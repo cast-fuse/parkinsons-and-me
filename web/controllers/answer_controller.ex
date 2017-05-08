@@ -1,6 +1,6 @@
-defmodule What3things.AnswerController do
-  use What3things.Web, :controller
-  alias What3things.{Answer, AnswerSet}
+defmodule ParkinsonsAndMe.AnswerController do
+  use ParkinsonsAndMe.Web, :controller
+  alias ParkinsonsAndMe.{Answer, AnswerSet}
   alias Ecto.Multi
 
   def create(conn, %{"answer" => %{"answers" => answers}, "user_id" => user_id}) do
@@ -20,7 +20,7 @@ defmodule What3things.AnswerController do
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
-        |> render(What3things.ChangesetView, "error.json", changeset: changeset)
+        |> render(ParkinsonsAndMe.ChangesetView, "error.json", changeset: changeset)
     end
   end
 

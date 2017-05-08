@@ -1,6 +1,6 @@
-defmodule What3things.UserControllerTest do
-  use What3things.ConnCase, async: true
-  alias What3things.{Repo, User}
+defmodule ParkinsonsAndMe.UserControllerTest do
+  use ParkinsonsAndMe.ConnCase, async: true
+  alias ParkinsonsAndMe.{Repo, User}
 
   @dummy_user %{
     name: "Ivan",

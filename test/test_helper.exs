@@ -1,4 +1,4 @@
 ExUnit.start
 
-Ecto.Adapters.SQL.Sandbox.mode(What3things.Repo, :manual)
+Ecto.Adapters.SQL.Sandbox.mode(ParkinsonsAndMe.Repo, :manual)
 
