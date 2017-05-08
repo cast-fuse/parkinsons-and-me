@@ -33,8 +33,8 @@ services model =
                 [ h3 [] [ text "Thank you for testing ", i [ class "dark-blue" ] [ text "Parkinson's and Me" ], text ". You’ve caught it hot off the press – it’s not quite live yet and we’re still making improvements. We’d love to know what you thought and if you have any suggestions on how we could make it better." ]
                 , h3 [] [ text "Can you spare ten minutes to share your feedback?" ]
                 , div [ class "flex justify-between mw6 center" ]
-                    [ button [ class Styles.buttonClear ] [ text "Fill out this quick survey" ]
-                    , button [ class Styles.buttonClear ] [ text "Drop us an email" ]
+                    [ surveyLink
+                    , parkinsonsEmailLink
                     ]
                 ]
             ]
@@ -51,7 +51,7 @@ renderService i s =
 
 renderResultsLink : Model -> Html Msg
 renderResultsLink model =
-    case model.uuid of
+    case model.answerUuid of
         Just _ ->
             div [ class "pb4" ]
                 [ h3 [] [ text "Come back and visit your page any time:" ]
@@ -73,7 +73,7 @@ resultsUrl model =
 
 resultsLink : Model -> String
 resultsLink model =
-    model.uuid
+    model.answerUuid
         |> Maybe.map ((++) "my-results/")
         |> Maybe.withDefault ""
 
@@ -127,7 +127,12 @@ privacyStatement model =
                 , text "We’d love to hear your feedback! If you’re happy to be contacted by Parkinson’s UK about"
                 , i [ class "dark-blue" ] [ text " Parkinson's and Me" ]
                 , text " please tick this box. Don’t worry, your details won’t be used for anything else. To find out more, read our "
-                , a [ href "https://www.parkinsons.org.uk/content/parkinsons-uk-website-terms-and-conditions", class "no-underline dark-blue" ] [ text "privacy statement" ]
+                , a
+                    [ href "https://www.parkinsons.org.uk/content/parkinsons-uk-website-terms-and-conditions"
+                    , target "_blank"
+                    , class "no-underline dark-blue"
+                    ]
+                    [ text "privacy statement" ]
                 ]
 
         True ->
@@ -155,3 +160,27 @@ emailSubmitted model =
 
         _ ->
             emptyDiv
+
+
+surveyLink : Html Msg
+surveyLink =
+    a
+        [ href "https://docs.google.com/forms/d/1rrPNT0GtthACdNwFUTbW_QSIb37MXd94SpPcNurK7Rs/viewform?edit_requested=true"
+        , target "_blank"
+        ]
+        [ button
+            [ class Styles.buttonClear ]
+            [ text "Fill out this quick survey" ]
+        ]
+
+
+parkinsonsEmailLink : Html Msg
+parkinsonsEmailLink =
+    a
+        [ href "mailto:cedwards@parkinsons.org.uk"
+        , target "_blank"
+        ]
+        [ button
+            [ class Styles.buttonClear ]
+            [ text "Drop us an email" ]
+        ]
