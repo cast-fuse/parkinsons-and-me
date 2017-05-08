@@ -24,7 +24,7 @@ services model =
             , h3 [] [ text "Based on what you've told us, here's the information and support that we think's right for you." ]
             , h3 [] [ text "Shall we email you a copy?" ]
             , a [ href <| "#" ++ emailAnchor ] [ button [ class Styles.buttonClear ] [ text "Yes Please" ] ]
-            , div [ class "pb3" ] (List.indexedMap renderService model.top3services)
+            , div [ class "pb3" ] (List.indexedMap renderService model.top3Services)
             , div [ class "mw7 center mv4", id emailAnchor ]
                 [ renderEmailForm model
                 , emailSubmitted model
@@ -32,7 +32,7 @@ services model =
             , renderResultsLink model
             , div [ class "mw6 center mv3" ] [ quoteBubble "Psst...one more thing.." "" Green ]
             , div [ class "mw7 center mv4" ]
-                [ h3 [] [ text "Thank you for testing [product name]. You’ve caught it hot off the press – it’s not quite live yet and we’re still making improvements. We’d love to know what you thought and if you have any suggestions on how we could make it better. " ]
+                [ h3 [] [ text "Thank you for testing ", i [ class "dark-blue" ] [ text "Parkinson's and Me" ], text ". You’ve caught it hot off the press – it’s not quite live yet and we’re still making improvements. We’d love to know what you thought and if you have any suggestions on how we could make it better." ]
                 , h3 [] [ text "Can you spare ten minutes to share your feedback?" ]
                 , div [ class "flex justify-between mw6 center" ]
                     [ button [ class Styles.buttonClear ] [ text "Fill out this quick survey" ]
@@ -58,7 +58,7 @@ renderResultsLink model =
         Just _ ->
             div [ class "pb4" ]
                 [ h3 [] [ text "Come back and visit your page any time:" ]
-                , a [ class "no-underline green f3", href <| resultsUrl model, target "_blank" ] [ text <| resultsUrl model ]
+                , a [ class "no-underline dark-blue f3", href <| resultsUrl model, target "_blank" ] [ text <| resultsUrl model ]
                 ]
 
         Nothing ->
@@ -127,8 +127,10 @@ privacyStatement model =
                     , checked model.emailConsent
                     ]
                     []
-                , text "We’d love to hear your feedback! If you’re happy to be contacted by Parkinson’s UK about [name of product] please tick this box. Don’t worry, your details won’t be used for anything else. To find out more, read our "
-                , a [ href "https://www.parkinsons.org.uk/content/parkinsons-uk-website-terms-and-conditions" ] [ text "privacy statement" ]
+                , text "We’d love to hear your feedback! If you’re happy to be contacted by Parkinson’s UK about"
+                , i [ class "dark-blue" ] [ text " Parkinson's and Me" ]
+                , text " please tick this box. Don’t worry, your details won’t be used for anything else. To find out more, read our "
+                , a [ href "https://www.parkinsons.org.uk/content/parkinsons-uk-website-terms-and-conditions", class "no-underline dark-blue" ] [ text "privacy statement" ]
                 ]
 
         True ->

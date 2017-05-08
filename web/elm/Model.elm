@@ -17,7 +17,7 @@ type alias Model =
     , userId : Maybe Int
     , quotes : Quotes
     , services : Services
-    , top3services : List ServiceData
+    , top3Services : List ServiceData
     , weightings : Weightings
     , fetchErrorMessage : String
     , submitErrorMessage : String

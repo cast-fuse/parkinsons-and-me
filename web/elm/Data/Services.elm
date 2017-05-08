@@ -7,11 +7,11 @@ import Dict
 
 handleTop3Services : Model -> Model
 handleTop3Services model =
-    { model | top3services = top3services model }
+    { model | top3Services = top3Services model }
 
 
-top3services : Model -> List ServiceData
-top3services model =
+top3Services : Model -> List ServiceData
+top3Services model =
     let
         userWeightings =
             relevantWeightings model

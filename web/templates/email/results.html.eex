@@ -27,7 +27,7 @@
 
   <div class="pv2">
     <h2 class="ma0">Psst... one more thing...</h2>
-    <p>Thank you for testing [product name]. You've caught it hot off the press - it's not quite live yet and we're still making improvements. We'd love to know what you thought and if you have any suggestions on how we could make it better.</p>
+    <p>Thank you for testing <i>Parkinson's and Me</i>. You've caught it hot off the press - it's not quite live yet and we're still making improvements. We'd love to know what you thought and if you have any suggestions on how we could make it better.</p>
     <p>Can you spare ten minutes to share your feedback?</p>
     <div class="flex justify-center">
       <a href="#", class="<%= button_style %>">Fill out this quick survey</a>
