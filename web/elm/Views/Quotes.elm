@@ -22,16 +22,16 @@ answerButtons : Html Msg
 answerButtons =
     let
         buttonClasses =
-            [ "f4 ma1", Styles.buttonClear ]
+            classes [ "f4 ma1", Styles.buttonClear ]
     in
         div [ class "flex justify-center flex-row-ns flex-column ma3" ]
             [ button
-                [ class <| classes buttonClasses
+                [ class <| buttonClasses
                 , onClick <| SubmitAnswer Yes
                 ]
                 [ text "Yes, this sounds like me" ]
             , button
-                [ class <| classes buttonClasses
+                [ class <| buttonClasses
                 , onClick <| SubmitAnswer No
                 ]
                 [ text "No, this doesn't sound like me" ]

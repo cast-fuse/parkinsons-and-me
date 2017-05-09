@@ -20,7 +20,7 @@ loadingBackground model view =
     case model.view of
         Loading ->
             div []
-                [ div [ class "z-999 fixed top-0 all ease t3 w-100 vh-100 bg-white o-100 black flex justify-center items-center flex-column relative" ]
+                [ div [ class "z-999 fixed top-0 all ease t3 w-100 vh-100 bg-white o-100 black flex justify-center items-center flex-column relative ph2" ]
                     [ loading
                     , div [ class "w-100 absolute bottom-0" ] [ logoFooter ]
                     ]
@@ -28,7 +28,7 @@ loadingBackground model view =
 
         _ ->
             div []
-                [ div [ class "t3 all ease top-0 delay-2 z-999 fixed w-100 vh-100 bg-white o-0 touch-disabled flex justify-center items-center" ]
+                [ div [ class "t3 all ease top-0 delay-2 z-999 fixed w-100 vh-100 bg-white o-0 touch-disabled flex justify-center items-center ph2" ]
                     [ loading
                     , div [ class "w-100 absolute bottom-0" ] [ logoFooter ]
                     ]

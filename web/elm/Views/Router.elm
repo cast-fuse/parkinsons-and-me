@@ -2,6 +2,7 @@ module Views.Router exposing (router)
 
 import Components.Utils exposing (emptyDiv)
 import Html exposing (..)
+import Html.Attributes exposing (class)
 import Model exposing (..)
 import Views.Error exposing (error)
 import Views.Home exposing (home)
@@ -18,7 +19,7 @@ router : Model -> Html Msg
 router model =
     let
         handleLoading view =
-            loadingBackground model <| view model
+            loadingBackground model <| div [ class "mh2" ] [ view model ]
     in
         case model.view of
             Home ->
