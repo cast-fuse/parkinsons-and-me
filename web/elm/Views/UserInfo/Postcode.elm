@@ -23,7 +23,7 @@ postcodeField : Model -> Html Msg
 postcodeField model =
     div [ class "flex items-center pa4" ]
         [ input
-            [ class <| classes [ Styles.inputField, "ttu tc" ]
+            [ class <| classes [ Styles.inputField, "ttu tc w-100" ]
             , onInput SetPostcode
             , autocomplete False
             , value <| postCodeToString model.postcode

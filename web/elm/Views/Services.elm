@@ -33,9 +33,9 @@ services model =
             , renderResultsLink model
             , div [ class "mw6 center mv3" ] [ quoteBubble "Psst...one more thing..." "" Green ]
             , div [ class "mw7 center mv4" ]
-                [ h3 [] [ text "Thank you for testing ", i [ class "dark-blue" ] [ text "Parkinson's and Me" ], text ". You’ve caught it hot off the press – it’s not quite live yet and we’re still making improvements. We’d love to know what you thought and if you have any suggestions on how we could make it better." ]
+                [ h3 [] [ text "Thank you for testing ", span [ class "dark-blue" ] [ text "Parkinson's and Me" ], text ". You’ve caught it hot off the press – it’s not quite live yet and we’re still making improvements. We’d love to know what you thought and if you have any suggestions on how we could make it better." ]
                 , h3 [] [ text "Can you spare two minutes to share your feedback?" ]
-                , div [ class "flex justify-between mw6 center" ]
+                , div [ class "flex justify-between mw6 flex-row-ns flex-column ma3 center" ]
                     [ surveyLink
                     , parkinsonsEmailLink
                     ]
@@ -95,7 +95,7 @@ renderResultsLink model =
 resultsUrl : Model -> String
 resultsUrl model =
     String.concat
-        [ "https://wwww.parkinsons-and-me.herokuapp.com/"
+        [ "https://parkinsons-and-me.herokuapp.com/"
         , "#"
         , resultsLink model
         ]
@@ -137,7 +137,7 @@ emailForm : Model -> String -> String -> Html Msg
 emailForm model prompt email =
     div [ class "flex flex-column items-center" ]
         [ h3 [] [ text prompt ]
-        , input [ onInput SetEmail, class <| classes [ Styles.inputField, "mw5" ], value email ] []
+        , input [ onInput SetEmail, class <| classes [ Styles.inputField, "mw5 w-75 w-100-ns tc" ], value email ] []
         , privacyStatement model
         , div [] [ handleSubmitEmail model ]
         ]
@@ -200,7 +200,7 @@ surveyLink =
         , target "_blank"
         ]
         [ button
-            [ class Styles.buttonClearHover ]
+            [ class <| classes [ "ma1", Styles.buttonClearHover ] ]
             [ text "Fill out this quick survey" ]
         ]
 
@@ -210,6 +210,6 @@ parkinsonsEmailLink =
     a
         [ href "mailto:web@parkinsons.org.uk?subject=Here's some feedback on Parkinson's and Me" ]
         [ button
-            [ class Styles.buttonClearHover ]
+            [ class <| classes [ "ma1", Styles.buttonClearHover ] ]
             [ text "Drop us an email" ]
         ]
