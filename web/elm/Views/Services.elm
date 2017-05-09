@@ -2,7 +2,7 @@ module Views.Services exposing (..)
 
 import Components.QuoteBubble exposing (cycleQuoteBackground, quoteBubble)
 import Components.Utils exposing (emptyDiv, outboundLink)
-import Data.UserInfo exposing (isValidEmail)
+import Data.UserInfo exposing (isValidEmail, postCodeToString)
 import Helpers.Styles as Styles exposing (classes)
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -11,6 +11,7 @@ import HtmlParser
 import HtmlParser.Util
 import Model exposing (..)
 import Model.Email exposing (..)
+import Model.Postcode exposing (Postcode)
 
 
 services : Model -> Html Msg
@@ -24,7 +25,7 @@ services model =
             , h3 [] [ text "Based on what you've told us, here's the information and support that we think's right for you." ]
             , h3 [] [ text "Shall we email you a copy?" ]
             , a [ href <| "#" ++ emailAnchor ] [ button [ class Styles.buttonClearHover ] [ text "Yes Please" ] ]
-            , div [ class "pb3" ] (List.indexedMap renderService model.top3Services)
+            , div [ class "pb3" ] (List.indexedMap (renderService model.postcode) model.top3Services)
             , div [ class "mw7 center", id emailAnchor ]
                 [ renderEmailForm model
                 , emailSubmitted model
@@ -42,18 +43,33 @@ services model =
             ]
 
 
-renderService : Int -> ServiceData -> Html Msg
-renderService i service =
+renderService : Postcode -> Int -> ServiceData -> Html Msg
+renderService postcode i service =
     let
-        cta =
+        url =
+            handleLocationBasedUrl postcode service
+
+        ctaButton =
             button [ class Styles.buttonClearHover ] [ text service.cta ]
-                |> outboundLink service.url
+
+        cta =
+            outboundLink url ctaButton
     in
         div [ class "mw7 pa4 center" ]
             [ div [ class "mw5 center" ] [ quoteBubble service.title "ph5-ns" (cycleQuoteBackground i) ]
             , div [] <| parseServiceBody service.body
             , cta
             ]
+
+
+handleLocationBasedUrl : Postcode -> ServiceData -> String
+handleLocationBasedUrl postcode serviceData =
+    case serviceData.locationBasedUrl of
+        True ->
+            serviceData.url ++ (postCodeToString postcode)
+
+        False ->
+            serviceData.url
 
 
 parseServiceBody : String -> List (Html Msg)
