@@ -45,7 +45,7 @@ defmodule ParkinsonsAndMe.ServicesData do
   def parkinsons_nurse do
     %{
       title: "Get in touch with a Parkinson’s nurse",
-      body: "<p>Parkinson's nurses have specialist knowledge about Parkinson’s. They provide expert care to help you manage your medication and support you in coming to terms with your diagnosis. They can also make a referral for you to see another health professional if you need to, such as a physiotherapist.</p><p>To see a Parkinson’s nurse you will need a referral, <a href='https://www.parkinsons.org.uk/information-and-support/parkinsons-nurses'>here’s a bit more information one how to get one.</a></p>",
+      body: "<p>Parkinson's nurses have specialist knowledge about Parkinson’s. They provide expert care to help you manage your medication and support you in coming to terms with your diagnosis. They can also make a referral for you to see another health professional if you need to, such as a physiotherapist.</p><p>To see a Parkinson’s nurse you will need a referral, <a href='https://www.parkinsons.org.uk/information-and-support/parkinsons-nurses' target='_blank'>here’s a bit more information one how to get one.</a></p>",
       cta: "Find your nearest Parkinson’s nurse",
       url: "https://www.parkinsons.org.uk/local-support?op=Search&distance%5Bpostal_code%5D="
     }

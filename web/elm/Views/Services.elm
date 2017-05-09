@@ -7,6 +7,8 @@ import Helpers.Styles as Styles exposing (classes)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import HtmlParser
+import HtmlParser.Util
 import Model exposing (..)
 import Model.Email exposing (..)
 
@@ -21,7 +23,7 @@ services model =
             [ div [ class "mw6 center mv3" ] [ quoteBubble "Here it is, your personalised list of Parkinson's services" "pa5-ns" Blue ]
             , h3 [] [ text "Based on what you've told us, here's the information and support that we think's right for you." ]
             , h3 [] [ text "Shall we email you a copy?" ]
-            , a [ href <| "#" ++ emailAnchor ] [ button [ class Styles.buttonClear ] [ text "Yes Please" ] ]
+            , a [ href <| "#" ++ emailAnchor ] [ button [ class Styles.buttonClearHover ] [ text "Yes Please" ] ]
             , div [ class "pb3" ] (List.indexedMap renderService model.top3Services)
             , div [ class "mw7 center mv4", id emailAnchor ]
                 [ renderEmailForm model
@@ -44,9 +46,16 @@ renderService : Int -> ServiceData -> Html Msg
 renderService i s =
     div [ class "mw7 pa4 center" ]
         [ div [ class "mw5 center" ] [ quoteBubble s.title "ph5-ns" (cycleQuoteBackground i) ]
-        , p [] [ text s.body ]
-        , button [ class Styles.buttonClear ] [ text s.cta ]
+        , div [] <| parseServiceBody s.body
+        , a [ href s.url, target "_blank" ] [ button [ class Styles.buttonClearHover ] [ text s.cta ] ]
         ]
+
+
+parseServiceBody : String -> List (Html Msg)
+parseServiceBody body =
+    body
+        |> HtmlParser.parse
+        |> HtmlParser.Util.toVirtualDom
 
 
 renderResultsLink : Model -> Html Msg
@@ -145,7 +154,7 @@ handleSubmitEmail model =
         button
             [ onClick SubmitEmail
             , autocomplete False
-            , class <| classes [ Styles.buttonClear, "mt3" ]
+            , class <| classes [ Styles.buttonClearHover, "mt3" ]
             ]
             [ text "Submit" ]
     else
@@ -169,7 +178,7 @@ surveyLink =
         , target "_blank"
         ]
         [ button
-            [ class Styles.buttonClear ]
+            [ class Styles.buttonClearHover ]
             [ text "Fill out this quick survey" ]
         ]
 
@@ -179,6 +188,6 @@ parkinsonsEmailLink =
     a
         [ href "mailto:cedwards@parkinsons.org.uk?subject=testing parkinsons and me app" ]
         [ button
-            [ class Styles.buttonClear ]
+            [ class Styles.buttonClearHover ]
             [ text "Drop us an email" ]
         ]
