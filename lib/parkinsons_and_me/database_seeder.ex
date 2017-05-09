@@ -1,7 +1,6 @@
 defmodule ParkinsonsAndMe.DatabaseSeeder do
-  alias ParkinsonsAndMe.{Service, Quote, Repo, Weight}
+  alias ParkinsonsAndMe.{Service, Quote, Repo, Weight, ServicesData}
   alias Ecto.Multi
-  import Ecto.Query
 
   @quotes_list [
     "I’d feel most comfortable if support staff came to see me at home.",
@@ -15,50 +14,24 @@ defmodule ParkinsonsAndMe.DatabaseSeeder do
     "I want to understand my condition so I can plan for the long term."
   ]
 
-  @services_list [
-    "Peer Support Service",
-    "Forum",
-    "Groups",
-    "Parkinson's Nurse",
-    "Self-management programme",
-    "Parkinson's Local Advisor",
-    "First Steps",
-    "Helpline",
-    "Facebook",
-    "Newly diagnosed landing page",
-    "Early onset web page",
-    "Publications"
-  ]
-
   @weights_list [
-    [0,0, 0, 0.5, 0, 1, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 1, 0.25, 0, 0.5, 0, 0, 0.25, 0, 0],
-    [0.5, 1, 0, 0, 0, 0, 0, 0.5, 0.25, 0, 0, 0],
-    [0, 0, 1, 0, 0.25, 0, 0.5, 0, 0, 0, 0, 0],
-    [0, 0, 0.25, 0, 0, 0, 0, 0, 0.25, 1, 0.5, 0.5],
-    [0.5, 0, 0, 0.5, 0, 0.5, 0, 0.5, 0, 0.25, 0, 1],
-    [0.25, 0, 0, 0.25, 0, 0.5, 0, 1, 0, 0, 0, 0],
-    [0, 0.75, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
-    [0, 0, 0, 0.25, 0.5, 0.5, 0, 0, 0, 0.25, 0.25, 0.5]
+    [0, 0, 0, 0.5, 0, 1, 0, 0, 0, 0, 0],
+    [0, 0, 0, 1, 0.25, 0, 0, 0, 0.25, 0, 0],
+    [0.5, 1, 0, 0, 0, 0, 0.5, 0.25, 0, 0, 0],
+    [0, 0, 1, 0, 0.25, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0.25, 0, 0, 0, 0, 0.25, 1, 0.5, 0.5],
+    [0.5, 0, 0, 0.5, 0, 0.5, 0.5, 0, 0.25, 0, 1],
+    [0.25, 0, 0, 0.25, 0, 0.5, 1, 0, 0, 0, 0],
+    [0, 0.75, 0, 0, 0, 0, 0, 1, 0, 0, 0],
+    [0, 0, 0, 0.25, 0.5, 0.5, 0, 0, 0.25, 0.25, 0.5]
   ]
 
   defp make_quotes do
     @quotes_list |> Enum.map(&make_quote/1)
   end
 
-  def make_services do
-    @services_list |> Enum.map(&make_service/1)
-  end
-
   def make_quote(q) do
     %{body: q}
-  end
-
-  def make_service(title) do
-    %{title: title,
-      body: "lorem ipsum",
-      cta: "lorem",
-      url: "www.#{title |> String.replace(" ", "")}.com"}
   end
 
   def make_weight(q_id, s_id, w) do
@@ -85,10 +58,6 @@ defmodule ParkinsonsAndMe.DatabaseSeeder do
     |> Enum.zip(zip_service_weights(services))
     |> Enum.map(fn({q, s_weights}) -> Enum.map(s_weights, fn({s, w}) -> %{service_id: s.service_id, quote_id: q.quote_id, weight: w} end) end)
     |> List.flatten()
-  end
-
-  defp remove_service_query(title) do
-    from s in Service, where: s.title == ^title
   end
 
   defp attach_empty_weights(multi) do
@@ -127,8 +96,7 @@ defmodule ParkinsonsAndMe.DatabaseSeeder do
   def populate_db do
     flush_db()
     |> Multi.insert_all(:add_quotes, Quote, make_quotes())
-    |> Multi.insert_all(:add_services, Service, make_services())
-    |> Multi.delete_all(:remove_service, remove_service_query("First Steps"))
+    |> Multi.insert_all(:add_services, Service, ServicesData.all_service_data())
     |> Multi.run(:add_weights, &add_weights/1)
     |> Multi.insert(:add_extra_quote, Quote.changeset(%Quote{}, make_quote("I want to talk to other people who have been through this too.")))
     |> Multi.run(:add_empty_weights, &attach_empty_weights/1)
