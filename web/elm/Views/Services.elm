@@ -20,20 +20,20 @@ services model =
             resultsLink model
     in
         div []
-            [ div [ class "mw6 center mv3" ] [ quoteBubble "Here it is, your personalised list of Parkinson's services" "pa5-ns" Blue ]
+            [ div [ class "mw6 center mv3" ] [ quoteBubble "Here's your personalised list of Parkinson's services" "pa5-ns" Blue ]
             , h3 [] [ text "Based on what you've told us, here's the information and support that we think's right for you." ]
             , h3 [] [ text "Shall we email you a copy?" ]
             , a [ href <| "#" ++ emailAnchor ] [ button [ class Styles.buttonClearHover ] [ text "Yes Please" ] ]
             , div [ class "pb3" ] (List.indexedMap renderService model.top3Services)
-            , div [ class "mw7 center mv4", id emailAnchor ]
+            , div [ class "mw7 center", id emailAnchor ]
                 [ renderEmailForm model
                 , emailSubmitted model
                 ]
             , renderResultsLink model
-            , div [ class "mw6 center mv3" ] [ quoteBubble "Psst...one more thing.." "" Green ]
+            , div [ class "mw6 center mv3" ] [ quoteBubble "Psst...one more thing..." "" Green ]
             , div [ class "mw7 center mv4" ]
                 [ h3 [] [ text "Thank you for testing ", i [ class "dark-blue" ] [ text "Parkinson's and Me" ], text ". You’ve caught it hot off the press – it’s not quite live yet and we’re still making improvements. We’d love to know what you thought and if you have any suggestions on how we could make it better." ]
-                , h3 [] [ text "Can you spare ten minutes to share your feedback?" ]
+                , h3 [] [ text "Can you spare two minutes to share your feedback?" ]
                 , div [ class "flex justify-between mw6 center" ]
                     [ surveyLink
                     , parkinsonsEmailLink
@@ -91,7 +91,7 @@ renderEmailForm : Model -> Html Msg
 renderEmailForm model =
     let
         prompts =
-            { new = "Want a copy? we can send it to you via email"
+            { new = "Would you like us to email you a copy?"
             , returning = "If you'd like to have these resent to your email, click Submit"
             }
     in
@@ -117,35 +117,31 @@ emailForm model prompt email =
     div [ class "flex flex-column items-center" ]
         [ h3 [] [ text prompt ]
         , input [ onInput SetEmail, class <| classes [ Styles.inputField, "mw5" ], value email ] []
-        , div [] [ handleSubmitEmail model ]
         , privacyStatement model
+        , div [] [ handleSubmitEmail model ]
         ]
 
 
 privacyStatement : Model -> Html Msg
 privacyStatement model =
-    case model.emailConsent of
-        False ->
-            h3 []
-                [ input
-                    [ type_ "checkbox"
-                    , onCheck SetEmailConsent
-                    , checked model.emailConsent
-                    ]
-                    []
-                , text "We’d love to hear your feedback! If you’re happy to be contacted by Parkinson’s UK about"
-                , i [ class "dark-blue" ] [ text " Parkinson's and Me" ]
-                , text " please tick this box. Don’t worry, your details won’t be used for anything else. To find out more, read our "
-                , a
-                    [ href "https://www.parkinsons.org.uk/content/parkinsons-uk-website-terms-and-conditions"
-                    , target "_blank"
-                    , class "no-underline dark-blue"
-                    ]
-                    [ text "privacy statement" ]
-                ]
-
-        True ->
-            h3 [] [ text "Thanks for taking part, we'll get in touch later to ask you what you think of the app" ]
+    p [ class "f6" ]
+        [ input
+            [ type_ "checkbox"
+            , onCheck SetEmailConsent
+            , checked model.emailConsent
+            , class "mr1"
+            ]
+            []
+        , text "We would love to get in touch with you again and hear what you thought about "
+        , i [ class "dark-blue" ] [ text "Parkinson's and Me" ]
+        , text ". If you're happy to be contacted by Parkinson's UK in the future, plase tick this box. To find out more, read our "
+        , a
+            [ href "https://www.parkinsons.org.uk/content/parkinsons-uk-website-terms-and-conditions"
+            , target "_blank"
+            , class "no-underline dark-blue"
+            ]
+            [ text "privacy statement." ]
+        ]
 
 
 handleSubmitEmail : Model -> Html Msg
@@ -165,7 +161,7 @@ emailSubmitted : Model -> Html Msg
 emailSubmitted model =
     case model.email of
         Submitted email ->
-            h3 [] [ text <| "Your results have been sent to " ++ email ]
+            h3 [ class "dark-blue f3" ] [ text <| "Your list of services has been sent to " ++ email ]
 
         _ ->
             emptyDiv
@@ -186,7 +182,7 @@ surveyLink =
 parkinsonsEmailLink : Html Msg
 parkinsonsEmailLink =
     a
-        [ href "mailto:cedwards@parkinsons.org.uk?subject=testing parkinsons and me app" ]
+        [ href "mailto:web@parkinsons.org.uk?subject=Here's some feedback on Parkinson's and Me" ]
         [ button
             [ class Styles.buttonClearHover ]
             [ text "Drop us an email" ]

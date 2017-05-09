@@ -13,7 +13,7 @@ postcode : Model -> Html Msg
 postcode model =
     div []
         [ speechHeader "What's your postcode?"
-        , h3 [] [ text "Don't worry, we won't use your information for anything except for finding the right support near you." ]
+        , h3 [] [ text "Don't worry, we'll only use your postcode for finding helpful local support." ]
         , div [ class "w-100 mw4 center" ] [ postcodeField model ]
         , handleNext model
         ]
