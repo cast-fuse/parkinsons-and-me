@@ -109,7 +109,7 @@ defmodule ParkinsonsAndMe.ServicesData do
   def newly_diagnosed do
     %{
       title: "Tailored newly diagnosed information",
-      body: "Our newly diagnosed web pages have the answers to the common questions that you might be asking too. There’s also advice on how to talk to people about Parkinson’s, real life stories and some helpful questions you might want to ask your doctor or nurse.",
+      body: "<p>Our newly diagnosed web pages have the answers to the common questions that you might be asking too. There’s also advice on how to talk to people about Parkinson’s, real life stories and some helpful questions you might want to ask your doctor or nurse.</p>",
       cta: "Browse our newly diagnosed web pages",
       url: "https://www.parkinsons.org.uk/information-and-support/newly-diagnosed-parkinsons"
     }
