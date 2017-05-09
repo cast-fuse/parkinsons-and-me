@@ -81,6 +81,7 @@ type alias ServiceData =
     , cta : String
     , url : String
     , earlyOnset : Bool
+    , locationBasedUrl : Bool
     }
 
 
@@ -141,7 +142,11 @@ type alias QuoteServiceWeightings =
 
 type EntryPoint
     = Start
-    | Finish String
+    | Finish AnswerUuid
+
+
+type alias AnswerUuid =
+    String
 
 
 type Msg

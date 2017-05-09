@@ -47,7 +47,8 @@ defmodule ParkinsonsAndMe.ServicesData do
       title: "Get in touch with a Parkinson’s nurse",
       body: "<p>Parkinson's nurses have specialist knowledge about Parkinson’s. They provide expert care to help you manage your medication and support you in coming to terms with your diagnosis. They can also make a referral for you to see another health professional if you need to, such as a physiotherapist.</p><p>To see a Parkinson’s nurse you will need a referral, <a href='https://www.parkinsons.org.uk/information-and-support/parkinsons-nurses' target='_blank'>here’s a bit more information one how to get one.</a></p>",
       cta: "Find your nearest Parkinson’s nurse",
-      url: "https://www.parkinsons.org.uk/local-support?op=Search&distance%5Bpostal_code%5D="
+      url: "https://www.parkinsons.org.uk/local-support?op=Search&distance%5Bpostal_code%5D=",
+      location_based_url: true
     }
   end
 
@@ -56,7 +57,8 @@ defmodule ParkinsonsAndMe.ServicesData do
       title: "Meet up with your local group",
       body: "<p>Going along to your local group gives you the chance to share experiences and discuss any worries with other people affected by Parkinson’s. Groups offer information, friendship and support, and many hold social activities.</p>",
       cta: "Find a local group in your area",
-      url: "https://www.parkinsons.org.uk/local-support?op=Search&distance%5Bpostal_code%5D="
+      url: "https://www.parkinsons.org.uk/local-support?op=Search&distance%5Bpostal_code%5D=",
+      location_based_url: true
     }
   end
 
@@ -74,7 +76,8 @@ defmodule ParkinsonsAndMe.ServicesData do
       title: "Meet your Parkinson’s local adviser",
       body: "<p>Our UK-wide network of friendly local advisers have a broad range of expertise about Parkinson's. You can meet up face-to-face or chat over the phone. Local advisers can help you navigate benefits and grants, give you tips on how to deal with the day-to-day impact of Parkinson’s, or just be there to offer some emotional support.</p>",
       cta: "Find out how to get in touch with your local adviser",
-      url: "https://www.parkinsons.org.uk/local-support?op=Search&distance%5Bpostal_code%5D="
+      url: "https://www.parkinsons.org.uk/local-support?op=Search&distance%5Bpostal_code%5D=",
+      location_based_url: true
     }
   end
 

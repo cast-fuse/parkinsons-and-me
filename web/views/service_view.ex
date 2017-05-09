@@ -7,7 +7,8 @@ defmodule ParkinsonsAndMe.ServiceView do
       body: service.body,
       cta: service.cta,
       url: service.url,
-      early_onset: service.early_onset}
+      early_onset: service.early_onset,
+      location_based_url: service.location_based_url}
   end
 
   def order_services(services) do
