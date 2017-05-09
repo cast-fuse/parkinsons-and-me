@@ -18,6 +18,7 @@ dummyServiceData =
     , cta = ""
     , url = ""
     , earlyOnset = False
+    , locationBasedUrl = False
     }
 
 
