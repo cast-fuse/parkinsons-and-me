@@ -5,7 +5,7 @@
 
   <div class="pv2">
     <h1 class="ma0">Hi <%= String.capitalize @name %> - here's your personalised list of Parkinson's services</h1>
-    <p>Remember you can revisit your recommended page of information and support at any time. Or share the link with your family and friends.</p>
+    <p>Remember you can revisit your page of recommendations at any time. Or share the link with your family and friends.</p>
     <h2 class="ma0 word-wrap">
       <a href="<%= results_url %>" class="green-blue no-underline"><%= results_url %></a>
     </h2>
@@ -29,10 +29,10 @@
   <div class="pv2">
     <h2 class="ma0">Psst... one more thing...</h2>
     <p>Thank you for testing <i>Parkinson's and Me</i>. You've caught it hot off the press - it's not quite live yet and we're still making improvements. We'd love to know what you thought and if you have any suggestions on how we could make it better.</p>
-    <p>Can you spare ten minutes to share your feedback?</p>
+    <p>Can you spare two minutes to share your feedback?</p>
     <div class="flex justify-center">
       <a href="#", class="<%= button_style %>">Fill out this quick survey</a>
-      <a href="web@parkinsons.org.uk", class="<%= button_style %>">Drop us an email</a>
+      <a href="mailto:web@parkinsons.org.uk?subject=Here's some feedback on Parkinson's and Me", class="<%= button_style %>">Drop us an email</a>
     </div>
   </div>
 

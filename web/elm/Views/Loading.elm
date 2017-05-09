@@ -9,7 +9,7 @@ import Model exposing (..)
 
 loading : Html Msg
 loading =
-    div [ class "relative z-9999 top--1" ]
+    div [ class "relative z-9999 top--2" ]
         [ div [ class "mw5 center" ] [ quoteBubble "We won't be long..." "ph5-ns pv4-ns" Green ]
         , div [ class "mt3" ] [ h3 [] [ text "We’re just pulling together your own personalised page of recommended information and support services." ] ]
         ]

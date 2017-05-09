@@ -13,7 +13,8 @@ defmodule ParkinsonsAndMe.Email do
 
   def base_email do
     new_email()
-    |> from("andrew@wearecast.org.uk")
+    |> from("Parkinson's and Me <web@parkinsons.org.uk>")
+    |> put_header("Reply-To", "web@parkinsons.org.uk")
     |> put_html_layout({ParkinsonsAndMe.LayoutView, "email.html"})
   end
 end
