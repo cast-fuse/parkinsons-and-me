@@ -17,20 +17,20 @@ defmodule ParkinsonsAndMe.ServiceControllerTest do
 
   test "renders a list of all existing services", %{conn: conn} do
     conn = get conn, service_path(conn, :index)
-    assert html_response(conn, 200) =~ "Peer Support"
-    assert html_response(conn, 200) =~ "Groups"
+    assert html_response(conn, 200) =~ "Join us on Facebook"
+    assert html_response(conn, 200) =~ "Call our confidential helpline"
   end
 
   test "can see a form to edit an existing service", %{conn: conn} do
-    service = get_service("Forum")
+    service = get_service("Join us on Facebook")
     conn = get conn, service_path(conn, :edit, service.id)
-    assert html_response(conn, 200) =~ "Forum"
+    assert html_response(conn, 200) =~ "Join us on Facebook"
     assert html_response(conn, 200) =~ "</textarea>"
     assert html_response(conn, 200) =~ "</form>"
   end
 
   test "can edit an existing service", %{conn: conn} do
-    service = get_service("Forum")
+    service = get_service("Join us on Facebook")
     changes = %{"title" => "Another Service"}
     index_path = service_path(conn, :index)
 
