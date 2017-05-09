@@ -196,7 +196,7 @@ emailSubmitted model =
 surveyLink : Html Msg
 surveyLink =
     a
-        [ href "https://docs.google.com/forms/d/1rrPNT0GtthACdNwFUTbW_QSIb37MXd94SpPcNurK7Rs/viewform?edit_requested=true"
+        [ href "https://goo.gl/forms/Ld8X0fSkdMF5wvlo2"
         , target "_blank"
         ]
         [ button
