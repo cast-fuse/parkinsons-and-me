@@ -38,4 +38,5 @@ nullServiceData =
     , cta = ""
     , url = ""
     , earlyOnset = False
+    , locationBasedUrl = False
     }

@@ -15,7 +15,7 @@
     <%= for x <- @top3services do %>
       <div class="ma2 pa2">
         <h2 class="ma0"> <%= x.title %> </h2>
-        <p> <%= x.body %> </p>
+        <p> <%= raw(x.body) %> </p>
         <a
         href="<%= x.cta %>",
         class="<%= button_style %>"

@@ -1,8 +1,8 @@
 module Views.Services exposing (..)
 
 import Components.QuoteBubble exposing (cycleQuoteBackground, quoteBubble)
-import Components.Utils exposing (emptyDiv)
-import Data.UserInfo exposing (isValidEmail)
+import Components.Utils exposing (emptyDiv, outboundLink)
+import Data.UserInfo exposing (isValidEmail, postCodeToString)
 import Helpers.Styles as Styles exposing (classes)
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -11,6 +11,7 @@ import HtmlParser
 import HtmlParser.Util
 import Model exposing (..)
 import Model.Email exposing (..)
+import Model.Postcode exposing (Postcode)
 
 
 services : Model -> Html Msg
@@ -24,7 +25,7 @@ services model =
             , h3 [] [ text "Based on what you've told us, here's the information and support that we think's right for you." ]
             , h3 [] [ text "Shall we email you a copy?" ]
             , a [ href <| "#" ++ emailAnchor ] [ button [ class Styles.buttonClearHover ] [ text "Yes Please" ] ]
-            , div [ class "pb3" ] (List.indexedMap renderService model.top3Services)
+            , div [ class "pb3" ] (List.indexedMap (renderService model.postcode) model.top3Services)
             , div [ class "mw7 center", id emailAnchor ]
                 [ renderEmailForm model
                 , emailSubmitted model
@@ -42,13 +43,33 @@ services model =
             ]
 
 
-renderService : Int -> ServiceData -> Html Msg
-renderService i s =
-    div [ class "mw7 pa4 center" ]
-        [ div [ class "mw5 center" ] [ quoteBubble s.title "ph5-ns" (cycleQuoteBackground i) ]
-        , div [] <| parseServiceBody s.body
-        , a [ href s.url, target "_blank" ] [ button [ class Styles.buttonClearHover ] [ text s.cta ] ]
-        ]
+renderService : Postcode -> Int -> ServiceData -> Html Msg
+renderService postcode i service =
+    let
+        url =
+            handleLocationBasedUrl postcode service
+
+        ctaButton =
+            button [ class Styles.buttonClearHover ] [ text service.cta ]
+
+        cta =
+            outboundLink url ctaButton
+    in
+        div [ class "mw7 pa4 center" ]
+            [ div [ class "mw5 center" ] [ quoteBubble service.title "ph5-ns" (cycleQuoteBackground i) ]
+            , div [] <| parseServiceBody service.body
+            , cta
+            ]
+
+
+handleLocationBasedUrl : Postcode -> ServiceData -> String
+handleLocationBasedUrl postcode serviceData =
+    case serviceData.locationBasedUrl of
+        True ->
+            serviceData.url ++ (postCodeToString postcode)
+
+        False ->
+            serviceData.url
 
 
 parseServiceBody : String -> List (Html Msg)
@@ -124,24 +145,29 @@ emailForm model prompt email =
 
 privacyStatement : Model -> Html Msg
 privacyStatement model =
-    p [ class "f6" ]
-        [ input
-            [ type_ "checkbox"
-            , onCheck SetEmailConsent
-            , checked model.emailConsent
-            , class "mr1"
-            ]
-            []
-        , text "We would love to get in touch with you again and hear what you thought about "
-        , span [ class "dark-blue" ] [ text "Parkinson's and Me" ]
-        , text ". If you're happy to be contacted by Parkinson's UK in the future, plase tick this box. To find out more, read our "
-        , a
-            [ href "https://www.parkinsons.org.uk/content/parkinsons-uk-website-terms-and-conditions"
-            , target "_blank"
-            , class "no-underline dark-blue"
-            ]
-            [ text "privacy statement." ]
-        ]
+    case model.emailConsent of
+        False ->
+            p [ class "f6" ]
+                [ input
+                    [ type_ "checkbox"
+                    , onCheck SetEmailConsent
+                    , checked model.emailConsent
+                    , class "mr1"
+                    ]
+                    []
+                , text "We would love to get in touch with you again and hear what you thought about "
+                , i [ class "dark-blue" ] [ text "Parkinson's and Me" ]
+                , text ". If you're happy to be contacted by Parkinson's UK in the future, plase tick this box. To find out more, read our "
+                , a
+                    [ href "https://www.parkinsons.org.uk/content/parkinsons-uk-website-terms-and-conditions"
+                    , target "_blank"
+                    , class "no-underline dark-blue"
+                    ]
+                    [ text "privacy statement." ]
+                ]
+
+        True ->
+            emptyDiv
 
 
 handleSubmitEmail : Model -> Html Msg
@@ -170,7 +196,7 @@ emailSubmitted model =
 surveyLink : Html Msg
 surveyLink =
     a
-        [ href "https://docs.google.com/forms/d/1rrPNT0GtthACdNwFUTbW_QSIb37MXd94SpPcNurK7Rs/viewform?edit_requested=true"
+        [ href "https://goo.gl/forms/Ld8X0fSkdMF5wvlo2"
         , target "_blank"
         ]
         [ button

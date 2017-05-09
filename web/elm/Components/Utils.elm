@@ -11,6 +11,6 @@ emptyDiv =
     div [] []
 
 
-outboundLink : String -> String -> Html Msg
-outboundLink body url =
-    a [ href url, onClick <| TrackOutboundLink url ] [ text body ]
+outboundLink : String -> Html Msg -> Html Msg
+outboundLink url body =
+    a [ href url, onClick <| TrackOutboundLink url ] [ body ]
