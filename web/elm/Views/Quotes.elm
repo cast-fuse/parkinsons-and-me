@@ -26,12 +26,12 @@ answerButtons =
     in
         div [ class "flex justify-center flex-row-ns flex-column ma3" ]
             [ button
-                [ class <| buttonClasses
+                [ class buttonClasses
                 , onClick <| SubmitAnswer Yes
                 ]
                 [ text "Yes, this sounds like me" ]
             , button
-                [ class <| buttonClasses
+                [ class buttonClasses
                 , onClick <| SubmitAnswer No
                 ]
                 [ text "No, this doesn't sound like me" ]
