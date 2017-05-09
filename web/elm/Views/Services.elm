@@ -1,7 +1,7 @@
 module Views.Services exposing (..)
 
 import Components.QuoteBubble exposing (cycleQuoteBackground, quoteBubble)
-import Components.Utils exposing (emptyDiv)
+import Components.Utils exposing (emptyDiv, outboundLink)
 import Data.UserInfo exposing (isValidEmail)
 import Helpers.Styles as Styles exposing (classes)
 import Html exposing (..)
@@ -43,12 +43,17 @@ services model =
 
 
 renderService : Int -> ServiceData -> Html Msg
-renderService i s =
-    div [ class "mw7 pa4 center" ]
-        [ div [ class "mw5 center" ] [ quoteBubble s.title "ph5-ns" (cycleQuoteBackground i) ]
-        , div [] <| parseServiceBody s.body
-        , a [ href s.url, target "_blank" ] [ button [ class Styles.buttonClearHover ] [ text s.cta ] ]
-        ]
+renderService i service =
+    let
+        cta =
+            button [ class Styles.buttonClearHover ] [ text service.cta ]
+                |> outboundLink service.url
+    in
+        div [ class "mw7 pa4 center" ]
+            [ div [ class "mw5 center" ] [ quoteBubble service.title "ph5-ns" (cycleQuoteBackground i) ]
+            , div [] <| parseServiceBody service.body
+            , cta
+            ]
 
 
 parseServiceBody : String -> List (Html Msg)
@@ -124,24 +129,29 @@ emailForm model prompt email =
 
 privacyStatement : Model -> Html Msg
 privacyStatement model =
-    p [ class "f6" ]
-        [ input
-            [ type_ "checkbox"
-            , onCheck SetEmailConsent
-            , checked model.emailConsent
-            , class "mr1"
-            ]
-            []
-        , text "We would love to get in touch with you again and hear what you thought about "
-        , i [ class "dark-blue" ] [ text "Parkinson's and Me" ]
-        , text ". If you're happy to be contacted by Parkinson's UK in the future, plase tick this box. To find out more, read our "
-        , a
-            [ href "https://www.parkinsons.org.uk/content/parkinsons-uk-website-terms-and-conditions"
-            , target "_blank"
-            , class "no-underline dark-blue"
-            ]
-            [ text "privacy statement." ]
-        ]
+    case model.emailConsent of
+        False ->
+            p [ class "f6" ]
+                [ input
+                    [ type_ "checkbox"
+                    , onCheck SetEmailConsent
+                    , checked model.emailConsent
+                    , class "mr1"
+                    ]
+                    []
+                , text "We would love to get in touch with you again and hear what you thought about "
+                , i [ class "dark-blue" ] [ text "Parkinson's and Me" ]
+                , text ". If you're happy to be contacted by Parkinson's UK in the future, plase tick this box. To find out more, read our "
+                , a
+                    [ href "https://www.parkinsons.org.uk/content/parkinsons-uk-website-terms-and-conditions"
+                    , target "_blank"
+                    , class "no-underline dark-blue"
+                    ]
+                    [ text "privacy statement." ]
+                ]
+
+        True ->
+            emptyDiv
 
 
 handleSubmitEmail : Model -> Html Msg
