@@ -52,6 +52,15 @@ after the dependencies are installed and database setup, run:
 
 and visit `localhost:4000` to see the app running
 
+### Deployment
+
+The app is currently hosted on `heroku`, with the following versions:
+
++ `staging` (`https://parkinsons-and-me-staging.herokuapp.com`)
++ `production` (`https://parkinsons-and-me.herokuapp.com`)
+
+Heroku is set up to automatically deploy from `staging` and `master` branches (to staging and production versions respectively).
+
 ### Environment Variables
 
 to add the env vars to the app, make a `.env` in the root of your app and add this (with your own vars in place)
@@ -66,6 +75,15 @@ and link the .env file to the phoenix app by running in your terminal:
 ```sh
 source .env
 ```
+
+### Tests
+
+Tests for the frontend and backend are kept in the `test` directory. To run the tests:
+
++ for `elm`: `npm test`
++ for `phoenix`: `mix test`
+
+Before pull requests can be merged into `staging` or `master` the tests run and must pass on `Circle CI`
 
 ### Circle CI Setup
 
