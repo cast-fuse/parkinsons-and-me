@@ -1,0 +1,13 @@
+<% link_style = "no-underline pa3 dib dark-blue hover-green" %>
+<div class="tr mt2">
+  <%= link "home", to: admin_path(@conn, :index), class: "#{link_style}" %>
+  <%= link "quotes", to: quote_path(@conn, :index), class: "#{link_style}" %>
+  <%= link "services", to: service_path(@conn, :index), class: "#{link_style}" %>
+  <%= link "weights", to: weight_path(@conn, :index), class: "#{link_style}" %>
+  <%= link "analytics", to: analytics_path(@conn, :index), class: "#{link_style}" %>
+  <%= if @admin do %>
+    <div class="dib">
+      <%= link "logout", to: session_path(@conn, :delete, @admin), method: "delete", class: "#{link_style}" %>
+    </div>
+  <% end %>
+</div>
