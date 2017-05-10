@@ -23,7 +23,7 @@ buttonDisabled =
 
 inputField : String
 inputField =
-    "f6 b--green-blue ba h2 outline-0 ph3 pv1"
+    "f5 b--green-blue ba h2 outline-0 ph3 pv1"
 
 
 classes : List String -> String
