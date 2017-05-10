@@ -1,1 +1,22 @@
-Your results
+Hi <%= String.capitalize @name %> - here's your personalised list of Parkinson's services
+
+Remember you can revisit your page of recommendations at any time. Or share the link with your family and friends.
+<% results_url = "https://parkinsons-and-me.herokuapp.com/#my-results/#{@uuid}" %>
+<%= results_url %>
+
+<%= for x <- @top3services do %>
+
+  <%= x.title %>
+
+  <%= x.body |> strip_iframe %>
+
+<% end %>
+
+We're the Parkinson's charity that drives better care, treatments and quality of life. Together we can bring forward the day when no one fears Parkinson's. Parksinson's UK is the operating name of the Parkinson's Disease Society of the United Kingdom, a registered charity in England, Wales (258197) and in Scotalnd (SC037544).
+Copyright © 2017 Parkinson's UK, All rights reserved.
+
+Our mailing address is:
+Parkinson's UK
+215 Vauxhall Bridge Road
+London, England SW1V 1EJ
+United Kingdom

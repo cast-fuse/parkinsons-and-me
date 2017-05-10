@@ -15,6 +15,6 @@ defmodule ParkinsonsAndMe.Email do
     new_email()
     |> from("Parkinson's and Me <web@parkinsons.org.uk>")
     |> put_header("Reply-To", "web@parkinsons.org.uk")
-    |> put_html_layout({ParkinsonsAndMe.LayoutView, "email.html"})
+    |> put_layout({ParkinsonsAndMe.LayoutView, :email})
   end
 end

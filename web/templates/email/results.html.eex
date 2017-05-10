@@ -17,7 +17,7 @@
         <h2 class="ma0"> <%= x.title %> </h2>
         <div> <%= x.body |> strip_iframe |> raw %> </div>
         <a
-        href="<%= x.cta %>",
+        href="<%= x.url %>"
         class="<%= button_style %>"
         >
           <%= x.cta %>
@@ -31,13 +31,13 @@
     <p>Thank you for testing <i>Parkinson's and Me</i>. You've caught it hot off the press - it's not quite live yet and we're still making improvements. We'd love to know what you thought and if you have any suggestions on how we could make it better.</p>
     <p>Can you spare two minutes to share your feedback?</p>
     <div class="flex justify-center">
-      <a href="https://goo.gl/forms/Ld8X0fSkdMF5wvlo2", class="<%= button_style %>">Fill out this quick survey</a>
-      <a href="mailto:web@parkinsons.org.uk?subject=Here's some feedback on Parkinson's and Me", class="<%= button_style %>">Drop us an email</a>
+      <a href="https://goo.gl/forms/Ld8X0fSkdMF5wvlo2" class="<%= button_style %>">Fill out this quick survey</a>
+      <a href="mailto:web@parkinsons.org.uk?subject=Here's some feedback on Parkinson's and Me" class="<%= button_style %>">Drop us an email</a>
     </div>
   </div>
 
   <div class="pv2">
-    <p>We're the Parkinson's charity that drives better care, treatments and quality of life. Together we can bring forward the day when no one fears Parkinson's. Parksinson's UK is the operating name of the Parkinson's Disease Society of the Uniteed Kingdom, a registered charity in England, Wales (258197) and in Scotalnd (SC037544).</p>
+    <p>We're the Parkinson's charity that drives better care, treatments and quality of life. Together we can bring forward the day when no one fears Parkinson's. Parksinson's UK is the operating name of the Parkinson's Disease Society of the United Kingdom, a registered charity in England, Wales (258197) and in Scotalnd (SC037544).</p>
     <p><em>Copyright © 2017 Parkinson's UK, All rights reserved.</em></p>
     <div>
       <p><b>Our mailing address is :</b></p>
