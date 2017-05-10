@@ -1,23 +1,23 @@
 <h1 class="tc">Admin Dashboard</h1>
 
-<div class="center flex justify-center flex-wrap">
-  <%= link to: quote_path(@conn, :index), class: "w-30 no-underline blue mr3" do %>
-    <div class="w-100 dib center mb4 tc bg-light-blue pa4">
+<div class="center flex justify-center flex-wrap mw8">
+  <%= link to: quote_path(@conn, :index), class: "w-50 no-underline dark-blue dib pa2 dim border-box" do %>
+    <div class="w-100 dib center tc bg-light-blue pa4">
         <h3>Quotes</h3>
     </div>
   <% end %>
-  <%= link to: service_path(@conn, :index), class: "w-30 no-underline green mr3" do %>
-    <div class="w-100 dib center mb4 tc bg-light-green pa4">
+  <%= link to: service_path(@conn, :index), class: "w-50 no-underline dark-green dib pa2 dim border-box" do %>
+    <div class="w-100 dib center tc bg-light-green pa4">
         <h3>Services</h3>
     </div>
   <% end %>
-  <%= link to: weight_path(@conn, :index), class: "w-30 no-underline orange" do %>
-    <div class="w-100 dib center mb4 tc bg-yellow pa4">
+  <%= link to: weight_path(@conn, :index), class: "w-50 no-underline purple dib pa2 dim border-box" do %>
+    <div class="w-100 dib center tc bg-yellow pa4">
         <h3>Weights</h3>
     </div>
   <% end %>
-  <%= link to: analytics_path(@conn, :index), class: "w-30 no-underline white" do %>
-    <div class="w-100 dib center mb4 tc bg-orange pa4">
+  <%= link to: analytics_path(@conn, :index), class: "w-50 no-underline dark-red dib pa2 dim border-box" do %>
+    <div class="w-100 dib center tc bg-gold pa4">
         <h3>Analytics</h3>
     </div>
   <% end %>

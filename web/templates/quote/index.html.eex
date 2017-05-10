@@ -1,5 +1,3 @@
-<%= render ParkinsonsAndMe.AdminView, "back.html", conn: @conn %>
-
 <h1 class="tc">Quotes</h1>
 <ul>
   <%= for q <- @quotes do %>

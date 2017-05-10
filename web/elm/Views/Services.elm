@@ -145,29 +145,24 @@ emailForm model prompt email =
 
 privacyStatement : Model -> Html Msg
 privacyStatement model =
-    case model.emailConsent of
-        False ->
-            p [ class "f6" ]
-                [ input
-                    [ type_ "checkbox"
-                    , onCheck SetEmailConsent
-                    , checked model.emailConsent
-                    , class "mr1"
-                    ]
-                    []
-                , text "We would love to get in touch with you again and hear what you thought about "
-                , i [ class "dark-blue" ] [ text "Parkinson's and Me" ]
-                , text ". If you're happy to be contacted by Parkinson's UK in the future, plase tick this box. To find out more, read our "
-                , a
-                    [ href "https://www.parkinsons.org.uk/content/parkinsons-uk-website-terms-and-conditions"
-                    , target "_blank"
-                    , class "no-underline dark-blue"
-                    ]
-                    [ text "privacy statement." ]
-                ]
-
-        True ->
-            emptyDiv
+    p [ class "f6" ]
+        [ input
+            [ type_ "checkbox"
+            , onCheck SetEmailConsent
+            , checked model.emailConsent
+            , class "mr1"
+            ]
+            []
+        , text "We would love to get in touch with you again and hear what you thought about "
+        , i [ class "dark-blue" ] [ text "Parkinson's and Me" ]
+        , text ". If you're happy to be contacted by Parkinson's UK in the future, please tick this box. To find out more, read our "
+        , a
+            [ href "https://www.parkinsons.org.uk/content/parkinsons-uk-website-terms-and-conditions"
+            , target "_blank"
+            , class "no-underline dark-blue"
+            ]
+            [ text "privacy statement." ]
+        ]
 
 
 handleSubmitEmail : Model -> Html Msg
@@ -178,9 +173,9 @@ handleSubmitEmail model =
             , autocomplete False
             , class <| classes [ Styles.buttonClearHover, "mt3" ]
             ]
-            [ text "Submit" ]
+            [ text "Email my recommendations" ]
     else
-        button [ class <| classes [ Styles.buttonDisabled, "mt3" ] ] [ text "Submit" ]
+        button [ class <| classes [ Styles.buttonDisabled, "mt3" ] ] [ text "Email my recommendations" ]
 
 
 emailSubmitted : Model -> Html Msg

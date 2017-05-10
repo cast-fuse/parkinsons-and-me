@@ -13,16 +13,14 @@
   </head>
 
   <body>
-    <p class="blue pv3 ph4 ma0 right-0 top-0 absolute" role="alert"><%= get_flash(@conn, :info) %></p>
-    <p class="red pv3 ph4 ma0 right-0 top-0 absolute" role="alert"><%= get_flash(@conn, :error) %></p>
+    <p class="blue pv3 ph4 ma0 left-0 top-0 absolute" role="alert"><%= get_flash(@conn, :info) %></p>
+    <p class="red pv3 ph4 ma0 left-0 top-0 absolute" role="alert"><%= get_flash(@conn, :error) %></p>
 
       <main class="ma3">
-        <%= if @admin do %>
-          <%= link to: session_path(@conn, :delete, @admin), method: "delete", class: "no-underline" do %>
-            <p class="blue ma0 mh3">logout</p>
-          <% end %>
-        <% end %>
-        <%= render @view_module, @view_template, assigns %>
+        <div class="mw9 center">
+          <%= render ParkinsonsAndMe.AdminView, "menu.html", conn: @conn, admin: @admin %>
+          <%= render @view_module, @view_template, assigns %>
+        </div>
       </main>
 
   </body>
