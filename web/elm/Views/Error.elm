@@ -19,7 +19,7 @@ addFriendlyErrorText : String -> Html Msg
 addFriendlyErrorText error =
     div [ class "red h-50 w-100 absolute flex flex-column justify-end" ]
         [ p [] [ text <| "Whoops, " ++ error ]
-        , p [] [ text "Try refreshing the page and if it's still not loading let us know:" ]
+        , p [] [ text "Try refreshing the page and if it's still not working let us know:" ]
         , a [ href <| "mailto:" ++ contactEmail ] [ text contactEmail ]
         ]
 

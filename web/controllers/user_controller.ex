@@ -70,7 +70,7 @@ defmodule ParkinsonsAndMe.UserController do
     params = %{to: email, top3services: get_top3services(service_ids), uuid: uuid, name: name}
     params
     |> Email.welcome_email()
-    |> Mailer.deliver_later()
+    |> Mailer.deliver_now()
   end
 
   def get_top3services(top3_ids) do
