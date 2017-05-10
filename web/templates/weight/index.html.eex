@@ -1,5 +1,3 @@
-<%= render ParkinsonsAndMe.AdminView, "back.html", conn: @conn %>
-
 <h1 class="tc mb5">Weights</h1>
 
 <%= for [h | _t] = weight <- group_by_quote(@weights) do %>
