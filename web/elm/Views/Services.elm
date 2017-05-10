@@ -21,7 +21,7 @@ services model =
             resultsLink model
     in
         div []
-            [ div [ class "mw6 center mv3" ] [ quoteBubble "Here's your personalised list of Parkinson's services" "pa5-ns" Blue ]
+            [ div [ class "mw6 center mv3" ] [ quoteBubble "Here's your personalised list of Parkinson's services" "handwriting-title pa5-ns f1" Blue ]
             , h3 [] [ text "Based on what you've told us, here's the information and support that we think's right for you." ]
             , h3 [] [ text "Shall we email you a copy?" ]
             , a [ href <| "#" ++ emailAnchor ] [ button [ class Styles.buttonClearHover ] [ text "Yes Please" ] ]
@@ -31,7 +31,7 @@ services model =
                 , emailSubmitted model
                 ]
             , renderResultsLink model
-            , div [ class "mw6 center mv3" ] [ quoteBubble "Psst...one more thing..." "" Green ]
+            , div [ class "mw6 center mv3" ] [ quoteBubble "Psst...one more thing..." "handwriting f2" Green ]
             , div [ class "mw7 center mv4" ]
                 [ h3 [] [ text "Thank you for testing ", span [ class "dark-blue" ] [ text "Parkinson's and Me" ], text ". You’ve caught it hot off the press – it’s not quite live yet and we’re still making improvements. We’d love to know what you thought and if you have any suggestions on how we could make it better." ]
                 , h3 [] [ text "Can you spare two minutes to share your feedback?" ]
@@ -56,7 +56,7 @@ renderService postcode i service =
             outboundLink url ctaButton
     in
         div [ class "mw7 pa4 center" ]
-            [ div [ class "mw5 center" ] [ quoteBubble service.title "ph5-ns" (cycleQuoteBackground i) ]
+            [ div [ class "mw5 center" ] [ quoteBubble service.title "ph5-ns handwriting f2" (cycleQuoteBackground i) ]
             , div [] <| parseServiceBody service.body
             , cta
             ]
@@ -83,8 +83,8 @@ renderResultsLink : Model -> Html Msg
 renderResultsLink model =
     case model.answerUuid of
         Just _ ->
-            div [ class "pb4" ]
-                [ h3 [] [ text "Come back and visit your page any time:" ]
+            div [ class "pv4" ]
+                [ h3 [ class "mv2" ] [ text "Come back and visit your page any time:" ]
                 , a [ class "no-underline dark-blue f3", href <| resultsUrl model, target "_blank" ] [ text <| resultsUrl model ]
                 ]
 
