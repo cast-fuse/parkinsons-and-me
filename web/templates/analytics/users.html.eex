@@ -10,6 +10,7 @@
       <th class="pv3 pr4 green">postcode</th>
       <th class="pv3 pr4 green">email</th>
       <th class="pv3 pr4 green">Can send follow up email?</th>
+      <th class="pv3 pr4 red">delete</th>
     </tr>
     <%= for u <- @users do %>
       <tr>
@@ -27,6 +28,9 @@
           <% end %>
         </td>
         <td class="pr4 pv2"><%= render_consent(u.email_consent) %></td>
+        <td class="red">
+          <%= link "X", to: user_path(@conn, :delete, u.id), method: "delete", class: "no-underline red" %>
+        </td>
       </tr>
     <% end %>
   </table>
