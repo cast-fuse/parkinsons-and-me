@@ -42,7 +42,7 @@ defmodule ParkinsonsAndMe.UserController do
 
     case Repo.update(changeset) do
       {:ok, user} ->
-        handle_email(%{email: email, service_ids: service_ids, uuid: uuid, name: user.name})
+        handle_email(%{user: user, service_ids: service_ids, uuid: uuid})
         render(conn, "show.json", user: user)
       {:error, changeset} ->
         conn
@@ -73,21 +73,22 @@ defmodule ParkinsonsAndMe.UserController do
     |> redirect(to: analytics_path(conn, :index, users: true))
   end
 
-  def handle_email(%{email: email, service_ids: service_ids, uuid: uuid, name: name}) do
-    params = %{to: email, top3services: get_top3services(service_ids), uuid: uuid, name: name}
+  def handle_email(%{user: user, service_ids: service_ids, uuid: uuid}) do
+    params = %{user: user, top3services: top3services(service_ids, user.postcode), uuid: uuid}
     params
     |> Email.welcome_email()
     |> Mailer.deliver_now()
   end
 
-  def get_top3services(top3_ids) do
+  def top3services(top3_ids, postcode) do
     top3_ids = format_ids top3_ids
 
     top3_ids
     |> Service.services_by_id
     |> Repo.all
     |> Enum.into(%{})
-    |> sort_top3services(top3_ids)
+    |> sort_top3_services(top3_ids)
+    |> alter_location_based_urls(postcode)
   end
 
   defp format_ids(ids) do
@@ -100,7 +101,19 @@ defmodule ParkinsonsAndMe.UserController do
     |> Enum.map(&String.to_integer/1)
   end
 
-  defp sort_top3services(top3_services, top3_ids) do
-    Enum.map(top3_ids, fn x -> top3_services[x] end)
+  defp sort_top3_services(top3services, top3_ids) do
+    Enum.map(top3_ids, fn x -> top3services[x] end)
+  end
+
+  defp alter_location_based_urls(top3services, postcode) do
+    Enum.map(top3services, &add_postcode(&1, postcode))
+  end
+
+  defp add_postcode(service, postcode) do
+    if service.location_based_url do
+      %{service | url: service.url <> postcode}
+    else
+      service
+    end
   end
 end
