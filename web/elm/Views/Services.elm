@@ -1,6 +1,7 @@
 module Views.Services exposing (..)
 
 import Components.QuoteBubble exposing (cycleQuoteBackground, quoteBubble)
+import Components.SpeechHeader exposing (speechHeader)
 import Components.Utils exposing (emptyDiv, outboundLink)
 import Data.UserInfo exposing (isValidEmail, postCodeToString)
 import Helpers.Styles as Styles exposing (classes)
@@ -21,7 +22,7 @@ services model =
             resultsLink model
     in
         div []
-            [ div [ class "mw6 center mv3" ] [ quoteBubble "Here's your personalised list of Parkinson's services" "handwriting-title pa5-ns f1" Blue ]
+            [ div [ class "mw6 center mv3" ] [ speechHeader "Here's your recommendations" ]
             , h3 [] [ text "Based on what you've told us, here's the information and support that we think's right for you." ]
             , h3 [] [ text "Shall we email you a copy?" ]
             , a [ href <| "#" ++ emailAnchor ] [ button [ class Styles.buttonClearHover ] [ text "Yes Please" ] ]
