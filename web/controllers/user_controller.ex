@@ -66,6 +66,13 @@ defmodule ParkinsonsAndMe.UserController do
     end
   end
 
+  def delete(conn, %{"id" => id}) do
+    user = Repo.get(User, id)
+    Repo.delete(user)
+    conn
+    |> redirect(to: analytics_path(conn, :index, users: true))
+  end
+
   def handle_email(%{user: user, service_ids: service_ids, uuid: uuid}) do
     params = %{user: user, top3services: top3services(service_ids, user.postcode), uuid: uuid}
     params
