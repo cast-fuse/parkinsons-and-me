@@ -154,7 +154,7 @@ privacyStatement model =
             ]
             []
         , text "We would love to get in touch with you again and hear what you thought about "
-        , i [ class "dark-blue" ] [ text "Parkinson's and Me" ]
+        , span [ class "dark-blue" ] [ text "Parkinson's and Me" ]
         , text ". If you're happy to be contacted by Parkinson's UK in the future, please tick this box. To find out more, read our "
         , a
             [ href "https://www.parkinsons.org.uk/content/parkinsons-uk-website-terms-and-conditions"
