@@ -1,4 +1,4 @@
-defmodule What3things.Repo.Migrations.AddWeights do
+defmodule ParkinsonsAndMe.Repo.Migrations.AddWeights do
   use Ecto.Migration
 
   def change do

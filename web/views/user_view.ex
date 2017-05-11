@@ -1,8 +1,8 @@
-defmodule What3things.UserView do
-  use What3things.Web, :view
+defmodule ParkinsonsAndMe.UserView do
+  use ParkinsonsAndMe.Web, :view
 
   def render("show.json", %{user: user}) do
-    %{data: render_one(user, What3things.UserView, "user.json")}
+    %{data: render_one(user, ParkinsonsAndMe.UserView, "user.json")}
   end
 
   def render("user.json", %{user: user}) do

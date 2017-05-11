@@ -22,7 +22,7 @@ nameField : Model -> Html Msg
 nameField model =
     div [ class "flex items-center pa4" ]
         [ input
-            [ class <| classes [ Styles.inputField, "tc" ]
+            [ class <| classes [ Styles.inputField, "tc w-100" ]
             , onInput SetName
             , autocomplete False
             , value <| Maybe.withDefault "" model.name

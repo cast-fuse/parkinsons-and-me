@@ -1,12 +1,12 @@
-defmodule What3things.AnswerView do
-  use What3things.Web, :view
+defmodule ParkinsonsAndMe.AnswerView do
+  use ParkinsonsAndMe.Web, :view
 
   def render("show_answer_set.json", answer_set) do
     %{data: render("answer_set.json", answer_set)}
   end
 
   def render("show_answers.json", %{answers: answers}) do
-    %{data: render_many(answers, What3things.AnswerView, "answer.json")}
+    %{data: render_many(answers, ParkinsonsAndMe.AnswerView, "answer.json")}
   end
 
   def render("answer_set.json", %{answer_set: answer_set}) do

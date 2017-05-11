@@ -1,11 +1,11 @@
 module Web.QuoteServiceWeightings exposing (..)
 
+import Data.QuoteServiceWeightings exposing (..)
+import Dict exposing (..)
+import Http exposing (..)
 import Json.Decode as Decode exposing (..)
 import Json.Decode.Pipeline exposing (..)
-import Http exposing (..)
 import Model exposing (..)
-import Dict exposing (..)
-import Data.QuoteServiceWeightings exposing (..)
 
 
 getQuoteServiceWeightings : Cmd Msg
@@ -43,14 +43,18 @@ servicesDecoder =
 
 rawServiceDecoder : Decoder ( ServiceId, ServiceData )
 rawServiceDecoder =
-    decode (\serviceId body title cta url earlyOnset shortcode -> ( serviceId, ServiceData title body cta url earlyOnset shortcode ))
-        |> required "id" int
-        |> required "body" string
-        |> required "title" string
-        |> required "cta" string
-        |> required "url" string
-        |> required "early_onset" bool
-        |> required "shortcode" string
+    let
+        service a b c d e f i =
+            ( i, ServiceData a b c d e f )
+    in
+        decode service
+            |> required "title" string
+            |> required "body" string
+            |> required "cta" string
+            |> required "url" string
+            |> required "early_onset" bool
+            |> required "location_based_url" bool
+            |> required "id" int
 
 
 weightingDecoder : Decoder Weightings

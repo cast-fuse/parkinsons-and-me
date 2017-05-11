@@ -7,7 +7,7 @@ import Navigation exposing (..)
 
 setResultsUrl : Model -> Cmd Msg
 setResultsUrl model =
-    model.uuid
+    model.answerUuid
         |> Maybe.map resultsUrl
         |> Maybe.withDefault Cmd.none
 
@@ -28,7 +28,7 @@ setEntryPoint location model =
                 { model
                     | entryPoint = Finish answerUUID
                     , view = Loading
-                    , uuid = Just answerUUID
+                    , answerUuid = Just answerUUID
                 }
 
             Nothing ->

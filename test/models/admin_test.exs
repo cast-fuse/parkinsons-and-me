@@ -1,6 +1,6 @@
-defmodule What3things.AdminTest do
-  use What3things.ModelCase
-  alias What3things.Admin
+defmodule ParkinsonsAndMe.AdminTest do
+  use ParkinsonsAndMe.ModelCase
+  alias ParkinsonsAndMe.Admin
 
   @valid_attrs %{user_name: "admin", password_hash: "1234567"}
   @invalid_attrs %{}

@@ -1,5 +1,5 @@
-defmodule What3things.ServiceView do
-  use What3things.Web, :view
+defmodule ParkinsonsAndMe.ServiceView do
+  use ParkinsonsAndMe.Web, :view
 
   def render("service.json", %{service: service}) do
     %{id: service.id,
@@ -8,7 +8,7 @@ defmodule What3things.ServiceView do
       cta: service.cta,
       url: service.url,
       early_onset: service.early_onset,
-      shortcode: service.shortcode}
+      location_based_url: service.location_based_url}
   end
 
   def order_services(services) do

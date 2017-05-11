@@ -1,6 +1,6 @@
-defmodule What3things.Router do
-  use What3things.Web, :router
-  alias What3things.{Auth, Repo}
+defmodule ParkinsonsAndMe.Router do
+  use ParkinsonsAndMe.Web, :router
+  alias ParkinsonsAndMe.{Auth, Repo}
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -11,7 +11,7 @@ defmodule What3things.Router do
   end
 
   pipeline :admin do
-    plug :put_layout, {What3things.LayoutView, :admin}
+    plug :put_layout, {ParkinsonsAndMe.LayoutView, :admin}
     plug Auth, repo: Repo
   end
 
@@ -19,13 +19,13 @@ defmodule What3things.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", What3things do
+  scope "/", ParkinsonsAndMe do
     pipe_through :browser # Use the default browser stack
 
     get "/", ElmController, :index
   end
 
-  scope "/admin", What3things do
+  scope "/admin", ParkinsonsAndMe do
     pipe_through :browser
     pipe_through :admin
 
@@ -39,7 +39,7 @@ defmodule What3things.Router do
   end
 
   # Other scopes may use custom stacks.
-  scope "/api", What3things do
+  scope "/api", ParkinsonsAndMe do
     pipe_through :api
 
     get "/quotes-services-weightings", ElmController, :quotes_services_weightings

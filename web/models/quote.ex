@@ -1,5 +1,5 @@
-defmodule What3things.Quote do
-  use What3things.Web, :model
+defmodule ParkinsonsAndMe.Quote do
+  use ParkinsonsAndMe.Web, :model
   import Ecto.Query
 
   schema "quotes" do

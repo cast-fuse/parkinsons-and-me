@@ -1,6 +1,6 @@
-defmodule What3things.User do
-  use What3things.Web, :model
-  alias What3things.{User, AnswerSet}
+defmodule ParkinsonsAndMe.User do
+  use ParkinsonsAndMe.Web, :model
+  alias ParkinsonsAndMe.{User, AnswerSet}
 
   schema "users" do
     field :name, :string
@@ -19,7 +19,7 @@ defmodule What3things.User do
   end
 
   def get_existing({ name, postcode, age_range }) do
-    from u in What3things.User,
+    from u in ParkinsonsAndMe.User,
     where: u.name == ^name and
            u.postcode == ^postcode and
            u.age_range == ^age_range

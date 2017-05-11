@@ -1,6 +1,6 @@
-defmodule What3things.ElmView do
-  use What3things.Web, :view
-  alias What3things.{QuoteView, ServiceView, WeightView, UserView, AnswerView}
+defmodule ParkinsonsAndMe.ElmView do
+  use ParkinsonsAndMe.Web, :view
+  alias ParkinsonsAndMe.{QuoteView, ServiceView, WeightView, UserView, AnswerView}
 
   def render("quotes_services_weightings.json", data) do
     %{data: quotes_services_weightings(data) }

@@ -1,10 +1,10 @@
-defmodule What3things.Weight do
-  use What3things.Web, :model
+defmodule ParkinsonsAndMe.Weight do
+  use ParkinsonsAndMe.Web, :model
 
   schema "weights" do
     field :weight, :float
-    belongs_to :quote, What3things.Quote
-    belongs_to :service, What3things.Service
+    belongs_to :quote, ParkinsonsAndMe.Quote
+    belongs_to :service, ParkinsonsAndMe.Service
   end
 
   @service_quote_error_message "Must be a unique service-quote pair"

@@ -1,5 +1,5 @@
-defmodule What3things.ErrorView do
- use What3things.Web, :view
+defmodule ParkinsonsAndMe.ErrorView do
+ use ParkinsonsAndMe.Web, :view
 
  def render("404.html", _assigns) do
    "Page not found"

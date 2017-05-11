@@ -1,7 +1,7 @@
-defmodule What3things.QuoteTest do
-  use What3things.ModelCase
+defmodule ParkinsonsAndMe.QuoteTest do
+  use ParkinsonsAndMe.ModelCase
 
-  alias What3things.Quote
+  alias ParkinsonsAndMe.Quote
 
   @valid_attrs %{body: "quote body"}
   @invalid_attrs %{}

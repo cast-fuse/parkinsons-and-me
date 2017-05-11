@@ -1,4 +1,4 @@
-defmodule What3things.Repo.Migrations.CreateAnswer do
+defmodule ParkinsonsAndMe.Repo.Migrations.CreateAnswer do
   use Ecto.Migration
 
   def change do

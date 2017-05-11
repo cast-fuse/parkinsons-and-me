@@ -1,10 +1,10 @@
-defmodule What3things.AnswerSet do
-  use What3things.Web, :model
-  alias What3things.{Answer, AnswerSet, Weight, Service}
+defmodule ParkinsonsAndMe.AnswerSet do
+  use ParkinsonsAndMe.Web, :model
+  alias ParkinsonsAndMe.{Answer, AnswerSet, Weight, Service}
 
   schema "answer_sets" do
     field :uuid, :string
-    belongs_to :user, What3things.User
+    belongs_to :user, ParkinsonsAndMe.User
 
     timestamps()
   end
@@ -15,7 +15,7 @@ defmodule What3things.AnswerSet do
     |> validate_required([:user_id, :uuid])
   end
 
-  def top3things(uuid) do
+  def top3services(uuid) do
     from w in Weight,
       join: a in Answer,
       join: as in AnswerSet,

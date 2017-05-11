@@ -1,4 +1,4 @@
-defmodule What3things.Repo.Migrations.AddAdmin do
+defmodule ParkinsonsAndMe.Repo.Migrations.AddAdmin do
   use Ecto.Migration
 
   def change do

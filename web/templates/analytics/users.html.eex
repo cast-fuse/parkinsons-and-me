@@ -1,5 +1,3 @@
-<%= link "back", to: analytics_path(@conn, :index), class: "absolute mt3 ml3" %>
-
 <h1 class="tc">Analytics</h1>
 
 <div class="mh3">

@@ -1,6 +1,6 @@
-defmodule What3things.AnalyticsController do
-  use What3things.Web, :controller
-  alias What3things.{User, Answer}
+defmodule ParkinsonsAndMe.AnalyticsController do
+  use ParkinsonsAndMe.Web, :controller
+  alias ParkinsonsAndMe.{User, Answer}
 
   def index(conn, %{"users" => "true"}) do
     users = Repo.all(User)

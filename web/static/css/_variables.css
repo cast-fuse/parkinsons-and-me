@@ -11,7 +11,7 @@
 
   --font-size-headline: 6rem;
   --font-size-subheadline: 5rem;
-  --font-size-1: 4rem;
+  --font-size-1: 3rem;
   --font-size-2: 2.25rem;
   --font-size-3: 1.5rem;
   --font-size-4: 1.25rem;
@@ -25,6 +25,10 @@
   --line-height-solid: 1;
   --line-height-title: 1.25;
   --line-height-copy: 1.5;
+
+  --measure: 30em;
+  --measure-narrow: 20em;
+  --measure-wide: 34em;
 
   --spacing-none: 0;
   --spacing-extra-small: .25rem;
@@ -124,7 +128,7 @@
   --red:  #ff4136;
   --light-red:  #ff725c;
   --orange: #fbc888;
-  --gold:  #ffb700;
+  --gold:  #ffb85f;
   --yellow:  #ffe85b;
   --light-yellow:  #fbf1a9;
   --purple:  #5e2ca5;

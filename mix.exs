@@ -1,8 +1,8 @@
-defmodule What3things.Mixfile do
+defmodule ParkinsonsAndMe.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :what3things,
+    [app: :parkinsons_and_me,
      version: "0.0.1",
      elixir: "~> 1.2",
      elixirc_paths: elixirc_paths(Mix.env),
@@ -17,7 +17,7 @@ defmodule What3things.Mixfile do
   #
   # Type `mix help compile.app` for more information.
   def application do
-    [mod: {What3things, []},
+    [mod: {ParkinsonsAndMe, []},
      applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
                     :phoenix_ecto, :postgrex, :comeonin, :bamboo]]
   end

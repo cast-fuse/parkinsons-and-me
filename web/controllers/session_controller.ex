@@ -1,12 +1,12 @@
-defmodule What3things.SessionController do
-  use What3things.Web, :controller
+defmodule ParkinsonsAndMe.SessionController do
+  use ParkinsonsAndMe.Web, :controller
 
   def new(conn, _) do
     render conn, "new.html"
   end
 
   def create(conn, %{"session" => %{"user_name" => user, "password" => pass}}) do
-    case What3things.Auth.login_by_username_and_pass(conn, user, pass, repo: Repo) do
+    case ParkinsonsAndMe.Auth.login_by_username_and_pass(conn, user, pass, repo: Repo) do
       {:ok, conn} ->
         conn
         |> put_flash(:info, "logged in")
@@ -20,7 +20,7 @@ defmodule What3things.SessionController do
 
   def delete(conn, _params) do
     conn
-    |> What3things.Auth.logout()
+    |> ParkinsonsAndMe.Auth.logout()
     |> redirect(to: session_path(conn, :new))
   end
 end

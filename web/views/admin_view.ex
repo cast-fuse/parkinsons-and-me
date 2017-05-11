@@ -1,3 +1,3 @@
-defmodule What3things.AdminView do
-  use What3things.Web, :view
+defmodule ParkinsonsAndMe.AdminView do
+  use ParkinsonsAndMe.Web, :view
 end

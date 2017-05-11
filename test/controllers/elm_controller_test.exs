@@ -1,6 +1,6 @@
-defmodule What3things.ElmControllerTest do
-  use What3things.ConnCase
-  alias What3things.{DatabaseSeeder, User, AnswerSet, Answer, Quote}
+defmodule ParkinsonsAndMe.ElmControllerTest do
+  use ParkinsonsAndMe.ConnCase
+  alias ParkinsonsAndMe.{DatabaseSeeder, User, AnswerSet, Answer, Quote}
 
   @user %User{
     name: "Anne Onymous",
@@ -27,7 +27,7 @@ defmodule What3things.ElmControllerTest do
   test "loads resources for the elm app", %{conn: conn} do
     conn = get conn, "/"
     page = html_response(conn, 200)
-    assert page =~ "<title>What3things</title>"
+    assert page =~ "<title>Parkinson's and Me</title>"
     assert page =~ "src=\"/js/elm.js"
   end
 

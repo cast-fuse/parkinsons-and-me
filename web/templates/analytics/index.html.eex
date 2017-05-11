@@ -1,11 +1,13 @@
-<%= render What3things.AdminView, "back.html", conn: @conn %>
-
 <h1 class="tc">Analytics</h1>
-<div class="tc mt5">
-  <%= link to: analytics_path(@conn, :index, users: true), class: "no-underline" do %>
-    <h2 class="dark-blue">Users</h2>
+<div class="tc mt4 flex flex-wrap mw8 center">
+  <%= link to: analytics_path(@conn, :index, users: true), class: "w-50 no-underline dark-blue dib pa2 dim border-box" do %>
+    <div class="w-100 dib center tc bg-light-blue pa4">
+        <h3>Users</h3>
+    </div>
   <% end %>
-  <%= link to: analytics_path(@conn, :index, answers: true), class: "no-underline" do %>
-    <h2 class="dark-blue">Answers</h2>
+  <%= link to: analytics_path(@conn, :index, answers: true), class: "w-50 no-underline dark-red dib pa2 dim border-box" do %>
+    <div class="w-100 dib center tc bg-gold pa4">
+        <h3>Answers</h3>
+    </div>
   <% end %>
 </div>

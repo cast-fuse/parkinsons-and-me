@@ -1,6 +1,6 @@
-defmodule What3things.Service do
-  use What3things.Web, :model
-  alias What3things.Service
+defmodule ParkinsonsAndMe.Service do
+  use ParkinsonsAndMe.Web, :model
+  alias ParkinsonsAndMe.Service
 
   schema "services" do
     field :title, :string
@@ -8,11 +8,11 @@ defmodule What3things.Service do
     field :cta, :string
     field :url, :string
     field :early_onset, :boolean
-    field :shortcode, :string
+    field :location_based_url, :boolean
   end
 
-  @valid_fields [:title, :body, :cta, :url, :early_onset, :shortcode]
-  @required_fields [:title, :body, :cta, :url, :early_onset, :shortcode]
+  @valid_fields [:title, :body, :cta, :url, :early_onset, :location_based_url]
+  @required_fields [:title, :body, :cta, :url, :early_onset, :location_based_url]
 
   def changeset(struct, params \\ %{}) do
     struct

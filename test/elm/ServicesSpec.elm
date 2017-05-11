@@ -11,7 +11,7 @@ all : Test
 all =
     describe "Services Spec Test Suite"
         [ top3IdsSpec
-        , top3ThingsSpec
+        , top3ServicesSpec
         ]
 
 
@@ -32,11 +32,11 @@ top3IdsSpec =
 -- This is how the order of the List which is the second argument to Expect.equal can be worked out.
 
 
-top3ThingsSpec : Test
-top3ThingsSpec =
-    describe "top3ThingsSpec"
+top3ServicesSpec : Test
+top3ServicesSpec =
+    describe "top3ServicesSpec"
         [ test "takes a earlyOnset model and returns a list of the top 3 ServiceData" <|
-            \() -> Expect.equal (top3things earlyOnsetModel) [ dummyServiceDataEarlyOnset, dummyServiceData, dummyServiceDataEarlyOnset ]
+            \() -> Expect.equal (top3Services earlyOnsetModel) [ dummyServiceDataEarlyOnset, dummyServiceData, dummyServiceDataEarlyOnset ]
         , test "takes a lateOnset model and returns a list of the top 3 ServiceData" <|
-            \() -> Expect.equal (top3things lateOnsetModel) [ dummyServiceData, dummyServiceDataEarlyOnset, dummyServiceData ]
+            \() -> Expect.equal (top3Services lateOnsetModel) [ dummyServiceData, dummyServiceDataEarlyOnset, dummyServiceData ]
         ]

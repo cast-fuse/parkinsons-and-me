@@ -14,24 +14,35 @@ quotes model =
     div [ class "center mw6 mt4" ]
         [ p [ class "grey" ] [ text <| renderQuoteNumber model ]
         , renderQuoteBubble model
-        , button
-            [ class <| classes [ Styles.buttonClear, "ma3 relative z-3" ]
-            , onClick <| SubmitAnswer Yes
-            ]
-            [ text "Yes, I feel like this" ]
-        , button
-            [ class <| classes [ Styles.buttonClear, "relative z-3" ]
-            , onClick <| SubmitAnswer No
-            ]
-            [ text "No, not how I feel" ]
+        , answerButtons
         ]
+
+
+answerButtons : Html Msg
+answerButtons =
+    let
+        buttonClasses =
+            classes [ "f4 ma1", Styles.buttonClear ]
+    in
+        div [ class "flex justify-center flex-row-ns flex-column ma3" ]
+            [ button
+                [ class buttonClasses
+                , onClick <| SubmitAnswer Yes
+                ]
+                [ text "Yes, this sounds like me" ]
+            , button
+                [ class buttonClasses
+                , onClick <| SubmitAnswer No
+                ]
+                [ text "No, this doesn't sound like me" ]
+            ]
 
 
 renderQuoteBubble : Model -> Html Msg
 renderQuoteBubble model =
     quoteBubble
         (getQuoteBody model)
-        "pa5-ns"
+        "pa5-ns handwriting f2"
         (model |> quoteNumber |> cycleQuoteBackground)
 
 

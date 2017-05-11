@@ -1,5 +1,3 @@
-<%= render What3things.AdminView, "back.html", conn: @conn %>
-
 <h1 class="tc">Services</h1>
 
 <ul>

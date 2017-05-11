@@ -17,7 +17,7 @@ type alias Model =
     , userId : Maybe Int
     , quotes : Quotes
     , services : Services
-    , top3things : List ServiceData
+    , top3Services : List ServiceData
     , weightings : Weightings
     , fetchErrorMessage : String
     , submitErrorMessage : String
@@ -26,7 +26,7 @@ type alias Model =
     , userWeightings : WeightingsDict
     , userAnswers : List ( QuoteId, Answer )
     , entryPoint : EntryPoint
-    , uuid : Maybe String
+    , answerUuid : Maybe String
     }
 
 
@@ -38,7 +38,13 @@ type View
     | Instructions
     | Quotes
     | Services
+    | Error ErrorType
     | Loading
+
+
+type ErrorType
+    = SubmitError
+    | FetchError
 
 
 type AgeRange
@@ -53,20 +59,6 @@ type AgeRange
 type Answer
     = Yes
     | No
-
-
-type ServiceWidget
-    = PeerSupport
-    | Forum
-    | Groups
-    | ParkinsonsNurse
-    | SelfManagement
-    | LocalAdvisor
-    | HelpLine
-    | Facebook
-    | NewlyDiagnosed
-    | EarlyOnset
-    | Publications
 
 
 type QuoteBackground
@@ -89,7 +81,7 @@ type alias ServiceData =
     , cta : String
     , url : String
     , earlyOnset : Bool
-    , shortcode : String
+    , locationBasedUrl : Bool
     }
 
 
@@ -150,7 +142,11 @@ type alias QuoteServiceWeightings =
 
 type EntryPoint
     = Start
-    | Finish String
+    | Finish AnswerUuid
+
+
+type alias AnswerUuid =
+    String
 
 
 type Msg
