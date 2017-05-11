@@ -32,6 +32,7 @@ defmodule ParkinsonsAndMe.Router do
     get "/", AdminController, :index
     get "/analytics", AnalyticsController, :index
 
+    resources "/users", UserController, only: [:delete]
     resources "/login", SessionController, only: [:new, :create, :delete]
     resources "/quotes", QuoteController, only: [:index, :edit, :update]
     resources "/services", ServiceController, only: [:index, :edit, :update]
