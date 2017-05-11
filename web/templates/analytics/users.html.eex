@@ -15,9 +15,9 @@
     <%= for u <- @users do %>
       <tr>
         <td class="pr4 pv2"><%= u.name %></td>
-        <td class="pr4 pv2"><%= u.age_range %></td>
-        <td class="pr4 pv2"><%= u.postcode %></td>
-        <td class="pr4 pv2">
+        <td><%= u.age_range %></td>
+        <td><%= u.postcode %></td>
+        <td>
           <%= cond do %>
             <% u.email && u.email_consent -> %>
               <a href="mailto:<%= u.email %>"><%= u.email %></a>
@@ -27,8 +27,8 @@
               -----
           <% end %>
         </td>
-        <td class="pr4 pv2"><%= render_consent(u.email_consent) %></td>
-        <td class="red">
+        <td><%= render_consent(u.email_consent) %></td>
+        <td>
           <%= link "X", to: user_path(@conn, :delete, u.id), method: "delete", class: "no-underline red" %>
         </td>
       </tr>
