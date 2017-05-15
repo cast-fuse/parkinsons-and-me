@@ -10,13 +10,14 @@
       <th class="pv3 pr4 green">postcode</th>
       <th class="pv3 pr4 green">email</th>
       <th class="pv3 pr4 green">Can send follow up email?</th>
+      <th class="pv3 pr4 red">delete</th>
     </tr>
     <%= for u <- @users do %>
       <tr>
         <td class="pr4 pv2"><%= u.name %></td>
-        <td class="pr4 pv2"><%= u.age_range %></td>
-        <td class="pr4 pv2"><%= u.postcode %></td>
-        <td class="pr4 pv2">
+        <td><%= u.age_range %></td>
+        <td><%= u.postcode %></td>
+        <td>
           <%= cond do %>
             <% u.email && u.email_consent -> %>
               <a href="mailto:<%= u.email %>"><%= u.email %></a>
@@ -26,7 +27,10 @@
               -----
           <% end %>
         </td>
-        <td class="pr4 pv2"><%= render_consent(u.email_consent) %></td>
+        <td><%= render_consent(u.email_consent) %></td>
+        <td>
+          <%= link "X", to: user_path(@conn, :delete, u.id), method: "delete", class: "no-underline red" %>
+        </td>
       </tr>
     <% end %>
   </table>

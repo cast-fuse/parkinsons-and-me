@@ -1,4 +1,4 @@
-Hi <%= String.capitalize @name %> - here's your personalised list of Parkinson's services
+Hi <%= String.capitalize @user.name %> - here's your personalised list of Parkinson's services
 
 Remember you can revisit your page of recommendations at any time. Or share the link with your family and friends.
 <% results_url = "https://parkinsons-and-me.herokuapp.com/#my-results/#{@uuid}" %>
