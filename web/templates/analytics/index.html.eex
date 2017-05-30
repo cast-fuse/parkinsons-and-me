@@ -15,4 +15,9 @@
         <h3>Google Analytics</h3>
     </div>
   </a>
+  <a href="https://app.mailgun.com/app/reporting/engagement" target="_blank" class="w-50 no-underline purple dib pa2 dim border-box">
+    <div class="w-100 dib center tc bg-yellow pa4">
+        <h3>Mailgun Analytics</h3>
+    </div>
+  </a>
 </div>

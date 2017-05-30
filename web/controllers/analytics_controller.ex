@@ -1,6 +1,7 @@
 defmodule ParkinsonsAndMe.AnalyticsController do
   use ParkinsonsAndMe.Web, :controller
   alias ParkinsonsAndMe.{User, Answer}
+  plug :authenticate_admin
 
   def index(conn, %{"users" => "true"}) do
     users = Repo.all(User)
