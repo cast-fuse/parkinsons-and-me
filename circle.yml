@@ -1,6 +1,8 @@
 machine:
   environment:
     PATH: "$HOME/.asdf/bin:$HOME/.asdf/shims:$PATH"
+  node:
+    version: 6.9.4
 dependencies:
   cache_directories:
     - ~/.asdf
