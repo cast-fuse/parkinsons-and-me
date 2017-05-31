@@ -1,3 +1,19 @@
+const baseElmSettings = {
+  mainModules: ['web/elm/Main.elm'],
+  outputFolder: './priv/static/js',
+  outputFile: 'elm.js'
+}
+
+const elmDebugSettings = Object.assign(
+  {},
+  baseElmSettings,
+  { makeParameters: ["--debug"] }
+)
+
+const elmSettings = process.env.STAGING
+  ? elmDebugSettings
+  : baseElmSettings
+
 exports.config = {
   // See http://brunch.io/#documentation for docs.
   files: {
@@ -49,11 +65,7 @@ exports.config = {
         require('postcss-custom-properties')()
       ]
     },
-    elmBrunch: {
-      mainModules: ['web/elm/Main.elm'],
-      outputFolder: './priv/static/js',
-      outputFile: 'elm.js'
-    }
+    elmBrunch: elmSettings
   },
 
   modules: {
