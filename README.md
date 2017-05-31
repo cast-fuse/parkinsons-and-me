@@ -76,6 +76,22 @@ and link the .env file to the phoenix app by running in your terminal:
 source .env
 ```
 
+the following env vars are also set on heroku but are not as relevant to development
+
+```env
+export DATABASE_URL="heroku postgres db url"
+export POOLSIZE=18
+export SECRET_KEY_BASE="elixir generated secret key"
+export PRODUCTION_GA="production ga code"
+```
+
+the following are only set on the staging environment, add these locally to see the elm debugger and staging google analytics
+
+```env
+export STAGING=true
+export STAGING_GA="staging ga code"
+```
+
 ### Tests
 
 Tests for the frontend and backend are kept in the `test` directory. To run the tests:
