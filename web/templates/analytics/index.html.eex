@@ -10,7 +10,7 @@
         <h3>Answers</h3>
     </div>
   <% end %>
-  <a href="https://analytics.google.com/analytics/web/#embed/report-home/a4855628w144480135p149150516/" target="_blank" class="w-50 no-underline dark-green dib pa2 dim border-box">
+  <a href="https://analytics.google.com/analytics/web/#report/defaultid/a4855628w144480135p149150516/" target="_blank" class="w-50 no-underline dark-green dib pa2 dim border-box">
     <div class="w-100 dib center tc bg-light-green pa4">
         <h3>Google Analytics</h3>
     </div>
